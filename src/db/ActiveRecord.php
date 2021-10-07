@@ -9,6 +9,7 @@
 namespace wm\yii\db;
 
 use Yii;
+use wm\yii\db\ActiveQuery;
 
 /**
  * Description of ActiveRecordExtended
@@ -22,7 +23,7 @@ class ActiveRecord extends \yii\db\ActiveRecord {
      * @return ActiveQuery the newly created [[ActiveQuery]] instance.
      */
     public static function find() {
-        return Yii::createObject(ActiveQueryExtended::class, [get_called_class()]);
+        return Yii::createObject(ActiveQuery::class, [get_called_class()]);
     }
 
     public function formName() {

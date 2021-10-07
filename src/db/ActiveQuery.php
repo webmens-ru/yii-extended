@@ -9,7 +9,7 @@
 namespace wm\yii\db;
 
 /**
- * Description of ActiveQueryExtended
+ * Description of ActiveQuery
  *
  * @author injen
  */
