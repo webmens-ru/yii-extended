@@ -68,7 +68,7 @@ class ActiveRecord extends \yii\db\ActiveRecord {
         return $res;
     }
     
-    public static function getFootter($models)
+    public static function getFooter($models)
     {
        return []; 
     }
