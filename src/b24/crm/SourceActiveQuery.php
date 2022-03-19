@@ -4,7 +4,7 @@ namespace wm\yii\b24\crm;
 
 //Код не универсален а направлен на смарт процессы стоит перенести в другой класс
 use yii\helpers\ArrayHelper;
-use wm\yii\ActiveQuery;
+use wm\yii\b24\ActiveQuery;
 
 class SourceActiveQuery extends ActiveQuery {
 
