@@ -4,7 +4,7 @@
 namespace wm\yii\b24\crm;
 
 
-class StatusActiveQuery extends \wm\yii\ActiveQuery
+class StatusActiveQuery extends \wm\yii\b24\ActiveQuery
 {
     //    public $entityTypeId;
 

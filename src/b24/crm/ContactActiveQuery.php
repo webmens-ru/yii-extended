@@ -5,7 +5,7 @@ namespace wm\yii\b24\crm;
 
 use yii\helpers\ArrayHelper;
 
-class ContactActiveQuery extends \wm\yii\ActiveQuery
+class ContactActiveQuery extends \wm\yii\b24\ActiveQuery
 {
     //    public $entityTypeId;
 

@@ -7,7 +7,7 @@ namespace wm\yii\b24\crm;
 use yii\helpers\ArrayHelper;
 
 
-class InvoiceActiveQuery extends \wm\yii\ActiveQuery
+class InvoiceActiveQuery extends \wm\yii\b24\ActiveQuery
 {
     public $entityTypeId;
 

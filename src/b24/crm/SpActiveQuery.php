@@ -4,7 +4,7 @@ namespace wm\yii\b24\crm;
 
 use yii\helpers\ArrayHelper;
 
-class SpActiveQuery extends \wm\yii\ActiveQuery
+class SpActiveQuery extends \wm\yii\b24\ActiveQuery
 {
     public $entityTypeId;
 

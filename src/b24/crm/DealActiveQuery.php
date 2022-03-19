@@ -7,7 +7,7 @@ namespace wm\yii\b24\crm;
 use yii\helpers\ArrayHelper;
 
 
-class DealActiveQuery extends \wm\yii\ActiveQuery
+class DealActiveQuery extends \wm\yii\b24\ActiveQuery
 {
     protected $listMethodName = 'crm.deal.list';
 
