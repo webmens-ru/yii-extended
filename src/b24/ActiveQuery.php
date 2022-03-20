@@ -346,6 +346,12 @@ class ActiveQuery extends Query implements ActiveQueryInterface
         }
 
         if (!$this->multiple && count($primaryModels) === 1) {
+            $primaryModel = reset($primaryModels);
+            $primaryModelRelationKey = reset($this->link);
+            $test = ArrayHelper::getValue($primaryModel, $primaryModelRelationKey );
+            if(!ArrayHelper::getValue($primaryModel, $primaryModelRelationKey)){
+                return null;
+            }
             $model = $this->one();
             $primaryModel = reset($primaryModels);
             if ($primaryModel instanceof ActiveRecordInterface) {
