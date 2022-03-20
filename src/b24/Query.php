@@ -80,7 +80,12 @@ class Query extends Component implements QueryInterface {
 
     public $method = '';
 
+    /**
+     * @var string Определяет метод выборки данных. Может переопределить текущий метод к примеру с one() на all()
+     */
+    protected $queryMethod;
 
+    protected $errorParams;
 
     public function all($auth = null){
         if ($this->emulateExecution) {
@@ -237,20 +242,28 @@ class Query extends Component implements QueryInterface {
         }
 
         $this->prepairOneParams();
-
-        $component = new b24Tools();
-        $b24App = null;// $component->connectFromUser($auth);
-        if($auth === null){
-            $b24App = $component->connectFromAdmin();
-        }else{
-            $b24App = $component->connectFromUser($auth);
+        if($this->errorParams){
+            return [];
         }
-        $obB24 = new B24Object($b24App);
+        if($this->queryMethod){
+            if($this->queryMethod == 'all'){
+                $this->all($auth);
+            }
+        }else{
+            $component = new b24Tools();
+            $b24App = null;// $component->connectFromUser($auth);
+            if($auth === null){
+                $b24App = $component->connectFromAdmin();
+            }else{
+                $b24App = $component->connectFromUser($auth);
+            }
+            $obB24 = new B24Object($b24App);
 
-        $this->method = $this->oneMethodName;
-        $data = $obB24->client->call($this->method, $this->params);
-        $row = ArrayHelper::getValue($data, $this->oneDataSelector);
-        return $row;
+            $this->method = $this->oneMethodName;
+            $data = $obB24->client->call($this->method, $this->params);
+            $row = ArrayHelper::getValue($data, $this->oneDataSelector);
+            return $row;
+        }
     }
 
     /**

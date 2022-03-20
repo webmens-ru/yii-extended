@@ -13,9 +13,9 @@ class UserActiveQuery extends \wm\yii\b24\ActiveQuery
 
     protected $oneMethodName = 'user.get';
 
-    protected $listDataSelectorName = 'result';
+    protected $listDataSelector = 'result';
 
-    protected $oneDataSelectorName = 'result.0';
+    protected $oneDataSelector = 'result.0';
 
     public function getEntityTypeIdUsedInFrom()
     {

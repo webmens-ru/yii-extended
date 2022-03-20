@@ -37,9 +37,16 @@ class StageActiveQuery extends ActiveQuery {
         if(ArrayHelper::getValue($this->link, 'id')){
             $id = ArrayHelper::getValue($this->where, 'inArray.0');
         }
+
         $data = [
             'id' => $id
         ];
+
+        if($id === null && $this->where){
+            $this->queryMethod = 'all';
+        }else{
+//          TODO: Доделать реализацию
+        }
         $this->params = $data;
     }
 }

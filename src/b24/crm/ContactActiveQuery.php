@@ -44,16 +44,20 @@ class ContactActiveQuery extends \wm\yii\b24\ActiveQuery
     protected function prepairOneParams(){
         $this->getEntityTypeIdUsedInFrom();
         $id = null;
-        if(ArrayHelper::getValue($this->where, 'id')){
-            $id = ArrayHelper::getValue($this->where, 'id');
+        if(ArrayHelper::getValue($this->where, 'ID')){
+            $id = ArrayHelper::getValue($this->where, 'ID');
         }
-        if(ArrayHelper::getValue($this->link, 'id')){
+        if(ArrayHelper::getValue($this->link, 'ID')){
             $id = ArrayHelper::getValue($this->where, 'inArray.0');
         }
         $data = [
-//            'entityTypeId' => $this->entityTypeId,
-            'id' => $id
+            'ID' => $id
         ];
+        if($id === null && $this->where){
+            $this->queryMethod = 'all';
+        }else{
+            $this->errorParams = true;
+        }
         $this->params = $data;
     }
 }
