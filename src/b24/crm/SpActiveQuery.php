@@ -14,6 +14,8 @@ class SpActiveQuery extends \wm\yii\b24\ActiveQuery
 
     protected $listDataSelector = 'result.items';
 
+    protected $oneDataSelector = 'result.item';
+
     public function getEntityTypeIdUsedInFrom()
     {
         if (empty($this->entityTypeId)) {
