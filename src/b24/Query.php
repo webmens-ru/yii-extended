@@ -23,7 +23,7 @@ class Query extends Component implements QueryInterface {
 //    public $withQueries;
 //    public $queryCacheDuration;
 //    public $queryCacheDependency;
-	protected $oneDataSelectorName;
+	protected $oneDataSelector;
 
     public $select;
     /**
@@ -249,7 +249,7 @@ class Query extends Component implements QueryInterface {
 
         $this->method = $this->oneMethodName;
         $data = $obB24->client->call($this->method, $this->params);
-        $row = ArrayHelper::getValue($data, $this->oneDataSelectorName);
+        $row = ArrayHelper::getValue($data, $this->oneDataSelector);
         return $row;
     }
 
