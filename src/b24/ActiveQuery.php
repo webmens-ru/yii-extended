@@ -349,11 +349,13 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             $primaryModel = reset($primaryModels);
             $primaryModelRelationKey = reset($this->link);
             $test = ArrayHelper::getValue($primaryModel, $primaryModelRelationKey );
-            if(!ArrayHelper::getValue($primaryModel, $primaryModelRelationKey)){
-                return null;
+            if(
+                !ArrayHelper::getValue($primaryModel, $primaryModelRelationKey)
+                || ArrayHelper::getValue($primaryModel, $primaryModelRelationKey) == '0'
+            ){
+                return false;
             }
             $model = $this->one();
-            $primaryModel = reset($primaryModels);
             if ($primaryModel instanceof ActiveRecordInterface) {
                 $primaryModel->populateRelation($name, $model);
             } else {
