@@ -247,7 +247,7 @@ class Query extends Component implements QueryInterface {
         }
         if($this->queryMethod){
             if($this->queryMethod == 'all'){
-                $this->all($auth);
+                return reset($this->limit(1)->all($auth));
             }
         }else{
             $component = new b24Tools();
