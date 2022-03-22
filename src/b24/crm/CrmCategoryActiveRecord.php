@@ -26,7 +26,7 @@ class CrmCategoryActiveRecord extends \wm\yii\b24\ActiveRecord
         return static::fieldsMethod()._.static::entityTypeId();
     }
 
-    public static function getValueKey()
+    public static function fieldsDataSelector()
     {
         return 'result.fields';
     }

@@ -298,7 +298,7 @@ class ActiveRecord extends BaseActiveRecord
         return static::fieldsMethod();
     }
 
-    public static function getValueKey()
+    public static function fieldsDataSelector()
     {
         return 'result';
     }
@@ -321,7 +321,7 @@ class ActiveRecord extends BaseActiveRecord
             $b24Obj = self::getConnect();
             $schemaData =   ArrayHelper::getValue($b24Obj->client->call(
                 static::fieldsMethod(), static::callAdditionalParameters()
-            ), static::getValueKey());
+            ), static::fieldsDataSelector());
             return new TableSchema($schemaData);
         }, 300);
         return $tableSchema;
