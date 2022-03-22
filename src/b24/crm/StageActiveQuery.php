@@ -21,11 +21,19 @@ class StageActiveQuery extends ActiveQuery {
 
     protected function prepairParams(){
         $data = [
-            'filter' => $this->where,
             'order' => $this->orderBy,
-            //'select' => $this->select,
-            //Остальные параметры
         ];
+        if(ArrayHelper::getValue($this->where, 'inArray')){
+            $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');
+            if($linkKey){
+                $data['filter'][$linkKey] = ArrayHelper::getValue($this->where, 'inArray.0');
+            }else{
+                $data['filter'] = $this->where;
+            }
+        }else{
+            $data['filter'] = $this->where;
+        }
+
         $this->params = $data;
     }
 
@@ -47,6 +55,6 @@ class StageActiveQuery extends ActiveQuery {
         }else{
 //          TODO: Доделать реализацию
         }
-        $this->params = $data;
+        $this->params = $data;        
     }
 }

@@ -31,13 +31,20 @@ class SourceActiveQuery extends ActiveQuery {
 //    }
 
     protected function prepairParams(){
-        $this->getEntityIdUsedInFrom();
         $data = [
-            'filter' => array_merge($this->where, ['ENTITY_ID' => $this->entityId]),
             'order' => $this->orderBy,
-            //'select' => $this->select,
-            //Остальные параметры
         ];
+        if(ArrayHelper::getValue($this->where, 'inArray')){
+            $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');
+            if($linkKey){
+                $data['filter'][$linkKey] = ArrayHelper::getValue($this->where, 'inArray.0');
+            }else{
+                $data['filter'] = $this->where;
+            }
+        }else{
+            $data['filter'] = $this->where;
+        }
+
         $this->params = $data;
     }
 
@@ -49,9 +56,16 @@ class SourceActiveQuery extends ActiveQuery {
         if(ArrayHelper::getValue($this->link, 'id')){
             $id = ArrayHelper::getValue($this->where, 'inArray.0');
         }
+
         $data = [
             'id' => $id
         ];
+
+        if($id === null && $this->where){
+            $this->queryMethod = 'all';
+        }else{
+//          TODO: Доделать реализацию
+        }
         $this->params = $data;
     }
 }
