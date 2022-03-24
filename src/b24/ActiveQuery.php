@@ -182,33 +182,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             }
             $relation->populateRelation($name, $models);
         }
-    }
-
-    public function getData($obB24)
-    {
-        $this->listDataSelector = $this->getListDataSelector();
-        $request = $obB24->client->call($this->listMethodName, $this->params);
-        return ArrayHelper::getValue($request, $this->listDataSelector);
-    }
-
-    public function getFullData($obB24)
-    {
-        $this->listDataSelector = $this->getListDataSelector();
-        $request = $obB24->client->call($this->listMethodName, $this->params);
-        $countCalls = (int)ceil($request['total'] / $obB24->client::MAX_BATCH_CALLS);
-        $data = ArrayHelper::getValue($request, $this->listDataSelector);
-        if (count($data) != $request['total']) {
-            for ($i = 1; $i < $countCalls; $i++)
-                $obB24->client->addBatchCall($this->listMethodName,
-                    array_merge($this->params, ['start' => $obB24->client::MAX_BATCH_CALLS * $i]),
-                    function ($result) use (&$data) {
-                        $data = array_merge($data, ArrayHelper::getValue($result, $this->listDataSelector));
-                    }
-                );
-            $obB24->client->processBatchCalls();
-        }
-        return $data; //Добавить вывод дополнительной информации
-    }
+    }    
 
     public function getListDataSelector()
     {
@@ -349,11 +323,11 @@ class ActiveQuery extends Query implements ActiveQueryInterface
         if (!$this->multiple && count($primaryModels) === 1) {
             $primaryModel = reset($primaryModels);
             $primaryModelRelationKey = reset($this->link);
-            $test = ArrayHelper::getValue($primaryModel, $primaryModelRelationKey );
-            if(
+            $test = ArrayHelper::getValue($primaryModel, $primaryModelRelationKey);
+            if (
                 !ArrayHelper::getValue($primaryModel, $primaryModelRelationKey)
                 || ArrayHelper::getValue($primaryModel, $primaryModelRelationKey) == '0'
-            ){
+            ) {
                 return false;
             }
             $model = $this->one();
@@ -926,7 +900,8 @@ class ActiveQuery extends Query implements ActiveQueryInterface
         return $attributes;
     }
 
-    public function andFilterCompare($name, $value, $defaultOperator = '=') {
+    public function andFilterCompare($name, $value, $defaultOperator = '=')
+    {
         //$filter = [];
         //убираем '[' и ']' в начале и в конце строки в запросе
         if ((substr($value, 0, 1) == '[') && (substr($value, -1, 1) == ']')) {
@@ -940,8 +915,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             if (preg_match('/^(>=|>|<=|<|=)/', $value, $matches)) {
                 $operator = $matches[1];
                 $value = substr($value, strlen($operator));
-            }
-            elseif (preg_match('/^(<>)/', $value, $matches)) {
+            } elseif (preg_match('/^(<>)/', $value, $matches)) {
                 $operator = '!=';
                 $value = substr($value, strlen($operator));
             }
