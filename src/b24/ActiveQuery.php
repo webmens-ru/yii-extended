@@ -123,7 +123,8 @@ class ActiveQuery extends Query implements ActiveQueryInterface
 
     public function all($auth = null)
     {
-        return parent::all($auth);
+        $rows = parent::all($auth);
+        return $this->populate($rows);
     }
 
     /**

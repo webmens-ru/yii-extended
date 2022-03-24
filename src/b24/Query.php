@@ -109,8 +109,8 @@ class Query extends Component implements QueryInterface {
         }else{
             $rows = $this->getData($obB24);
         }
-        //TODO Нужно ли здесь делать populate
-        return $this->populate($rows);
+       return $rows;
+       
     }
 
     public function count($q = '*', $auth = null){
