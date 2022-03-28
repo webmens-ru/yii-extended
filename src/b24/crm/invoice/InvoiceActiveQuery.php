@@ -1,41 +1,44 @@
 <?php
 
-namespace wm\yii\b24\user;
 
-//Код не универсален а направлен на смарт процессы стоит перенести в другой класс
+namespace wm\yii\b24\crm\invoice;
+
+
 use yii\helpers\ArrayHelper;
 
-class UserActiveQuery extends \wm\yii\b24\ActiveQuery
+
+class InvoiceActiveQuery extends \wm\yii\b24\ActiveQuery
 {
-//    public $entityTypeId;
+    public $entityTypeId;
 
-    protected $listMethodName = 'user.get';
+    protected $listMethodName = 'crm.item.list';
 
-    protected $oneMethodName = 'user.get';
+    protected $oneMethodName = 'crm.item.get';
 
-    protected $oneDataSelector = 'result.0';
+    protected $listDataSelector = 'result.items';
 
     public function getEntityTypeIdUsedInFrom()
     {
-//        if (empty($this->entityTypeId)) {
-//            $this->entityTypeId = $this->modelClass::entityTypeId();
-//        }
+        if (empty($this->entityTypeId)) {
+            $this->entityTypeId = $this->modelClass::entityTypeId();
+        }
 
-        return '';
+        return $this->entityTypeId;
     }
 
 //    protected function getPrimaryTableName()
 //    {
+////        Yii::warning($this->modelClass, '$this->modelClass');
 //        $modelClass = $this->modelClass;
 //        //return $modelClass::tableName();
 //        return $modelClass::entityTypeId();
 //    }
 
     protected function prepairParams(){
-//        $this->getEntityTypeIdUsedInFrom();
+        $this->getEntityTypeIdUsedInFrom();
         $data = [
-//            'entityTypeId' => $this->entityTypeId,
-            'order' => $this->orderBy?$this->orderBy:null,
+            'entityTypeId' => $this->entityTypeId,
+            'order' => $this->orderBy,
             'select' => $this->select,
             //Остальные параметры
         ];
@@ -54,17 +57,26 @@ class UserActiveQuery extends \wm\yii\b24\ActiveQuery
         $this->params = $data;
     }
 
+    protected function prepareFullParams($id){
+        $this->getEntityTypeIdUsedInFrom();
+        $this->params = [
+            'entityTypeId' => $this->entityTypeId,
+            'id' => $id
+        ];
+    }
+
     protected function prepairOneParams(){
         $this->getEntityTypeIdUsedInFrom();
         $id = null;
-        if(ArrayHelper::getValue($this->where, 'ID')){
-            $id = ArrayHelper::getValue($this->where, 'ID');
+        if(ArrayHelper::getValue($this->where, 'id')){
+            $id = ArrayHelper::getValue($this->where, 'id');
         }
-        if(ArrayHelper::getValue($this->link, 'ID')){
+        if(ArrayHelper::getValue($this->link, 'id')){
             $id = ArrayHelper::getValue($this->where, 'inArray.0');
         }
         $data = [
-            'ID' => $id
+            'entityTypeId' => $this->entityTypeId,
+            'id' => $id
         ];
         $this->params = $data;
     }
