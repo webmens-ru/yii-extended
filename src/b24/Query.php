@@ -90,7 +90,7 @@ class Query extends Component implements QueryInterface
 
     public $full = false;
 
-    public $primaryKey = 'ID';
+    public $primaryKey = 'id';
 
     public function all($auth = null)
     {
@@ -151,27 +151,28 @@ class Query extends Component implements QueryInterface
 
     public function allFullLimit($obB24)
     {
+        $ids = ArrayHelper::getColumn($this->allLimit($obB24), $this->primaryKey);
         $countCalls = min(count($ids), $this->limit);
-        return $this->allFull($obB24, $countCalls);
+        return $this->allFull($obB24, $ids, $countCalls);
     }
 
     public function allFullNotLimit($obB24)
     {
+        $ids = ArrayHelper::getColumn($this->allNotLimit($obB24), $this->primaryKey);
         $countCalls = count($ids);
-        return $this->allFull($obB24, $countCalls);
+        return $this->allFull($obB24, $ids, $countCalls);
     }
 
-    protected function allFull($obB24, $countCalls){
-        $ids = ArrayHelper::getColumn($this->allLimit($obB24), $this->primaryKey);
+    protected function allFull($obB24, $ids,  $countCalls){
         $this->listDataSelector = $this->getListDataSelector();
         $data = [];
         if (count($ids)) {
-            for ($i = 1; $i < $countCalls; $i++)
+            for ($i = 0; $i < $countCalls; $i++)
                 $this->prepareFullParams($ids[$i]);
             $obB24->client->addBatchCall($this->oneMethodName,
                 $this->params,
                 function ($result) use (&$data) {
-                    $data = array_merge($data, ArrayHelper::getValue($result, $this->oneDataSelector));
+                    $data = array_merge($data, [ArrayHelper::getValue($result, $this->oneDataSelector)]);
                 }
             );
             $obB24->client->processBatchCalls();
