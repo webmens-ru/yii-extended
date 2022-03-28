@@ -1,19 +1,22 @@
 <?php
 
-namespace wm\yii\b24\user;
 
-//Код не универсален а направлен на смарт процессы стоит перенести в другой класс
+namespace wm\yii\b24\crm\company;
+
+
 use yii\helpers\ArrayHelper;
 
-class UserActiveQuery extends \wm\yii\b24\ActiveQuery
+class CompanyActiveQuery extends \wm\yii\b24\ActiveQuery
 {
-//    public $entityTypeId;
+    //    public $entityTypeId;
 
-    protected $listMethodName = 'user.get';
+    protected $listMethodName = 'crm.company.list';
 
-    protected $oneMethodName = 'user.get';
+    protected $oneMethodName = 'crm.company.get';
 
-    protected $oneDataSelector = 'result.0';
+    public $primaryKey = 'ID';
+
+
 
     public function getEntityTypeIdUsedInFrom()
     {
@@ -54,6 +57,12 @@ class UserActiveQuery extends \wm\yii\b24\ActiveQuery
         $this->params = $data;
     }
 
+    protected function prepareFullParams($id){
+        $this->params = [
+            'id' => $id
+        ];
+    }
+
     protected function prepairOneParams(){
         $this->getEntityTypeIdUsedInFrom();
         $id = null;
@@ -66,6 +75,11 @@ class UserActiveQuery extends \wm\yii\b24\ActiveQuery
         $data = [
             'ID' => $id
         ];
+        if($id === null && $this->where){
+            $this->queryMethod = 'all';
+        }else{
+            $this->errorParams = true;
+        }
         $this->params = $data;
     }
 }
