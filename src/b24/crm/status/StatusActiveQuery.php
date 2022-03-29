@@ -1,19 +1,16 @@
 <?php
 
-namespace wm\yii\b24\user;
 
-//Код не универсален а направлен на смарт процессы стоит перенести в другой класс
-use yii\helpers\ArrayHelper;
+namespace wm\yii\b24\crm\status;
 
-class UserActiveQuery extends \wm\yii\b24\ActiveQuery
+
+class StatusActiveQuery extends \wm\yii\b24\ActiveQuery
 {
-//    public $entityTypeId;
+    //    public $entityTypeId;
 
-    protected $listMethodName = 'user.get';
+    protected $listMethodName = 'crm.status.list';
 
-    protected $oneMethodName = 'user.get';
-
-    protected $oneDataSelector = 'result.0';
+    protected $oneMethodName = 'crm.status.get';
 
     public function getEntityTypeIdUsedInFrom()
     {
@@ -35,37 +32,37 @@ class UserActiveQuery extends \wm\yii\b24\ActiveQuery
 //        $this->getEntityTypeIdUsedInFrom();
         $data = [
 //            'entityTypeId' => $this->entityTypeId,
+            'filter' => $this->where,
             'order' => $this->orderBy?$this->orderBy:null,
             'select' => $this->select,
             //Остальные параметры
         ];
-
-        if(ArrayHelper::getValue($this->where, 'inArray')){
-            $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');
-            if($linkKey){
-                $data['filter'][$linkKey] = ArrayHelper::getValue($this->where, 'inArray.0');
-            }else{
-                $data['filter'] = $this->where;
-            }
-        }else{
-            $data['filter'] = $this->where;
-        }
-
         $this->params = $data;
+    }
+
+    protected function prepareFullParams($id){
+        $this->params = [
+            'id' => $id
+        ];
     }
 
     protected function prepairOneParams(){
         $this->getEntityTypeIdUsedInFrom();
         $id = null;
-        if(ArrayHelper::getValue($this->where, 'ID')){
-            $id = ArrayHelper::getValue($this->where, 'ID');
+        if(ArrayHelper::getValue($this->where, 'id')){
+            $id = ArrayHelper::getValue($this->where, 'id');
         }
-        if(ArrayHelper::getValue($this->link, 'ID')){
+        if(ArrayHelper::getValue($this->link, 'id')){
             $id = ArrayHelper::getValue($this->where, 'inArray.0');
         }
         $data = [
-            'ID' => $id
+            'id' => $id
         ];
+        if($id === null && $this->where){
+            $this->queryMethod = 'all';
+        }else{
+            $this->errorParams = true;
+        }
         $this->params = $data;
     }
 }
