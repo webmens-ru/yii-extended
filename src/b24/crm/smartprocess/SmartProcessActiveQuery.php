@@ -54,15 +54,7 @@ class SmartProcessActiveQuery extends \wm\yii\b24\ActiveQuery
 
         $this->params = $data;
     }
-
-    protected function prepareFullParams($id){
-        $this->getEntityTypeIdUsedInFrom();
-        $this->params = [
-            'entityTypeId' => $this->entityTypeId,
-            'id' => $id
-        ];
-    }
-
+    
     public $primaryKey = 'id';
 
     protected function prepairOneParams(){

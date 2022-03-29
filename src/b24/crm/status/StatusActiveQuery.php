@@ -56,9 +56,13 @@ class StatusActiveQuery extends \wm\yii\b24\ActiveQuery
             $id = ArrayHelper::getValue($this->where, 'inArray.0');
         }
         $data = [
-//            'entityTypeId' => $this->entityTypeId,
             'id' => $id
         ];
+        if($id === null && $this->where){
+            $this->queryMethod = 'all';
+        }else{
+            $this->errorParams = true;
+        }
         $this->params = $data;
     }
 }

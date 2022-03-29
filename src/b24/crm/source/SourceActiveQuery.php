@@ -37,7 +37,7 @@ class SourceActiveQuery extends ActiveQuery {
         if(ArrayHelper::getValue($this->where, 'inArray')){
             $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');
             if($linkKey){
-                $data['filter'][$linkKey] = ArrayHelper::getValue($this->where, 'inArray.0');
+                $data['filter'][$linkKey] = ArrayHelper::getValue($this->where, 'inArray');
             }else{
                 $data['filter'] = $this->where;
             }
@@ -72,7 +72,7 @@ class SourceActiveQuery extends ActiveQuery {
         if($id === null && $this->where){
             $this->queryMethod = 'all';
         }else{
-//          TODO: Доделать реализацию
+            $this->errorParams = true;
         }
         $this->params = $data;
     }
