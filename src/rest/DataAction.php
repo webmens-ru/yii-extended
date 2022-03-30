@@ -207,9 +207,11 @@ class DataAction extends Action
             'auth' => $auth,
         ]);
 
+        $models = $dataProvider->getModels();
+
         return [
-            'grid' => $dataProvider,
-            'footer' => []
+            'grid' => $models,
+            'footer' => $this->modelClass::getFooter($models)
         ];
     }
 }
