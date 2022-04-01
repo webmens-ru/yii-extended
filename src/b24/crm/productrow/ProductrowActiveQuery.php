@@ -19,7 +19,6 @@ class ProductrowActiveQuery extends \app\modules\wm\b24\ActiveQuery
 
 //    protected function getPrimaryTableName()
 //    {
-////        Yii::warning($this->modelClass, '$this->modelClass');
 //        $modelClass = $this->modelClass;
 //        //return $modelClass::tableName();
 //        return $modelClass::entityTypeId();

@@ -18,7 +18,6 @@ class DepartmentActiveQuery extends ActiveQuery
 
 //    protected function getPrimaryTableName()
 //    {
-////        Yii::warning($this->modelClass, '$this->modelClass');
 //        $modelClass = $this->modelClass;
 //        //return $modelClass::tableName();
 //        return $modelClass::entityTypeId();

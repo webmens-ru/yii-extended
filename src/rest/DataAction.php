@@ -135,8 +135,6 @@ class DataAction extends Action
             $requestParams = Yii::$app->getRequest()->getQueryParams();
         }
 
-        Yii::warning($requestParams, '$requestParams');
-
         //#сделать чтобы заработало
         $filter = null;
         if ($this->dataFilter !== null) {
@@ -193,7 +191,6 @@ class DataAction extends Action
                 $sort->params = $requestParams;
             }
         }
-        Yii::warning($sort, '$sort');
         $auth = null;
         if (is_callable($this->auth)) {
             $auth = call_user_func($this->auth);
