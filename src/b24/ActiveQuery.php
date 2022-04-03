@@ -123,7 +123,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
 
     public function all($auth = null)
     {
-        $rows = parent::all($auth);
+       $rows = parent::all($auth);
         return $this->populate($rows);
     }
 
@@ -628,7 +628,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             $attribute = reset($this->link);
             foreach ($models as $model) {
                 $value = isset($model[$attribute]) ? $model[$attribute] : null;
-                if ($value !== null) {
+                if ($value !== null && $value != 0) {
                     if (is_array($value)) {
                         $values = array_merge($values, $value);
                     } elseif ($value instanceof ArrayExpression && $value->getDimension() === 1) {
