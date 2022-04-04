@@ -38,13 +38,14 @@ class CategoryActiveQuery extends ActiveQuery {
         $data = [
             'entityTypeId' => $this->entityTypeId,
             'order' => $this->orderBy,
-            'select' => $this->select,
             //Остальные параметры
         ];
+        $data = prepareSelectToData($data);
+
         if(ArrayHelper::getValue($this->where, 'inArray')){
             $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');
             if($linkKey){
-                $data['filter'][$linkKey] = ArrayHelper::getValue($this->where, 'inArray.0');
+                $data['filter'][$linkKey] = ArrayHelper::getValue($this->where, 'inArray');
             }else{
                 $data['filter'] = $this->where;
             }
@@ -70,7 +71,7 @@ class CategoryActiveQuery extends ActiveQuery {
             $id = ArrayHelper::getValue($this->where, 'id');
         }
         if(ArrayHelper::getValue($this->link, 'id')){
-            $id = ArrayHelper::getValue($this->where, 'inArray.0');
+            $id = ArrayHelper::getValue($this->where, 'inArray');
         }
         $data = [
             'entityTypeId' => $this->entityTypeId,

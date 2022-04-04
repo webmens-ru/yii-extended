@@ -38,13 +38,13 @@ class SmartProcessActiveQuery extends \wm\yii\b24\ActiveQuery
         $data = [
             'entityTypeId' => $this->entityTypeId,
             'order' => $this->orderBy,
-            'select' => $this->select,
+//            'select' => $this->select,
             'start' => $this->offset,
         ];
         if(ArrayHelper::getValue($this->where, 'inArray')){
             $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');
             if($linkKey){
-                $data['filter'][$linkKey] = ArrayHelper::getValue($this->where, 'inArray.0');
+                $data['filter'][$linkKey] = ArrayHelper::getValue($this->where, 'inArray');
             }else{
                 $data['filter'] = $this->where;
             }

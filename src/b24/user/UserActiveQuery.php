@@ -36,14 +36,14 @@ class UserActiveQuery extends \wm\yii\b24\ActiveQuery
         $data = [
 //            'entityTypeId' => $this->entityTypeId,
             'order' => $this->orderBy?$this->orderBy:null,
-            'select' => $this->select,
             //Остальные параметры
         ];
+        $data = prepareSelectToData($data);
 
         if(ArrayHelper::getValue($this->where, 'inArray')){
             $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');
             if($linkKey){
-                $data['filter'][$linkKey] = ArrayHelper::getValue($this->where, 'inArray.0');
+                $data['filter'][$linkKey] = ArrayHelper::getValue($this->where, 'inArray');
             }else{
                 $data['filter'] = $this->where;
             }
@@ -61,7 +61,7 @@ class UserActiveQuery extends \wm\yii\b24\ActiveQuery
             $id = ArrayHelper::getValue($this->where, 'ID');
         }
         if(ArrayHelper::getValue($this->link, 'ID')){
-            $id = ArrayHelper::getValue($this->where, 'inArray.0');
+            $id = ArrayHelper::getValue($this->where, 'inArray');
         }
         $data = [
             'ID' => $id

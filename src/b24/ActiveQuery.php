@@ -102,8 +102,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     public function __construct($modelClass, $config = [])
     {
         $this->modelClass = $modelClass;
-        $this->select = $this->modelClass::attributes();
-        //$this->listMethod = $modelClass::listMethod();
+        $this->select = $this->modelClass::select;
         parent::__construct($config);
     }
 
@@ -123,7 +122,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
 
     public function all($auth = null)
     {
-        $rows = parent::all($auth);
+       $rows = parent::all($auth);
         return $this->populate($rows);
     }
 
@@ -628,7 +627,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             $attribute = reset($this->link);
             foreach ($models as $model) {
                 $value = isset($model[$attribute]) ? $model[$attribute] : null;
-                if ($value !== null) {
+                if ($value !== null && $value != 0) {
                     if (is_array($value)) {
                         $values = array_merge($values, $value);
                     } elseif ($value instanceof ArrayExpression && $value->getDimension() === 1) {
@@ -993,6 +992,18 @@ class ActiveQuery extends Query implements ActiveQueryInterface
         }
 
         return array_values($models);
+    }
+
+
+    /**
+     * @param array $params
+     * @return array
+     */
+    protected function prepareSelectToData(Array $params){
+        if($this->select){
+            $params['select'] = $this->select;
+        }
+        return $params;
     }
 
 
