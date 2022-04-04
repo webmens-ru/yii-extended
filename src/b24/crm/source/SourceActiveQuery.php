@@ -62,7 +62,7 @@ class SourceActiveQuery extends ActiveQuery {
             $id = ArrayHelper::getValue($this->where, 'id');
         }
         if(ArrayHelper::getValue($this->link, 'id')){
-            $id = ArrayHelper::getValue($this->where, 'inArray.0');
+            $id = ArrayHelper::getValue($this->where, 'inArray');
         }
 
         $data = [

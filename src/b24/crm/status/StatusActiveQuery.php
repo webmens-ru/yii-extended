@@ -34,10 +34,10 @@ class StatusActiveQuery extends \wm\yii\b24\ActiveQuery
 //            'entityTypeId' => $this->entityTypeId,
             'filter' => $this->where,
             'order' => $this->orderBy?$this->orderBy:null,
-            'select' => $this->select,
             //Остальные параметры
         ];
         $this->params = $data;
+        $data = prepareSelectToData($data);
     }
 
     protected function prepareFullParams($id){
@@ -53,7 +53,7 @@ class StatusActiveQuery extends \wm\yii\b24\ActiveQuery
             $id = ArrayHelper::getValue($this->where, 'id');
         }
         if(ArrayHelper::getValue($this->link, 'id')){
-            $id = ArrayHelper::getValue($this->where, 'inArray.0');
+            $id = ArrayHelper::getValue($this->where, 'inArray');
         }
         $data = [
             'id' => $id
