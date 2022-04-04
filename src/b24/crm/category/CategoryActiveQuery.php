@@ -38,9 +38,10 @@ class CategoryActiveQuery extends ActiveQuery {
         $data = [
             'entityTypeId' => $this->entityTypeId,
             'order' => $this->orderBy,
-            'select' => $this->select,
             //Остальные параметры
         ];
+        $data = prepareSelectToData($data);
+
         if(ArrayHelper::getValue($this->where, 'inArray')){
             $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');
             if($linkKey){

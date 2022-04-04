@@ -36,9 +36,9 @@ class UserActiveQuery extends \wm\yii\b24\ActiveQuery
         $data = [
 //            'entityTypeId' => $this->entityTypeId,
             'order' => $this->orderBy?$this->orderBy:null,
-            'select' => $this->select,
             //Остальные параметры
         ];
+        $data = prepareSelectToData($data);
 
         if(ArrayHelper::getValue($this->where, 'inArray')){
             $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');

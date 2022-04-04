@@ -23,9 +23,9 @@ class DealActiveQuery extends \wm\yii\b24\ActiveQuery
     protected function prepairParams(){
         $data = [
             'order' => $this->orderBy,
-            'select' => $this->select,
             //Остальные параметры
         ];
+        $data = prepareSelectToData($data);
 
         if(ArrayHelper::getValue($this->where, 'inArray')){
             $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');
