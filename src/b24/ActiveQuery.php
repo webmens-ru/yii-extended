@@ -102,8 +102,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     public function __construct($modelClass, $config = [])
     {
         $this->modelClass = $modelClass;
-        $this->select = $this->modelClass::attributes();
-        //$this->listMethod = $modelClass::listMethod();
+        $this->select = $this->modelClass::select;
         parent::__construct($config);
     }
 
@@ -993,6 +992,18 @@ class ActiveQuery extends Query implements ActiveQueryInterface
         }
 
         return array_values($models);
+    }
+
+
+    /**
+     * @param array $params
+     * @return array
+     */
+    protected function prepareSelectToData(Array $params){
+        if($this->select){
+            $params['select'] = $this->select;
+        }
+        return $params;
     }
 
 
