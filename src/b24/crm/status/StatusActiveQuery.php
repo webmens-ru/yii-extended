@@ -53,7 +53,7 @@ class StatusActiveQuery extends \wm\yii\b24\ActiveQuery
             $id = ArrayHelper::getValue($this->where, 'id');
         }
         if(ArrayHelper::getValue($this->link, 'id')){
-            $id = ArrayHelper::getValue($this->where, 'inArray.0');
+            $id = ArrayHelper::getValue($this->where, 'inArray');
         }
         $data = [
 //            'entityTypeId' => $this->entityTypeId,
