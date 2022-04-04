@@ -747,4 +747,11 @@ class ActiveRecord extends BaseActiveRecord
 
         return new B24Object($b24App);
     }
+
+    /**
+     * @return array
+     */
+    public static function getSelect(){
+        return [];
+    }
 }

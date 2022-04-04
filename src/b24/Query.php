@@ -11,7 +11,8 @@ use yii\helpers\ArrayHelper;
 use yii\db\QueryInterface;
 
 //Код не универсален а направлен на смарт процессы стоит перенести в другой класс
-class Query extends Component implements QueryInterface {
+class Query extends Component implements QueryInterface
+{
 
 //    public $selectOption;
 //    public $distinct;
@@ -23,7 +24,7 @@ class Query extends Component implements QueryInterface {
 //    public $withQueries;
 //    public $queryCacheDuration;
 //    public $queryCacheDependency;
-	protected $oneDataSelector;
+    protected $oneDataSelector;
 
     public $select;
     /**
@@ -87,7 +88,12 @@ class Query extends Component implements QueryInterface {
 
     protected $errorParams;
 
-    public function all($auth = null){
+    public $full = false;
+
+    public $primaryKey = 'id';
+
+    public function all($auth = null)
+    {
         if ($this->emulateExecution) {
             return [];
         }
@@ -95,25 +101,89 @@ class Query extends Component implements QueryInterface {
         //TODO вынести часть логики
         $component = new b24Tools();
         $b24App = null;// $component->connectFromUser($auth);
-        if($auth === null){
+        if ($auth === null) {
             $b24App = $component->connectFromAdmin();
-        }else{
+        } else {
             $b24App = $component->connectFromUser($auth);
         }
         $obB24 = new B24Object($b24App);
         $rows = [];
-        //TODO Исправить
-        if(!$this->limit){
-            //TODO передавать в функцию limit и ofset
-            $rows = $this->getFullData($obB24);
-        }else{
-            $rows = $this->getData($obB24);
+
+
+        if ($this->limit && $this->full) {
+            $rows = $this->allFullLimit($obB24);
+        } elseif($this->limit && !$this->full) {
+            $rows = $this->allLimit($obB24);
+        }elseif(!$this->limit && $this->full) {
+            $rows = $this->allFullNotLimit($obB24);
+        }elseif(!$this->limit && !$this->full) {
+            $rows = $this->allNotLimit($obB24);
         }
-        //TODO Нужно ли здесь делать populate
-        return $this->populate($rows);
+        Yii::warning($rows, '$rows');
+        return $rows;
+
     }
 
-    public function count($q = '*', $auth = null){
+    public function allLimit($obB24)
+    {
+        $this->listDataSelector = $this->getListDataSelector();
+        $request = $obB24->client->call($this->listMethodName, $this->params);
+        return ArrayHelper::getValue($request, $this->listDataSelector);
+    }
+
+    public function allNotLimit($obB24)
+    {
+        $this->listDataSelector = $this->getListDataSelector();
+        $request = $obB24->client->call($this->listMethodName, $this->params);
+        $countCalls = (int)ceil($request['total'] / $obB24->client::MAX_BATCH_CALLS);
+        $data = ArrayHelper::getValue($request, $this->listDataSelector);
+        if (count($data) != $request['total']) {
+            for ($i = 1; $i < $countCalls; $i++)
+                $obB24->client->addBatchCall($this->listMethodName,
+                    array_merge($this->params, ['start' => $obB24->client::MAX_BATCH_CALLS * $i]),
+                    function ($result) use (&$data) {
+                        $data = array_merge($data, ArrayHelper::getValue($result, $this->listDataSelector));
+                    }
+                );
+            $obB24->client->processBatchCalls();
+        }
+        return $data; //Добавить вывод дополнительной информации
+    }
+
+    public function allFullLimit($obB24)
+    {
+        $ids = ArrayHelper::getColumn($this->allLimit($obB24), $this->primaryKey);
+        $countCalls = min(count($ids), $this->limit);
+        return $this->allFull($obB24, $ids, $countCalls);
+    }
+
+    public function allFullNotLimit($obB24)
+    {
+        $ids = ArrayHelper::getColumn($this->allNotLimit($obB24), $this->primaryKey);
+        $countCalls = count($ids);
+        return $this->allFull($obB24, $ids, $countCalls);
+    }
+
+    protected function allFull($obB24, $ids,  $countCalls){
+        $this->listDataSelector = $this->getListDataSelector();
+        $data = [];
+        if (count($ids)) {
+            for ($i = 0; $i < $countCalls; $i++)
+                $this->prepareFullParams($ids[$i]);
+            $obB24->client->addBatchCall($this->oneMethodName,
+                $this->params,
+                function ($result) use (&$data) {
+                    $data = array_merge($data, [ArrayHelper::getValue($result, $this->oneDataSelector)]);
+                }
+            );
+            $obB24->client->processBatchCalls();
+        }
+        return $data;
+    }
+
+
+    public function count($q = '*', $auth = null)
+    {
         if ($this->emulateExecution) {
             return [];
         }
@@ -121,9 +191,9 @@ class Query extends Component implements QueryInterface {
         //TODO вынести часть логики
         $component = new b24Tools();
         $b24App = null;// $component->connectFromUser($auth);
-        if($auth === null){
+        if ($auth === null) {
             $b24App = $component->connectFromAdmin();
-        }else{
+        } else {
             $b24App = $component->connectFromUser($auth);
         }
         $obB24 = new B24Object($b24App);
@@ -158,8 +228,14 @@ class Query extends Component implements QueryInterface {
         return $this->andFilterWhere([$operator, $name, $value]);
     }
 
+    public function full($value = true){
+        $this->full = $value;
+        return $this;
+    }
 
-    protected function prepairParams(){
+
+    protected function prepairParams()
+    {
         //$this->getEntityTypeIdUsedInFrom();/
         $data = [
             //'entityTypeId' => $this->entityTypeId,
@@ -171,7 +247,8 @@ class Query extends Component implements QueryInterface {
         $this->params = $data;
     }
 
-    protected function prepairOneParams(){
+    protected function prepairOneParams()
+    {
         //$this->getEntityTypeIdUsedInFrom();/
         $data = [
         ];
@@ -182,7 +259,6 @@ class Query extends Component implements QueryInterface {
     {
         return serialize($this);
     }
-
 
 
     public function addParams($params)
@@ -222,7 +298,7 @@ class Query extends Component implements QueryInterface {
         $params = $command->params;
         $command->setSql($command->db->getQueryBuilder()->selectExists($command->getSql()));
         $command->bindValues($params);
-        return (bool) $command->queryScalar();
+        return (bool)$command->queryScalar();
     }
 
 //    public function count($q = '*', $db = null)
@@ -242,19 +318,19 @@ class Query extends Component implements QueryInterface {
         }
 
         $this->prepairOneParams();
-        if($this->errorParams){
+        if ($this->errorParams) {
             return [];
         }
-        if($this->queryMethod){
-            if($this->queryMethod == 'all'){
+        if ($this->queryMethod) {
+            if ($this->queryMethod == 'all') {
                 return reset($this->limit(1)->all($auth));
             }
-        }else{
+        } else {
             $component = new b24Tools();
             $b24App = null;// $component->connectFromUser($auth);
-            if($auth === null){
+            if ($auth === null) {
                 $b24App = $component->connectFromAdmin();
-            }else{
+            } else {
                 $b24App = $component->connectFromUser($auth);
             }
             $obB24 = new B24Object($b24App);
@@ -307,16 +383,17 @@ class Query extends Component implements QueryInterface {
         return $this;
     }
 
-    public function conditionPrepare($condition){
-        if(array_key_exists(0, $condition)){
-            if(count($condition)==3){
+    public function conditionPrepare($condition)
+    {
+        if (array_key_exists(0, $condition)) {
+            if (count($condition) == 3) {
                 $arr = [];
                 $operator = array_shift($condition);
-                $arr[$operator.$condition[0]] = $condition[1];
+                $arr[$operator . $condition[0]] = $condition[1];
                 return $arr;
             }
             return [];
-        }else{
+        } else {
             return $condition;
         }
 
@@ -552,11 +629,11 @@ class Query extends Component implements QueryInterface {
     public function addOrderBy($columns)//['id'=>4]
     {
         $columns = $this->normalizeOrderBy($columns);
-        foreach ($columns as $key=>$value){
+        foreach ($columns as $key => $value) {
             $temp = [];
-            if($value == SORT_ASC){
+            if ($value == SORT_ASC) {
                 $temp[$key] = 'ASC';
-            }elseif($value == SORT_DESC){
+            } elseif ($value == SORT_DESC) {
                 $temp[$key] = 'DESC';
             }
             $columns = array_merge($columns, $temp);

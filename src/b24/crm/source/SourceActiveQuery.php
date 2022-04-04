@@ -72,7 +72,7 @@ class SourceActiveQuery extends ActiveQuery {
         if($id === null && $this->where){
             $this->queryMethod = 'all';
         }else{
-//          TODO: Доделать реализацию
+            $this->errorParams = true;
         }
         $this->params = $data;
     }

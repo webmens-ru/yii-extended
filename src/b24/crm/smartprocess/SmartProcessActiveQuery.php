@@ -38,7 +38,7 @@ class SmartProcessActiveQuery extends \wm\yii\b24\ActiveQuery
         $data = [
             'entityTypeId' => $this->entityTypeId,
             'order' => $this->orderBy,
-            'select' => $this->select,
+//            'select' => $this->select,
             'start' => $this->offset,
         ];
         if(ArrayHelper::getValue($this->where, 'inArray')){
@@ -54,6 +54,8 @@ class SmartProcessActiveQuery extends \wm\yii\b24\ActiveQuery
 
         $this->params = $data;
     }
+    
+    public $primaryKey = 'id';
 
     protected function prepairOneParams(){
         $this->getEntityTypeIdUsedInFrom();
