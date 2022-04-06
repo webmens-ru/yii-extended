@@ -26,6 +26,9 @@ class StatusActiveRecord extends \wm\yii\b24\ActiveRecord
         return [];
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function find()
     {
         return Yii::createObject(StatusActiveQuery::className(), [get_called_class()]);

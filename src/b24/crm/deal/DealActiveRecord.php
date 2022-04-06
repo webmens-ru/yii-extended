@@ -9,6 +9,9 @@ use Yii;
 
 class DealActiveRecord extends \wm\yii\b24\ActiveRecord
 {
+    /**
+     * @inheritdoc
+     */
     public static function fieldsMethod()
     {
         return 'crm.deal.fields';
@@ -24,6 +27,9 @@ class DealActiveRecord extends \wm\yii\b24\ActiveRecord
         return [];
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function find()
     {
         return Yii::createObject(DealActiveQuery::className(), [get_called_class()]);

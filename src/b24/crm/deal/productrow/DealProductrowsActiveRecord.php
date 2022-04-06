@@ -7,13 +7,19 @@ namespace app\modules\wm\b24\crm\deal\productrow;
 use Yii;
 
 
-class DealProductrowsActiveRecord extends \app\modules\wm\b24\ActiveRecord
+class DealProductrowsActiveRecord extends \wm\yii\b24\ActiveRecord
 {
+    /**
+     * @inheritdoc
+     */
     public static function fieldsMethod()
     {
         return 'crm.item.productrow.fields';
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function fieldsDataSelector()
     {
         return 'result.fields';
@@ -29,6 +35,9 @@ class DealProductrowsActiveRecord extends \app\modules\wm\b24\ActiveRecord
         return [];
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function find()
     {
         return Yii::createObject(DealProductrowsActiveQuery::className(), [get_called_class()]);

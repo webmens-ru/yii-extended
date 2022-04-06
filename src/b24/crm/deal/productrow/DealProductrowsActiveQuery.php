@@ -24,13 +24,16 @@ class DealProductrowsActiveQuery extends \app\modules\wm\b24\ActiveQuery
 //        return $modelClass::entityTypeId();
 //    }
 
+    /**
+     * @inheritdoc
+     */
     protected function prepairParams(){
         $data = [
 //            'entityTypeId' => $this->entityTypeId,
             'order' => $this->orderBy?$this->orderBy:null,
             //Остальные параметры
         ];
-        $data = prepareSelectToData($data);
+        $data = $this->prepareSelectToData($data);
 
         if(ArrayHelper::getValue($this->where, 'inArray')){
             $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');
@@ -52,6 +55,9 @@ class DealProductrowsActiveQuery extends \app\modules\wm\b24\ActiveQuery
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function prepairOneParams(){
         $id = null;
         if(ArrayHelper::getValue($this->where, 'id')){

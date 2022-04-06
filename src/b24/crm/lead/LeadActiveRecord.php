@@ -9,6 +9,9 @@ use Yii;
 
 class LeadActiveRecord extends \wm\yii\b24\ActiveRecord
 {
+    /**
+     * @inheritdoc
+     */
     public static function fieldsMethod()
     {
         return 'crm.lead.fields';
@@ -24,6 +27,9 @@ class LeadActiveRecord extends \wm\yii\b24\ActiveRecord
         return [];
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function find()
     {
         return Yii::createObject(LeadActiveQuery::className(), [get_called_class()]);

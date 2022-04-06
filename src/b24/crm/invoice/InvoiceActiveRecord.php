@@ -14,21 +14,33 @@ class InvoiceActiveRecord extends \wm\yii\b24\ActiveRecord
         return 31;
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function tableSchemaCaheKey()
     {
         return static::fieldsMethod()._.static::entityTypeId();
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function fieldsDataSelector()
     {
         return 'result.fields';
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function callAdditionalParameters()
     {
         return ['entityTypeId' => static::entityTypeId()];
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function fieldsMethod()
     {
         return 'crm.item.fields';
@@ -44,6 +56,9 @@ class InvoiceActiveRecord extends \wm\yii\b24\ActiveRecord
         return [];
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function find()
     {
         return Yii::createObject(InvoiceActiveQuery::className(), [get_called_class()]);

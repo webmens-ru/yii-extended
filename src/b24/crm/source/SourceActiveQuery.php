@@ -30,6 +30,9 @@ class SourceActiveQuery extends ActiveQuery {
 //        return $modelClass::entityTypeId();
 //    }
 
+    /**
+     * @inheritdoc
+     */
     protected function prepairParams(){
         $data = [
             'order' => $this->orderBy,
@@ -56,6 +59,9 @@ class SourceActiveQuery extends ActiveQuery {
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function prepairOneParams(){
         $id = null;
         if(ArrayHelper::getValue($this->where, 'id')){

@@ -11,7 +11,9 @@ use yii\helpers\ArrayHelper;
 
 class ContactActiveRecord extends \wm\yii\b24\ActiveRecord
 {
-
+    /**
+     * @inheritDoc
+     */
     public static function fieldsMethod()
     {
         return 'crm.contact.fields';
@@ -27,6 +29,9 @@ class ContactActiveRecord extends \wm\yii\b24\ActiveRecord
         return [];
     }
 
+    /**
+     * @inheritDoc
+     */
     public static function find()
     {
         return Yii::createObject(ContactActiveQuery::className(), [get_called_class()]);
