@@ -10,6 +10,9 @@ use Yii;
 
 class DepartmentActiveRecord extends ActiveRecord
 {
+    /**
+     * @inheritdoc
+     */
     public static function fieldsMethod()
     {
         return 'department.fields';
@@ -25,6 +28,9 @@ class DepartmentActiveRecord extends ActiveRecord
         return [];
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function find()
     {
         return Yii::createObject(DepartmentActiveQuery::className(), [get_called_class()]);

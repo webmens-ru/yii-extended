@@ -17,6 +17,9 @@ class SourceActiveRecord extends \wm\yii\b24\ActiveRecord
         return 'SOURCE';
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function fieldsMethod()
     {
         return 'crm.status.fields';
@@ -32,6 +35,9 @@ class SourceActiveRecord extends \wm\yii\b24\ActiveRecord
         return [];
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function find()
     {
         return Yii::createObject(SourceActiveQuery::className(), [get_called_class()]);

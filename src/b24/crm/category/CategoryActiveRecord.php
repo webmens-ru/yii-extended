@@ -16,21 +16,33 @@ class CategoryActiveRecord extends \wm\yii\b24\ActiveRecord
         return null;
     }
 
+    /**
+     * @inheritDoc
+     */
     public static function fieldsMethod()
     {
         return 'crm.category.fields';
     }
 
+    /**
+     * @inheritDoc
+     */
     public static function tableSchemaCaheKey()
     {
         return static::fieldsMethod()._.static::entityTypeId();
     }
 
+    /**
+     * @inheritDoc
+     */
     public static function fieldsDataSelector()
     {
         return 'result.fields';
     }
 
+    /**
+     * @inheritDoc
+     */
     public static function callAdditionalParameters()
     {
         return ['entityTypeId' => static::entityTypeId()];
@@ -46,6 +58,9 @@ class CategoryActiveRecord extends \wm\yii\b24\ActiveRecord
         return [];
     }
 
+    /**
+     * @inheritDoc
+     */
     public static function find()
     {
         return Yii::createObject(CategoryActiveQuery::className(), [get_called_class()]);
