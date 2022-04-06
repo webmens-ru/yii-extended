@@ -12,6 +12,9 @@ use wm\yii\TableSchema;
 
 class UserActiveRecord extends \wm\yii\b24\ActiveRecord
 {
+    /**
+     * @inheritdoc
+     */
     public static function fieldsMethod()
     {
         return 'user.fields';
@@ -27,6 +30,9 @@ class UserActiveRecord extends \wm\yii\b24\ActiveRecord
         return [];
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function find()
     {
         return Yii::createObject(UserActiveQuery::className(), [get_called_class()]);

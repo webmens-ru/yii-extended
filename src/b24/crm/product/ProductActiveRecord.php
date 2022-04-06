@@ -7,8 +7,11 @@ namespace app\modules\wm\b24\crm\product;
 use Yii;
 
 
-class ProductActiveRecord extends \app\modules\wm\b24\ActiveRecord
+class ProductActiveRecord extends \wm\yii\b24\ActiveRecord
 {
+    /**
+     * @inheritdoc
+     */
     public static function fieldsMethod()
     {
         return 'crm.product.fields';
@@ -24,6 +27,9 @@ class ProductActiveRecord extends \app\modules\wm\b24\ActiveRecord
         return [];
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function find()
     {
         return Yii::createObject(ProductActiveQuery::className(), [get_called_class()]);

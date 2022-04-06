@@ -288,21 +288,37 @@ class ActiveRecord extends BaseActiveRecord
 //        return '{{%' . Inflector::camel2id(StringHelper::basename(get_called_class()), '_') . '}}';
 //    }
 
+    /**
+     * Возвращает метод сущности `fields`
+     * @return string
+     */
     public static function fieldsMethod()
     {
         return '';
     }
 
+    /**
+     * Ключ для кэша
+     * @return string
+     */
     public static function tableSchemaCaheKey()
     {
         return static::fieldsMethod();
     }
 
+    /**
+     * Путь получения данных из метода `fields` сущности
+     * @return string
+     */
     public static function fieldsDataSelector()
     {
         return 'result';
     }
 
+    /**
+     * Дополнительные параметры для запроса в Битрикс
+     * @return array
+     */
     public static function callAdditionalParameters()
     {
         return [];

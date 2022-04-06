@@ -24,6 +24,9 @@ class ProductrowActiveQuery extends \app\modules\wm\b24\ActiveQuery
 //        return $modelClass::entityTypeId();
 //    }
 
+    /**
+     * @inheritdoc
+     */
     protected function prepairParams(){
         $data = [
             'order' => $this->orderBy,
@@ -50,6 +53,9 @@ class ProductrowActiveQuery extends \app\modules\wm\b24\ActiveQuery
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function prepairOneParams(){
         $id = null;
         if(ArrayHelper::getValue($this->where, 'id')){

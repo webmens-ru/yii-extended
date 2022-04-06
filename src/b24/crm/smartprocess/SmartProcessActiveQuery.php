@@ -33,6 +33,9 @@ class SmartProcessActiveQuery extends \wm\yii\b24\ActiveQuery
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function prepairParams(){
         $this->getEntityTypeIdUsedInFrom();
         $data = [
@@ -57,6 +60,9 @@ class SmartProcessActiveQuery extends \wm\yii\b24\ActiveQuery
     
     public $primaryKey = 'id';
 
+    /**
+     * @inheritdoc
+     */
     protected function prepairOneParams(){
         $this->getEntityTypeIdUsedInFrom();
         $id = null;

@@ -33,6 +33,9 @@ class CategoryActiveQuery extends ActiveQuery {
 //        return $modelClass::entityTypeId();
 //    }
 
+    /**
+     * @inheritDoc
+     */
     protected function prepairParams(){
         $this->getEntityTypeIdUsedInFrom();
         $data = [
@@ -40,7 +43,7 @@ class CategoryActiveQuery extends ActiveQuery {
             'order' => $this->orderBy,
             //Остальные параметры
         ];
-        $data = prepareSelectToData($data);
+        $data = $this->prepareSelectToData($data);
 
         if(ArrayHelper::getValue($this->where, 'inArray')){
             $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');
@@ -64,6 +67,9 @@ class CategoryActiveQuery extends ActiveQuery {
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function prepairOneParams(){
         $this->getEntityTypeIdUsedInFrom();
         $id = null;

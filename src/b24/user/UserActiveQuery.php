@@ -31,6 +31,9 @@ class UserActiveQuery extends \wm\yii\b24\ActiveQuery
 //        return $modelClass::entityTypeId();
 //    }
 
+    /**
+     * @inheritdoc
+     */
     protected function prepairParams(){
 //        $this->getEntityTypeIdUsedInFrom();
         $data = [
@@ -38,7 +41,7 @@ class UserActiveQuery extends \wm\yii\b24\ActiveQuery
             'order' => $this->orderBy?$this->orderBy:null,
             //Остальные параметры
         ];
-        $data = prepareSelectToData($data);
+        $data = $this->prepareSelectToData($data);
 
         if(ArrayHelper::getValue($this->where, 'inArray')){
             $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');
@@ -54,6 +57,9 @@ class UserActiveQuery extends \wm\yii\b24\ActiveQuery
         $this->params = $data;
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function prepairOneParams(){
         $this->getEntityTypeIdUsedInFrom();
         $id = null;

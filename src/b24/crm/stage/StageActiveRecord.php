@@ -16,6 +16,9 @@ class StageActiveRecord extends \wm\yii\b24\ActiveRecord
         return null;
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function fieldsMethod()
     {
         return 'crm.status.fields';
@@ -31,6 +34,9 @@ class StageActiveRecord extends \wm\yii\b24\ActiveRecord
         return [];
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function find()
     {
         return Yii::createObject(StageActiveQuery::className(), [get_called_class()]);

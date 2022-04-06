@@ -28,6 +28,9 @@ class StatusActiveQuery extends \wm\yii\b24\ActiveQuery
 //        return $modelClass::entityTypeId();
 //    }
 
+    /**
+     * @inheritdoc
+     */
     protected function prepairParams(){
 //        $this->getEntityTypeIdUsedInFrom();
         $data = [
@@ -36,8 +39,8 @@ class StatusActiveQuery extends \wm\yii\b24\ActiveQuery
             'order' => $this->orderBy?$this->orderBy:null,
             //Остальные параметры
         ];
+        $data = $this->prepareSelectToData($data);
         $this->params = $data;
-        $data = prepareSelectToData($data);
     }
 
     protected function prepareFullParams($id){
@@ -46,6 +49,9 @@ class StatusActiveQuery extends \wm\yii\b24\ActiveQuery
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function prepairOneParams(){
         $this->getEntityTypeIdUsedInFrom();
         $id = null;

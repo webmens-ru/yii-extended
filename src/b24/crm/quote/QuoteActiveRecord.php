@@ -9,6 +9,9 @@ use Yii;
 
 class QuoteActiveRecord extends \wm\yii\b24\ActiveRecord
 {
+    /**
+     * @inheritdoc
+     */
     public static function fieldsMethod()
     {
         return 'crm.quote.fields';
@@ -24,6 +27,9 @@ class QuoteActiveRecord extends \wm\yii\b24\ActiveRecord
         return [];
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function find()
     {
         return Yii::createObject(QuoteActiveQuery::className(), [get_called_class()]);
