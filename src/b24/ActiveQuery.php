@@ -319,28 +319,28 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             $this->filterByModels($primaryModels);
         }
 
-        if (!$this->multiple && count($primaryModels) === 1) {
-            $primaryModel = reset($primaryModels);
-            $primaryModelRelationKey = reset($this->link);
-            $test = ArrayHelper::getValue($primaryModel, $primaryModelRelationKey);
-            if (
-                !ArrayHelper::getValue($primaryModel, $primaryModelRelationKey)
-                || ArrayHelper::getValue($primaryModel, $primaryModelRelationKey) == '0'
-            ) {
-                return false;
-            }
-            $model = $this->one();
-            if ($primaryModel instanceof ActiveRecordInterface) {
-                $primaryModel->populateRelation($name, $model);
-            } else {
-                $primaryModels[key($primaryModels)][$name] = $model;
-            }
-            if ($this->inverseOf !== null) {
-                $this->populateInverseRelation($primaryModels, [$model], $name, $this->inverseOf);
-            }
-
-            return [$model];
-        }
+//        if (!$this->multiple && count($primaryModels) === 1) {
+//            $primaryModel = reset($primaryModels);
+//            $primaryModelRelationKey = reset($this->link);
+//            $test = ArrayHelper::getValue($primaryModel, $primaryModelRelationKey);
+//            if (
+//                !ArrayHelper::getValue($primaryModel, $primaryModelRelationKey)
+//                || ArrayHelper::getValue($primaryModel, $primaryModelRelationKey) == '0'
+//            ) {
+//                return false;
+//            }
+//            $model = $this->one();
+//            if ($primaryModel instanceof ActiveRecordInterface) {
+//                $primaryModel->populateRelation($name, $model);
+//            } else {
+//                $primaryModels[key($primaryModels)][$name] = $model;
+//            }
+//            if ($this->inverseOf !== null) {
+//                $this->populateInverseRelation($primaryModels, [$model], $name, $this->inverseOf);
+//            }
+//
+//            return [$model];
+//        }
 
         $indexBy = $this->indexBy;
         $this->indexBy = null;
