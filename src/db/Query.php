@@ -4,9 +4,11 @@ namespace wm\yii\db;
 
 use Yii;
 
-class Query extends \yii\db\Query {
+class Query extends \yii\db\Query
+{
 
-    public function andFilterCompare($name, $value, $defaultOperator = '=') {
+    public function andFilterCompare($name, $value, $defaultOperator = '=')
+    {
         $arr = [];
         //убираем '[ и ']' в начале и в конце строки в запросе
         if ((substr($value, 0, 1) == '[') && (substr($value, -1, 1) == ']')) {
@@ -22,6 +24,8 @@ class Query extends \yii\db\Query {
                 $value = substr($value, strlen($operator));
             } elseif ($value == 'isNull') {
                 return $this->andWhere([$name => null]);
+            } elseif ($value == 'isNotNull') {
+                return $this->andWhere('not', [$name => null]);
             } elseif (preg_match('/^(%%)/', $value, $matches)) {
                 $operator = $matches[1];
                 $value = substr($value, strlen($operator));
