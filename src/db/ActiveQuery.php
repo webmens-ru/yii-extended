@@ -13,9 +13,11 @@ namespace wm\yii\db;
  *
  * @author injen
  */
+
 use Yii;
 
-class ActiveQuery extends \yii\db\ActiveQuery {
+class ActiveQuery extends \yii\db\ActiveQuery
+{
 
     /**
      * Adds a filtering condition for a specific column and allow the user to choose a filter operator.
@@ -43,7 +45,8 @@ class ActiveQuery extends \yii\db\ActiveQuery {
      * @return $this The query object itself
      * @since 2.0.8
      */
-    public function andFilterCompare($name, $value, $defaultOperator = '=') {
+    public function andFilterCompare($name, $value, $defaultOperator = '=')
+    {
         $arr = [];
         //убираем '[ и ']' в начале и в конце строки в запросе
         if ((substr($value, 0, 1) == '[') && (substr($value, -1, 1) == ']')) {
@@ -59,6 +62,8 @@ class ActiveQuery extends \yii\db\ActiveQuery {
                 $value = substr($value, strlen($operator));
             } elseif ($value == 'isNull') {
                 return $this->andWhere([$name => null]);
+            } elseif ($value == 'isNotNull') {
+                return $this->andWhere('not', [$name => null]);
             } elseif (preg_match('/^(%%)/', $value, $matches)) {
                 $operator = $matches[1];
                 $value = substr($value, strlen($operator));

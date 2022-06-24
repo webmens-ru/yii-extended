@@ -102,7 +102,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     public function __construct($modelClass, $config = [])
     {
         $this->modelClass = $modelClass;
-        $this->select = $this->modelClass::select;
+        //$this->select = $this->modelClass::select;
         parent::__construct($config);
     }
 
@@ -122,7 +122,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
 
     public function all($auth = null)
     {
-       $rows = parent::all($auth);
+        $rows = parent::all($auth);
         return $this->populate($rows);
     }
 
@@ -181,7 +181,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             }
             $relation->populateRelation($name, $models);
         }
-    }    
+    }
 
     public function getListDataSelector()
     {
@@ -319,28 +319,28 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             $this->filterByModels($primaryModels);
         }
 
-        if (!$this->multiple && count($primaryModels) === 1) {
-            $primaryModel = reset($primaryModels);
-            $primaryModelRelationKey = reset($this->link);
-            $test = ArrayHelper::getValue($primaryModel, $primaryModelRelationKey);
-            if (
-                !ArrayHelper::getValue($primaryModel, $primaryModelRelationKey)
-                || ArrayHelper::getValue($primaryModel, $primaryModelRelationKey) == '0'
-            ) {
-                return false;
-            }
-            $model = $this->one();
-            if ($primaryModel instanceof ActiveRecordInterface) {
-                $primaryModel->populateRelation($name, $model);
-            } else {
-                $primaryModels[key($primaryModels)][$name] = $model;
-            }
-            if ($this->inverseOf !== null) {
-                $this->populateInverseRelation($primaryModels, [$model], $name, $this->inverseOf);
-            }
-
-            return [$model];
-        }
+//        if (!$this->multiple && count($primaryModels) === 1) {
+//            $primaryModel = reset($primaryModels);
+//            $primaryModelRelationKey = reset($this->link);
+//            $test = ArrayHelper::getValue($primaryModel, $primaryModelRelationKey);
+//            if (
+//                !ArrayHelper::getValue($primaryModel, $primaryModelRelationKey)
+//                || ArrayHelper::getValue($primaryModel, $primaryModelRelationKey) == '0'
+//            ) {
+//                return false;
+//            }
+//            $model = $this->one();
+//            if ($primaryModel instanceof ActiveRecordInterface) {
+//                $primaryModel->populateRelation($name, $model);
+//            } else {
+//                $primaryModels[key($primaryModels)][$name] = $model;
+//            }
+//            if ($this->inverseOf !== null) {
+//                $this->populateInverseRelation($primaryModels, [$model], $name, $this->inverseOf);
+//            }
+//
+//            return [$model];
+//        }
 
         $indexBy = $this->indexBy;
         $this->indexBy = null;
@@ -924,11 +924,11 @@ class ActiveQuery extends Query implements ActiveQueryInterface
 //                $operator = $matches[1];
 //                $value = substr($str, strlen($operator));
 //                $operator = 'like';
-//            } elseif (preg_match('/^(in\[.*\])/', $str, $matches)) {
-//                $operator = 'in';
-//                $value = explode(',', mb_substr($str, 3, -1));
 //            }
-            else {
+            elseif (preg_match('/^(in\[.*\])/', $value, $matches)) {
+                $operator = '';
+                $value = explode(',', mb_substr($value, 3, -1));
+            } else {
                 $operator = $defaultOperator;
             }
 //            $c = $operator.$name." ".$value;
@@ -999,8 +999,9 @@ class ActiveQuery extends Query implements ActiveQueryInterface
      * @param array $params
      * @return array
      */
-    protected function prepareSelectToData(Array $params){
-        if($this->select){
+    protected function prepareSelectToData(Array $params)
+    {
+        if ($this->select) {
             $params['select'] = $this->select;
         }
         return $params;
