@@ -15,6 +15,7 @@ namespace wm\yii\db;
  */
 
 use Yii;
+use yii\db\Expression;
 
 class ActiveQuery extends \yii\db\ActiveQuery
 {
@@ -63,7 +64,8 @@ class ActiveQuery extends \yii\db\ActiveQuery
             } elseif ($value == 'isNull') {
                 return $this->andWhere([$name => null]);
             } elseif ($value == 'isNotNull') {
-                return $this->andWhere('not', [$name => null]);
+                $null = new Expression('NULL');
+                return $this->andWhere(['is not', $name, $null]);
             } elseif (preg_match('/^(%%)/', $value, $matches)) {
                 $operator = $matches[1];
                 $value = substr($value, strlen($operator));
