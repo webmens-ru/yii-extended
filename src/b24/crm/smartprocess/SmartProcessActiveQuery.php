@@ -70,7 +70,7 @@ class SmartProcessActiveQuery extends \wm\yii\b24\ActiveQuery
             $id = ArrayHelper::getValue($this->where, 'id');
         }
         if($this->link){
-
+            $id = ArrayHelper::getValue($this->where, 'inArray.0');
         }
         $data = [
             'entityTypeId' => $this->entityTypeId,
