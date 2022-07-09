@@ -238,6 +238,9 @@ class ColumnSchema extends BaseObject
             case 'boolean':
                 // treating a 0 bit value as false too
                 // https://github.com/yiisoft/yii2/issues/9006
+                if($value == 'N'||$value == '0'){
+                    return 0;
+                }
                 return (bool) $value;// && $value !== "\0";
             case 'double':
                 return (float) $value;
