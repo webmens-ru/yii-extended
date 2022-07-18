@@ -77,12 +77,12 @@ class ActiveRestController extends \yii\rest\ActiveController {
                 $query = $searchModel->prepareSearchQuery($query, $requestParams);
                 return $query;
             },
-            'auth' => function ()  {
-                $userId = Yii::$app->user->id;
-                $userModel = User::find()->where(['id' => $userId])->one();
-                $auth = $userModel->b24AccessParams;
-                return ArrayHelper::toArray(json_decode($auth));
-            },
+//            'auth' => function ()  { //TODO Нужен для запросов в Битрикс
+//                $userId = Yii::$app->user->id;
+//                $userModel = User::find()->where(['id' => $userId])->one();
+//                $auth = $userModel->b24AccessParams;
+//                return ArrayHelper::toArray(json_decode($auth));
+//            },
             'pagination' => false,
 //            'pagination' =>[
 //                'pageSize' => 50
