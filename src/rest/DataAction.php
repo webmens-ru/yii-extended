@@ -207,6 +207,7 @@ class DataAction extends Action
         $models = $dataProvider->getModels();
 
         return [
+            'header' => $this->modelClass::getHeader($models),
             'grid' => $models,
             'footer' => $this->modelClass::getFooter($models)
         ];
