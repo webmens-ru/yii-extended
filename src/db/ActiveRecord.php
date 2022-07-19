@@ -73,4 +73,9 @@ class ActiveRecord extends \yii\db\ActiveRecord {
        return []; 
     }
 
+    public static function getHeader($models)
+    {
+        return [];
+    }
+
 }
