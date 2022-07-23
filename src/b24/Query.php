@@ -13,7 +13,6 @@ use yii\db\QueryInterface;
 //Код не универсален а направлен на смарт процессы стоит перенести в другой класс
 class Query extends Component implements QueryInterface
 {
-
 //    public $selectOption;
 //    public $distinct;
 //    public $from;
@@ -112,16 +111,15 @@ class Query extends Component implements QueryInterface
 
         if ($this->limit && $this->full) {
             $rows = $this->allFullLimit($obB24);
-        } elseif($this->limit && !$this->full) {
+        } elseif ($this->limit && !$this->full) {
             $rows = $this->allLimit($obB24);
-        }elseif(!$this->limit && $this->full) {
+        } elseif (!$this->limit && $this->full) {
             $rows = $this->allFullNotLimit($obB24);
-        }elseif(!$this->limit && !$this->full) {
+        } elseif (!$this->limit && !$this->full) {
             $rows = $this->allNotLimit($obB24);
         }
         Yii::warning($rows, '$rows');
         return $rows;
-
     }
 
     public function allLimit($obB24)
@@ -138,13 +136,15 @@ class Query extends Component implements QueryInterface
         $countCalls = (int)ceil($request['total'] / $obB24->client::MAX_BATCH_CALLS);
         $data = ArrayHelper::getValue($request, $this->listDataSelector);
         if (count($data) != $request['total']) {
-            for ($i = 1; $i < $countCalls; $i++)
-                $obB24->client->addBatchCall($this->listMethodName,
+            for ($i = 1; $i < $countCalls; $i++) {
+                $obB24->client->addBatchCall(
+                    $this->listMethodName,
                     array_merge($this->params, ['start' => $obB24->client::MAX_BATCH_CALLS * $i]),
                     function ($result) use (&$data) {
                         $data = array_merge($data, ArrayHelper::getValue($result, $this->listDataSelector));
                     }
                 );
+            }
             $obB24->client->processBatchCalls();
         }
         return $data; //Добавить вывод дополнительной информации
@@ -164,13 +164,16 @@ class Query extends Component implements QueryInterface
         return $this->allFull($obB24, $ids, $countCalls);
     }
 
-    protected function allFull($obB24, $ids,  $countCalls){
+    protected function allFull($obB24, $ids, $countCalls)
+    {
         $this->listDataSelector = $this->getListDataSelector();
         $data = [];
         if (count($ids)) {
-            for ($i = 0; $i < $countCalls; $i++)
+            for ($i = 0; $i < $countCalls; $i++) {
                 $this->prepareFullParams($ids[$i]);
-            $obB24->client->addBatchCall($this->oneMethodName,
+            }
+            $obB24->client->addBatchCall(
+                $this->oneMethodName,
                 $this->params,
                 function ($result) use (&$data) {
                     $data = array_merge($data, [ArrayHelper::getValue($result, $this->oneDataSelector)]);
@@ -210,7 +213,6 @@ class Query extends Component implements QueryInterface
         $result = [];
         foreach ($rows as $row) {
             $result[ArrayHelper::getValue($row, $this->indexBy)] = $row;
-
         }
 
         return $result;
@@ -228,7 +230,8 @@ class Query extends Component implements QueryInterface
         return $this->andFilterWhere([$operator, $name, $value]);
     }
 
-    public function full($value = true){
+    public function full($value = true)
+    {
         $this->full = $value;
         return $this;
     }
@@ -403,7 +406,6 @@ class Query extends Component implements QueryInterface
         } else {
             return $condition;
         }
-
     }
 
     /**
@@ -1008,5 +1010,4 @@ class Query extends Component implements QueryInterface
 //        return $this;
 //
 //    }
-
 }

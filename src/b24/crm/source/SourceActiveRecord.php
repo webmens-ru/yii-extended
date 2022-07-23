@@ -9,7 +9,6 @@ use wm\b24tools\b24Tools;
 use Yii;
 use yii\helpers\ArrayHelper;
 
-
 class SourceActiveRecord extends \wm\yii\b24\ActiveRecord
 {
     public static function entityId()

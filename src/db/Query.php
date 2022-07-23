@@ -7,7 +7,6 @@ use yii\db\Expression;
 
 class Query extends \yii\db\Query
 {
-
     public function andFilterCompare($name, $value, $defaultOperator = '=')
     {
         $arr = [];
@@ -41,5 +40,4 @@ class Query extends \yii\db\Query
             return $this->andFilterWhere([$operator, $name, $value]);
         }
     }
-
 }

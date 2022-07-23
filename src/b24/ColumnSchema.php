@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -19,7 +20,6 @@ use yii\helpers\StringHelper;
  */
 class ColumnSchema extends BaseObject
 {
-
     //-
     // ++crm_category,
     // +crm_currency,
@@ -238,14 +238,14 @@ class ColumnSchema extends BaseObject
             case 'boolean':
                 // treating a 0 bit value as false too
                 // https://github.com/yiisoft/yii2/issues/9006
-                if($value == 'N'||$value == '0'){
+                if ($value == 'N' || $value == '0') {
                     return 0;
                 }
                 return (bool) $value;// && $value !== "\0";
             case 'double':
                 return (float) $value;
             case 'array':
-                if ($this->type == self::TYPE_ENUMERATION){
+                if ($this->type == self::TYPE_ENUMERATION) {
                     $value = [
                         'value' => $value,
                         'title' => ArrayHelper::getValue($this->enumValues, $value)
@@ -265,13 +265,14 @@ class ColumnSchema extends BaseObject
 //        return [\PDO::PARAM_BOOL, \PDO::PARAM_INT, \PDO::PARAM_STR, \PDO::PARAM_LOB, \PDO::PARAM_NULL, \PDO::PARAM_STMT];
 //    }
 
-    public function prepare($key, $columnData){
+    public function prepare($key, $columnData)
+    {
         $this->name = $key;
         $this->allowNull = !ArrayHelper::getValue($columnData, 'isRequired');
         $this->type = ArrayHelper::getValue($columnData, 'type');
         $this->phpType = $this->getPhpType();
 //                    'dbType',
-        $this->defaultValue= ArrayHelper::getValue($columnData, 'settings.DEFAULT_VALUE');
+        $this->defaultValue = ArrayHelper::getValue($columnData, 'settings.DEFAULT_VALUE');
 //                    'enumValues',
 //                    'size',
 //                    'precision',
@@ -280,7 +281,7 @@ class ColumnSchema extends BaseObject
 //                    'autoIncrement',
 //                    'unsigned',
         $this->comment = ArrayHelper::getValue($columnData, 'title');
-        $this->enumValues = ArrayHelper::map(ArrayHelper::getValue($columnData, 'items'),'ID', 'VALUE');
+        $this->enumValues = ArrayHelper::map(ArrayHelper::getValue($columnData, 'items'), 'ID', 'VALUE');
 //        ----------------------------------------------------------------------
         /*
          * isDynamic
@@ -312,7 +313,6 @@ class ColumnSchema extends BaseObject
          * ID
          * NAME
          */
-
     }
 
     protected function getPhpType()

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -336,7 +337,8 @@ class ActiveRecord extends BaseActiveRecord
         $tableSchema =  $cache->getOrSet($key, function () {
             $b24Obj = self::getConnect();
             $schemaData =   ArrayHelper::getValue($b24Obj->client->call(
-                static::fieldsMethod(), static::callAdditionalParameters()
+                static::fieldsMethod(),
+                static::callAdditionalParameters()
             ), static::fieldsDataSelector());
             return new TableSchema($schemaData);
         }, 300);
@@ -370,7 +372,8 @@ class ActiveRecord extends BaseActiveRecord
      */
     public function attributes()
     {
-        return array_keys(static::getTableSchema()->columns);;
+        return array_keys(static::getTableSchema()->columns);
+        ;
     }
 
     /**
@@ -767,7 +770,8 @@ class ActiveRecord extends BaseActiveRecord
     /**
      * @return array
      */
-    public static function getSelect(){
+    public static function getSelect()
+    {
         return [];
     }
 }

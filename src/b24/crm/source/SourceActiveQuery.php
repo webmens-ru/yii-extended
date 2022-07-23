@@ -6,8 +6,8 @@ namespace wm\yii\b24\crm\source;
 use yii\helpers\ArrayHelper;
 use wm\yii\b24\ActiveQuery;
 
-class SourceActiveQuery extends ActiveQuery {
-
+class SourceActiveQuery extends ActiveQuery
+{
     public $entityId;
 
     protected $listMethodName = 'crm.status.list';
@@ -33,25 +33,27 @@ class SourceActiveQuery extends ActiveQuery {
     /**
      * @inheritdoc
      */
-    protected function prepairParams(){
+    protected function prepairParams()
+    {
         $data = [
             'order' => $this->orderBy,
         ];
-        if(ArrayHelper::getValue($this->where, 'inArray')){
+        if (ArrayHelper::getValue($this->where, 'inArray')) {
             $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');
-            if($linkKey){
+            if ($linkKey) {
                 $data['filter'][$linkKey] = ArrayHelper::getValue($this->where, 'inArray');
-            }else{
+            } else {
                 $data['filter'] = $this->where;
             }
-        }else{
+        } else {
             $data['filter'] = $this->where;
         }
 
         $this->params = $data;
     }
 
-    protected function prepareFullParams($id){
+    protected function prepareFullParams($id)
+    {
         $this->getEntityTypeIdUsedInFrom();
         $this->params = [
             'entityTypeId' => $this->entityTypeId,
@@ -62,12 +64,13 @@ class SourceActiveQuery extends ActiveQuery {
     /**
      * @inheritdoc
      */
-    protected function prepairOneParams(){
+    protected function prepairOneParams()
+    {
         $id = null;
-        if(ArrayHelper::getValue($this->where, 'id')){
+        if (ArrayHelper::getValue($this->where, 'id')) {
             $id = ArrayHelper::getValue($this->where, 'id');
         }
-        if(ArrayHelper::getValue($this->link, 'id')){
+        if (ArrayHelper::getValue($this->link, 'id')) {
             $id = ArrayHelper::getValue($this->where, 'inArray');
         }
 
@@ -75,9 +78,9 @@ class SourceActiveQuery extends ActiveQuery {
             'id' => $id
         ];
 
-        if($id === null && $this->where){
+        if ($id === null && $this->where) {
             $this->queryMethod = 'all';
-        }else{
+        } else {
             $this->errorParams = true;
         }
         $this->params = $data;

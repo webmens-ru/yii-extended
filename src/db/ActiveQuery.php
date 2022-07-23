@@ -19,7 +19,6 @@ use yii\db\Expression;
 
 class ActiveQuery extends \yii\db\ActiveQuery
 {
-
     /**
      * Adds a filtering condition for a specific column and allow the user to choose a filter operator.
      *
@@ -79,5 +78,4 @@ class ActiveQuery extends \yii\db\ActiveQuery
             return $this->andFilterWhere([$operator, $name, $value]);
         }
     }
-
 }

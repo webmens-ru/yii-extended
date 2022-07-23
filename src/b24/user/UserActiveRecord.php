@@ -9,7 +9,6 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use wm\yii\TableSchema;
 
-
 class UserActiveRecord extends \wm\yii\b24\ActiveRecord
 {
     /**

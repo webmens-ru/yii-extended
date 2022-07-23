@@ -1,11 +1,8 @@
 <?php
 
-
 namespace wm\yii\b24\crm\deal;
 
-
 use Yii;
-
 
 class DealActiveRecord extends \wm\yii\b24\ActiveRecord
 {

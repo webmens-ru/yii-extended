@@ -1,11 +1,8 @@
 <?php
 
-
 namespace wm\yii\b24\crm\quote;
 
-
 use Yii;
-
 
 class QuoteActiveRecord extends \wm\yii\b24\ActiveRecord
 {

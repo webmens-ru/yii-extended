@@ -12,12 +12,13 @@ use wm\yii\filters\auth\HttpBearerAuth;
  * Class ActiveRestController
  * @package wm\admin\controllers
  */
-class ActiveRestController extends \yii\rest\ActiveController {
-
+class ActiveRestController extends \yii\rest\ActiveController
+{
     /**
      * @return array
      */
-    public function behaviors() {
+    public function behaviors()
+    {
         $behaviors = parent::behaviors();
         return [
             'corsFilter' => [
@@ -61,7 +62,8 @@ class ActiveRestController extends \yii\rest\ActiveController {
      * Возвращается массив actions
      * `index`, `view`, `create`, `update`, `delete`, `options`
      */
-    public function actions() {
+    public function actions()
+    {
         $actions = parent::actions();
 
         // отключить действия "delete" и "create"
@@ -94,7 +96,8 @@ class ActiveRestController extends \yii\rest\ActiveController {
     /**
      * @return mixed
      */
-    public function prepareDataProvider() {
+    public function prepareDataProvider()
+    {
         $searchModel = new $this->modelClassSearch();
         return $searchModel->search(Yii::$app->request->queryParams);
     }
@@ -103,7 +106,8 @@ class ActiveRestController extends \yii\rest\ActiveController {
      * @param null $entity
      * @return mixed
      */
-    public function actionSchema($entity = null) {
+    public function actionSchema($entity = null)
+    {
         $model = new $this->modelClass();
         return $model->schema;
     }
@@ -111,7 +115,8 @@ class ActiveRestController extends \yii\rest\ActiveController {
     /**
      * @return mixed
      */
-    public function actionValidation() {
+    public function actionValidation()
+    {
         $model = new $this->modelClass();
         return $model->restRules;
     }

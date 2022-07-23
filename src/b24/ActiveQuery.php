@@ -514,7 +514,6 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             /* @var $class ActiveRecord */
             $class = $this->modelClass;
             foreach ($rows as $row) {
-
                 $model = $class::instantiate($row);
                 //$model->load($row, '');
                 $modelClass = get_class($model);
@@ -934,7 +933,6 @@ class ActiveQuery extends Query implements ActiveQueryInterface
 //            $c = $operator.$name." ".$value;
             $this->andFilterWhere([$operator, $name, $value]);
             return $this;
-
         }
     }
 
@@ -999,7 +997,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
      * @param array $params
      * @return array
      */
-    protected function prepareSelectToData(Array $params)
+    protected function prepareSelectToData(array $params)
     {
         if ($this->select) {
             $params['select'] = $this->select;
