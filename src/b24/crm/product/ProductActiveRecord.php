@@ -1,11 +1,8 @@
 <?php
 
-
 namespace app\modules\wm\b24\crm\product;
 
-
 use Yii;
-
 
 class ProductActiveRecord extends \wm\yii\b24\ActiveRecord
 {

@@ -25,7 +25,8 @@ class SmartProcessActiveQuery extends \wm\yii\b24\ActiveQuery
         return $this->entityTypeId;
     }
 
-    protected function prepareFullParams($id){
+    protected function prepareFullParams($id)
+    {
         $this->getEntityTypeIdUsedInFrom();
         $this->params = [
             'entityTypeId' => $this->entityTypeId,
@@ -36,7 +37,8 @@ class SmartProcessActiveQuery extends \wm\yii\b24\ActiveQuery
     /**
      * @inheritdoc
      */
-    protected function prepairParams(){
+    protected function prepairParams()
+    {
         $this->getEntityTypeIdUsedInFrom();
         $data = [
             'entityTypeId' => $this->entityTypeId,
@@ -44,32 +46,33 @@ class SmartProcessActiveQuery extends \wm\yii\b24\ActiveQuery
 //            'select' => $this->select,
             'start' => $this->offset,
         ];
-        if(ArrayHelper::getValue($this->where, 'inArray')){
+        if (ArrayHelper::getValue($this->where, 'inArray')) {
             $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');
-            if($linkKey){
+            if ($linkKey) {
                 $data['filter'][$linkKey] = ArrayHelper::getValue($this->where, 'inArray');
-            }else{
+            } else {
                 $data['filter'] = $this->where;
             }
-        }else{
+        } else {
             $data['filter'] = $this->where;
         }
 
         $this->params = $data;
     }
-    
+
     public $primaryKey = 'id';
 
     /**
      * @inheritdoc
      */
-    protected function prepairOneParams(){
+    protected function prepairOneParams()
+    {
         $this->getEntityTypeIdUsedInFrom();
         $id = null;
-        if(ArrayHelper::getValue($this->where, 'id')){
+        if (ArrayHelper::getValue($this->where, 'id')) {
             $id = ArrayHelper::getValue($this->where, 'id');
         }
-        if($this->link){
+        if ($this->link) {
             $id = ArrayHelper::getValue($this->where, 'inArray.0');
         }
         $data = [

@@ -1,11 +1,8 @@
 <?php
 
-
 namespace app\modules\wm\b24\crm\productrow;
 
-
 use Yii;
-
 
 class ProductrowActiveRecord extends \wm\yii\b24\ActiveRecord
 {

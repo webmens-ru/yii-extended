@@ -1,11 +1,8 @@
 <?php
 
-
 namespace app\modules\wm\b24\crm\deal\productrow;
 
-
 use yii\helpers\ArrayHelper;
-
 
 class DealProductrowsActiveQuery extends \app\modules\wm\b24\ActiveQuery
 {
@@ -27,29 +24,31 @@ class DealProductrowsActiveQuery extends \app\modules\wm\b24\ActiveQuery
     /**
      * @inheritdoc
      */
-    protected function prepairParams(){
+    protected function prepairParams()
+    {
         $data = [
 //            'entityTypeId' => $this->entityTypeId,
-            'order' => $this->orderBy?$this->orderBy:null,
+            'order' => $this->orderBy ? $this->orderBy : null,
             //Остальные параметры
         ];
         $data = $this->prepareSelectToData($data);
 
-        if(ArrayHelper::getValue($this->where, 'inArray')){
+        if (ArrayHelper::getValue($this->where, 'inArray')) {
             $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');
-            if($linkKey){
+            if ($linkKey) {
                 $data['filter'][$linkKey] = ArrayHelper::getValue($this->where, 'inArray');
-            }else{
+            } else {
                 $data['filter'] = $this->where;
             }
-        }else{
+        } else {
             $data['filter'] = $this->where;
         }
 
         $this->params = $data;
     }
 
-    protected function prepareFullParams($id){
+    protected function prepareFullParams($id)
+    {
         $this->params = [
             'id' => $id
         ];
@@ -58,12 +57,13 @@ class DealProductrowsActiveQuery extends \app\modules\wm\b24\ActiveQuery
     /**
      * @inheritdoc
      */
-    protected function prepairOneParams(){
+    protected function prepairOneParams()
+    {
         $id = null;
-        if(ArrayHelper::getValue($this->where, 'id')){
+        if (ArrayHelper::getValue($this->where, 'id')) {
             $id = ArrayHelper::getValue($this->where, 'id');
         }
-        if(ArrayHelper::getValue($this->link, 'id')){
+        if (ArrayHelper::getValue($this->link, 'id')) {
             $id = ArrayHelper::getValue($this->where, 'inArray');
         }
         $data = [

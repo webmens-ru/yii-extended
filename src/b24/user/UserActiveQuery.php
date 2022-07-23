@@ -34,23 +34,24 @@ class UserActiveQuery extends \wm\yii\b24\ActiveQuery
     /**
      * @inheritdoc
      */
-    protected function prepairParams(){
+    protected function prepairParams()
+    {
 //        $this->getEntityTypeIdUsedInFrom();
         $data = [
 //            'entityTypeId' => $this->entityTypeId,
-            'order' => $this->orderBy?$this->orderBy:null,
+            'order' => $this->orderBy ? $this->orderBy : null,
             //Остальные параметры
         ];
         $data = $this->prepareSelectToData($data);
 
-        if(ArrayHelper::getValue($this->where, 'inArray')){
+        if (ArrayHelper::getValue($this->where, 'inArray')) {
             $linkKey = ArrayHelper::getValue(array_keys($this->link), '0');
-            if($linkKey){
+            if ($linkKey) {
                 $data['filter'][$linkKey] = ArrayHelper::getValue($this->where, 'inArray');
-            }else{
+            } else {
                 $data['filter'] = $this->where;
             }
-        }else{
+        } else {
             $data['filter'] = $this->where;
         }
 
@@ -60,13 +61,14 @@ class UserActiveQuery extends \wm\yii\b24\ActiveQuery
     /**
      * @inheritdoc
      */
-    protected function prepairOneParams(){
+    protected function prepairOneParams()
+    {
         $this->getEntityTypeIdUsedInFrom();
         $id = null;
-        if(ArrayHelper::getValue($this->where, 'ID')){
+        if (ArrayHelper::getValue($this->where, 'ID')) {
             $id = ArrayHelper::getValue($this->where, 'ID');
         }
-        if(ArrayHelper::getValue($this->link, 'ID')){
+        if (ArrayHelper::getValue($this->link, 'ID')) {
             $id = ArrayHelper::getValue($this->where, 'inArray');
         }
         $data = [

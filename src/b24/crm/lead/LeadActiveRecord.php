@@ -1,11 +1,8 @@
 <?php
 
-
 namespace wm\yii\b24\crm\lead;
 
-
 use Yii;
-
 
 class LeadActiveRecord extends \wm\yii\b24\ActiveRecord
 {

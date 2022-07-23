@@ -8,7 +8,6 @@ use wm\b24tools\b24Tools;
 use Yii;
 use yii\helpers\ArrayHelper;
 
-
 class SmartProcessActiveRecord extends \wm\yii\b24\ActiveRecord
 {
     public static function entityTypeId()
@@ -29,7 +28,7 @@ class SmartProcessActiveRecord extends \wm\yii\b24\ActiveRecord
      */
     public static function tableSchemaCaheKey()
     {
-        return static::fieldsMethod()._.static::entityTypeId();
+        return static::fieldsMethod() . _ . static::entityTypeId();
     }
 
     /**

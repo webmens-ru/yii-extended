@@ -16,21 +16,24 @@ use wm\yii\db\ActiveQuery;
  *
  * @author injen
  */
-class ActiveRecord extends \yii\db\ActiveRecord {
-
+class ActiveRecord extends \yii\db\ActiveRecord
+{
     /**
      * {@inheritdoc}
      * @return ActiveQuery the newly created [[ActiveQuery]] instance.
      */
-    public static function find() {
+    public static function find()
+    {
         return Yii::createObject(ActiveQuery::class, [get_called_class()]);
     }
 
-    public function formName() {
+    public function formName()
+    {
         return '';
     }
 
-    protected function getDataProviderParams($query) {
+    protected function getDataProviderParams($query)
+    {
         return [
             'query' => $query,
             'pagination' => [
@@ -40,7 +43,8 @@ class ActiveRecord extends \yii\db\ActiveRecord {
         ];
     }
 
-    public function getRestRules() {
+    public function getRestRules()
+    {
         $res = [];
         $rules = $this->rules();
         foreach ($rules as $value) {
@@ -53,11 +57,13 @@ class ActiveRecord extends \yii\db\ActiveRecord {
         return $res;
     }
 
-    public function getSchema() {
+    public function getSchema()
+    {
         return $this->convertShema($this->attributeLabels());
     }
 
-    protected function convertShema($data) {
+    protected function convertShema($data)
+    {
         $res = [];
         foreach ($data as $key => $value) {
             $temp = [];
@@ -67,15 +73,14 @@ class ActiveRecord extends \yii\db\ActiveRecord {
         }
         return $res;
     }
-    
+
     public static function getFooter($models)
     {
-       return []; 
+        return [];
     }
 
     public static function getHeader($models)
     {
         return [];
     }
-
 }

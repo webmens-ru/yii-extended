@@ -1,12 +1,9 @@
 <?php
 
-
 namespace wm\yii\b24\crm\department;
-
 
 use wm\yii\b24\ActiveRecord;
 use Yii;
-
 
 class DepartmentActiveRecord extends ActiveRecord
 {

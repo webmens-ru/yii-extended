@@ -8,7 +8,6 @@ use wm\b24tools\b24Tools;
 use Yii;
 use yii\helpers\ArrayHelper;
 
-
 class CompanyActiveRecord extends \wm\yii\b24\ActiveRecord
 {
     /**
