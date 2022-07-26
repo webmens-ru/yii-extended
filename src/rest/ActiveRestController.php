@@ -2,11 +2,9 @@
 
 namespace wm\yii\rest;
 
-use wm\admin\models\User;
+use wm\yii\filters\auth\HttpBearerAuth;
 use Yii;
 use yii\filters\auth\CompositeAuth;
-use yii\helpers\ArrayHelper;
-use wm\yii\filters\auth\HttpBearerAuth;
 
 /**
  * Class ActiveRestController
@@ -74,7 +72,7 @@ class ActiveRestController extends \yii\rest\ActiveController
         $actions['data'] = [
             'class' => 'wm\yii\rest\DataAction',
             'modelClass' => $this->modelClass,
-            'prepareSearchQuery' =>  function ($query, $requestParams) {
+            'prepareSearchQuery' => function ($query, $requestParams) {
                 $searchModel = new $this->modelClassSearch();
                 $query = $searchModel->prepareSearchQuery($query, $requestParams);
                 return $query;
@@ -119,5 +117,13 @@ class ActiveRestController extends \yii\rest\ActiveController
     {
         $model = new $this->modelClass();
         return $model->restRules;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function actionGetButtonAdd()
+    {
+        return null;
     }
 }
