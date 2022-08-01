@@ -5,13 +5,12 @@ namespace wm\yii\b24;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
 use yii\db\ActiveQueryInterface;
-use yii\helpers\ArrayHelper;
 use yii\db\ActiveRecordInterface;
 
 //Код не универсален а направлен на смарт процессы стоит перенести в другой класс
 class ActiveQuery extends Query implements ActiveQueryInterface
 {
-    const EVENT_INIT = 'init';
+    public const EVENT_INIT = 'init';
 
     /**
      * @var bool следует ли возвращать каждую запись в виде массива. Если false (по умолчанию), объект
@@ -151,7 +150,10 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             $method = new \ReflectionMethod($model, 'get' . $name);
             $realName = lcfirst(substr($method->getName(), 3));
             if ($realName !== $name) {
-                throw new InvalidArgumentException('Relation names are case sensitive. ' . get_class($model) . " has a relation named \"$realName\" instead of \"$name\".");
+                throw new InvalidArgumentException(
+                    'Relation names are case sensitive. ' .
+                    get_class($model) . " has a relation named \"$realName\" instead of \"$name\"."
+                );
             }
         }
 
@@ -539,14 +541,18 @@ class ActiveQuery extends Query implements ActiveQueryInterface
                 if (!isset($inverseRelation)) {
                     $inverseRelation = $relatedModel->getRelation($this->inverseOf);
                 }
-                $relatedModel->populateRelation($this->inverseOf, $inverseRelation->multiple ? [$this->primaryModel] : $this->primaryModel);
+                $relatedModel->populateRelation(
+                    $this->inverseOf,
+                    $inverseRelation->multiple ? [$this->primaryModel] : $this->primaryModel
+                );
             } else {
                 if (!isset($inverseRelation)) {
                     /* @var $modelClass ActiveRecordInterface */
                     $modelClass = $this->modelClass;
                     $inverseRelation = $modelClass::instance()->getRelation($this->inverseOf);
                 }
-                $result[$i][$this->inverseOf] = $inverseRelation->multiple ? [$this->primaryModel] : $this->primaryModel;
+                $result[$i][$this->inverseOf] = $inverseRelation
+                    ->multiple ? [$this->primaryModel] : $this->primaryModel;
             }
         }
     }
@@ -829,7 +835,13 @@ class ActiveQuery extends Query implements ActiveQueryInterface
         }
 
         if ($relation->multiple) {
-            $buckets = $this->buildBuckets($primaryModels, $relation->link, null, null, false);
+            $buckets = $this->buildBuckets(
+                $primaryModels,
+                $relation->link,
+                null,
+                null,
+                false
+            );
             if ($model instanceof ActiveRecordInterface) {
                 foreach ($models as $model) {
                     $key = $this->getModelKey($model, $relation->link);
