@@ -5,6 +5,7 @@ namespace wm\yii\b24;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
 use yii\db\ActiveQueryInterface;
+use yii\helpers\ArrayHelper;
 use yii\db\ActiveRecordInterface;
 
 //Код не универсален а направлен на смарт процессы стоит перенести в другой класс
@@ -101,7 +102,8 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     public function __construct($modelClass, $config = [])
     {
         $this->modelClass = $modelClass;
-        //$this->select = $this->modelClass::select;
+        $this->select = $this->modelClass::attributes();
+        //$this->listMethod = $modelClass::listMethod();
         parent::__construct($config);
     }
 
@@ -322,28 +324,28 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             $this->filterByModels($primaryModels);
         }
 
-//        if (!$this->multiple && count($primaryModels) === 1) {
-//            $primaryModel = reset($primaryModels);
-//            $primaryModelRelationKey = reset($this->link);
-//            $test = ArrayHelper::getValue($primaryModel, $primaryModelRelationKey);
-//            if (
-//                !ArrayHelper::getValue($primaryModel, $primaryModelRelationKey)
-//                || ArrayHelper::getValue($primaryModel, $primaryModelRelationKey) == '0'
-//            ) {
-//                return false;
-//            }
-//            $model = $this->one();
-//            if ($primaryModel instanceof ActiveRecordInterface) {
-//                $primaryModel->populateRelation($name, $model);
-//            } else {
-//                $primaryModels[key($primaryModels)][$name] = $model;
-//            }
-//            if ($this->inverseOf !== null) {
-//                $this->populateInverseRelation($primaryModels, [$model], $name, $this->inverseOf);
-//            }
-//
-//            return [$model];
-//        }
+        if (!$this->multiple && count($primaryModels) === 1) {
+            $primaryModel = reset($primaryModels);
+            $primaryModelRelationKey = reset($this->link);
+            $test = ArrayHelper::getValue($primaryModel, $primaryModelRelationKey);
+            if (
+                !ArrayHelper::getValue($primaryModel, $primaryModelRelationKey)
+                || ArrayHelper::getValue($primaryModel, $primaryModelRelationKey) == '0'
+            ) {
+                return false;
+            }
+            $model = $this->one();
+            if ($primaryModel instanceof ActiveRecordInterface) {
+                $primaryModel->populateRelation($name, $model);
+            } else {
+                $primaryModels[key($primaryModels)][$name] = $model;
+            }
+            if ($this->inverseOf !== null) {
+                $this->populateInverseRelation($primaryModels, [$model], $name, $this->inverseOf);
+            }
+
+            return [$model];
+        }
 
         $indexBy = $this->indexBy;
         $this->indexBy = null;
@@ -937,11 +939,11 @@ class ActiveQuery extends Query implements ActiveQueryInterface
 //                $operator = $matches[1];
 //                $value = substr($str, strlen($operator));
 //                $operator = 'like';
+//            } elseif (preg_match('/^(in\[.*\])/', $str, $matches)) {
+//                $operator = 'in';
+//                $value = explode(',', mb_substr($str, 3, -1));
 //            }
-            elseif (preg_match('/^(in\[.*\])/', $value, $matches)) {
-                $operator = '';
-                $value = explode(',', mb_substr($value, 3, -1));
-            } else {
+            else {
                 $operator = $defaultOperator;
             }
 //            $c = $operator.$name." ".$value;
