@@ -774,4 +774,14 @@ class ActiveRecord extends BaseActiveRecord
     {
         return [];
     }
+
+    public static function getFooter($models)
+    {
+        return [];
+    }
+
+    public static function getHeader($models)
+    {
+        return [];
+    }
 }
