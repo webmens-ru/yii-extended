@@ -156,6 +156,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
                 );
             }
         }
+        return $this->all();
 
         return $this->multiple ? $this->all() : $this->one();
     }
@@ -516,6 +517,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             /* @var $class ActiveRecord */
             $class = $this->modelClass;
             foreach ($rows as $row) {
+
                 $model = $class::instantiate($row);
                 //$model->load($row, '');
                 $modelClass = get_class($model);
