@@ -7,8 +7,8 @@ use wm\b24tools\b24Tools;
 use Yii;
 use yii\base\Component;
 use yii\base\NotSupportedException;
-use yii\helpers\ArrayHelper;
 use yii\db\QueryInterface;
+use yii\helpers\ArrayHelper;
 
 //Код не универсален а направлен на смарт процессы стоит перенести в другой класс
 class Query extends Component implements QueryInterface
@@ -39,7 +39,8 @@ class Query extends Component implements QueryInterface
      */
     public $where;
     /**
-     * @var int|ExpressionInterface|null maximum number of records to be returned. May be an instance of [[ExpressionInterface]].
+     * @var int|ExpressionInterface|null maximum number of records to be returned.
+     * May be an instance of [[ExpressionInterface]].
      * If not set or less than 0, it means no limit.
      */
     public $limit;
@@ -70,7 +71,7 @@ class Query extends Component implements QueryInterface
      */
     public $emulateExecution = false;
 
-    const EVENT_INIT = 'init';
+    public const EVENT_INIT = 'init';
 
     public function init()
     {
@@ -608,7 +609,8 @@ class Query extends Component implements QueryInterface
      * to represent the order-by information. Otherwise, the method will not be able to correctly determine
      * the order-by columns.
      *
-     * Since version 2.0.7, an [[ExpressionInterface]] object can be passed to specify the ORDER BY part explicitly in plain SQL.
+     * Since version 2.0.7, an [[ExpressionInterface]] object can be passed to specify the
+     * ORDER BY part explicitly in plain SQL.
      * @return $this the query object itself
      * @see addOrderBy()
      */
@@ -631,7 +633,8 @@ class Query extends Component implements QueryInterface
      * to represent the order-by information. Otherwise, the method will not be able to correctly determine
      * the order-by columns.
      *
-     * Since version 2.0.7, an [[ExpressionInterface]] object can be passed to specify the ORDER BY part explicitly in plain SQL.
+     * Since version 2.0.7, an [[ExpressionInterface]] object can be passed to specify
+     * the ORDER BY part explicitly in plain SQL.
      * @return $this the query object itself
      * @see orderBy()
      */
@@ -659,7 +662,8 @@ class Query extends Component implements QueryInterface
     /**
      * Normalizes format of ORDER BY data.
      *
-     * @param array|string|ExpressionInterface $columns the columns value to normalize. See [[orderBy]] and [[addOrderBy]].
+     * @param array|string|ExpressionInterface $columns the columns value to normalize.
+     * See [[orderBy]] and [[addOrderBy]].
      * @return array
      */
     protected function normalizeOrderBy($columns)
@@ -696,7 +700,8 @@ class Query extends Component implements QueryInterface
 
     /**
      * Устанавливает часть запроса OFFSET.
-     * @param int|ExpressionInterface|null $offset смещение. Используйте нулевое или отрицательное значение, чтобы отключить смещение.
+     * @param int|ExpressionInterface|null $offset смещение. Используйте нулевое или отрицательное значение,
+     * чтобы отключить смещение.
      * @return $это сам объект запроса
      */
     public function offset($offset)
@@ -860,7 +865,8 @@ class Query extends Component implements QueryInterface
 //        foreach ($columns as $columnAlias => $columnDefinition) {
 //            if (!$columnDefinition instanceof Query) {
 //                if (is_string($columnAlias)) {
-//                    $existsInSelect = isset($this->select[$columnAlias]) && $this->select[$columnAlias] === $columnDefinition;
+//                    $existsInSelect = isset($this->select[$columnAlias]) &&
+//                      $this->select[$columnAlias] === $columnDefinition;
 //                    if ($existsInSelect) {
 //                        continue;
 //                    }

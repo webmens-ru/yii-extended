@@ -48,7 +48,11 @@ class HttpBearerAuth extends \yii\filters\auth\AuthMethod
         //  RewriteCond %{HTTP:Authorization} .
         //  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-        if ($authHeader == null && isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION']) && $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] != "") {
+        if (
+            $authHeader == null &&
+            isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION']) &&
+            $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] != ""
+        ) {
             $authHeader = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
         }
 

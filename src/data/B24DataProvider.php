@@ -8,18 +8,10 @@
 
 namespace wm\yii\data;
 
-use wm\yii\b24\TableSchema;
-use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\data\BaseDataProvider;
-use yii\data\Sort;
-use yii\db\ActiveQueryInterface;
-use yii\db\Connection;
 use yii\db\QueryInterface;
-use yii\di\Instance;
-use yii\helpers\ArrayHelper;
-use Yii;
 
 class B24DataProvider extends BaseDataProvider
 {
@@ -54,7 +46,8 @@ class B24DataProvider extends BaseDataProvider
     protected function prepareModels()
     {
 //        if (!$this->query instanceof QueryInterface) {
-//            throw new InvalidConfigException('The "query" property must be an instance of a class that implements the QueryInterface e.g. yii\db\Query or its subclasses.');
+//            throw new InvalidConfigException('The "query" property must be an instance of a class that implements
+// the QueryInterface e.g. yii\db\Query or its subclasses.');
 //        }
         $query = clone $this->query;
         if (($pagination = $this->getPagination()) !== false) {
@@ -105,7 +98,7 @@ class B24DataProvider extends BaseDataProvider
     {
         parent::setSort($value);
         //TODO исправить
-        if (/*$this->query instanceof ActiveQueryInterface && */($sort = $this->getSort()) !== false) {
+        if (/*$this->query instanceof ActiveQueryInterface && */ ($sort = $this->getSort()) !== false) {
             /* @var $modelClass Model */
             $modelClass = $this->query->modelClass;
             $model = $modelClass::instance();
@@ -133,9 +126,12 @@ class B24DataProvider extends BaseDataProvider
     protected function prepareTotalCount()
     {
         if (!$this->query instanceof QueryInterface) {
-            throw new InvalidConfigException('The "query" property must be an instance of a class that implements the QueryInterface e.g. yii\db\Query or its subclasses.');
+            throw new InvalidConfigException(
+                'The "query" property must be an instance of a class that implements the QueryInterface e.g. 
+                yii\db\Query or its subclasses.'
+            );
         }
         $query = clone $this->query;
-        return (int) $query->count();
+        return (int)$query->count();
     }
 }

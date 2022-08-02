@@ -8,13 +8,6 @@
 
 namespace wm\yii\db;
 
-/**
- * Description of ActiveQuery
- *
- * @author injen
- */
-
-use Yii;
 use yii\db\Expression;
 
 class ActiveQuery extends \yii\db\ActiveQuery

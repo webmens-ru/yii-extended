@@ -10,7 +10,6 @@ namespace wm\yii\b24;
 
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
-use yii\helpers\StringHelper;
 
 /**
  * Класс ColumnSchema описывает метаданные столбца в таблице базы данных.
@@ -41,24 +40,24 @@ class ColumnSchema extends BaseObject
 //    const TYPE_BIGPK = 'bigpk';
 //    const TYPE_UBIGPK = 'ubigpk';
 //    const TYPE_CHAR = 'char';
-    const TYPE_STRING = 'string';
+    public const TYPE_STRING = 'string';
 //    const TYPE_TEXT = 'text';
 //    const TYPE_TINYINT = 'tinyint';
 //    const TYPE_SMALLINT = 'smallint';
-    const TYPE_INTEGER = 'integer';
+    public const TYPE_INTEGER = 'integer';
 //    const TYPE_BIGINT = 'bigint';
 //    const TYPE_FLOAT = 'float';
-    const TYPE_DOUBLE = 'double';
+    public const TYPE_DOUBLE = 'double';
 //    const TYPE_DECIMAL = 'decimal';
-    const TYPE_DATETIME = 'datetime';
+    public const TYPE_DATETIME = 'datetime';
 //    const TYPE_TIMESTAMP = 'timestamp';
 //    const TYPE_TIME = 'time';
-    const TYPE_DATE = 'date';
+    public const TYPE_DATE = 'date';
 //    const TYPE_BINARY = 'binary';
-    const TYPE_BOOLEAN = 'boolean';
-    const TYPE_MONEY = 'money';
+    public const TYPE_BOOLEAN = 'boolean';
+    public const TYPE_MONEY = 'money';
 //    const TYPE_JSON = 'json';
-    const TYPE_ENUMERATION = 'enumeration';
+    public const TYPE_ENUMERATION = 'enumeration';
 
     /**
      * @var string имя этого столбца (без кавычек).
@@ -137,7 +136,8 @@ class ColumnSchema extends BaseObject
      * Преобразует входное значение в соответствии с [[type]] и [[dbType]] для использования в запросе к базе данных.
      * Если значение равно null или [[Expression]], оно не будет преобразовано.
      * @param mixed $value input value
-     * @return mixed преобразованное значение. Это также может быть массив, содержащий значение в качестве первого элемента.
+     * @return mixed преобразованное значение. Это также может быть массив,
+     * содержащий значение в качестве первого элемента.
      * и тип PDO в качестве второго элемента.
      */
     public function dbTypecast($value)
@@ -232,18 +232,18 @@ class ColumnSchema extends BaseObject
 //                    return $value;
 //                }
 
-                return (string) $value;
+                return (string)$value;
             case 'integer':
-                return (int) $value;
+                return (int)$value;
             case 'boolean':
                 // treating a 0 bit value as false too
                 // https://github.com/yiisoft/yii2/issues/9006
                 if ($value == 'N' || $value == '0') {
                     return 0;
                 }
-                return (bool) $value;// && $value !== "\0";
+                return (bool)$value;// && $value !== "\0";
             case 'double':
-                return (float) $value;
+                return (float)$value;
             case 'array':
                 if ($this->type == self::TYPE_ENUMERATION) {
                     $value = [
@@ -262,7 +262,14 @@ class ColumnSchema extends BaseObject
      */
 //    private function getPdoParamTypes()
 //    {
-//        return [\PDO::PARAM_BOOL, \PDO::PARAM_INT, \PDO::PARAM_STR, \PDO::PARAM_LOB, \PDO::PARAM_NULL, \PDO::PARAM_STMT];
+//        return [
+//\PDO::PARAM_BOOL,
+// \PDO::PARAM_INT,
+// \PDO::PARAM_STR,
+// \PDO::PARAM_LOB,
+// \PDO::PARAM_NULL,
+// \PDO::PARAM_STMT
+//];
 //    }
 
     public function prepare($key, $columnData)

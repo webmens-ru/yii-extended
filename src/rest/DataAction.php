@@ -20,7 +20,8 @@ use yii\rest\Action;
 /**
  * IndexAction implements the API endpoint for listing multiple models.
  *
- * For more details and usage information on IndexAction, see the [guide article on rest controllers](guide:rest-controllers).
+ * For more details and usage information on IndexAction,
+ * see the [guide article on rest controllers](guide:rest-controllers).
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
@@ -40,7 +41,8 @@ class DataAction extends Action
      *
      * The callable should return an instance of [[ActiveDataProvider]].
      *
-     * If [[dataFilter]] is set the result of [[DataFilter::build()]] will be passed to the callable as a second parameter.
+     * If [[dataFilter]] is set the result of [[DataFilter::build()]]
+     * will be passed to the callable as a second parameter.
      * In this case the signature of the callable should be the following:
      *
      * ```php
@@ -70,7 +72,7 @@ class DataAction extends Action
     public $prepareSearchQuery;
 
     /**
-* @var DataFilter|null data filter to be used for the search filter composition.
+     * @var DataFilter|null data filter to be used for the search filter composition.
      * You must setup this field explicitly in order to enable filter processing.
      * For example:
      *

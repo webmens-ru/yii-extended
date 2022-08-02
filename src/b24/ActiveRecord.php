@@ -14,8 +14,6 @@ use Yii;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Inflector;
-use yii\helpers\StringHelper;
 
 /**
  * ActiveRecord is the base class for classes representing relational data in terms of objects.
@@ -71,7 +69,8 @@ use yii\helpers\StringHelper;
  * $orders = $user->orders;
  * ```
  *
- * For more details and usage information on ActiveRecord, see the [guide article on ActiveRecord](guide:db-active-record).
+ * For more details and usage information on ActiveRecord,
+ * see the [guide article on ActiveRecord](guide:db-active-record).
  *
  * @method ActiveQuery hasMany($class, array $link) See [[BaseActiveRecord::hasMany()]] for more info.
  * @method ActiveQuery hasOne($class, array $link) See [[BaseActiveRecord::hasOne()]] for more info.
@@ -149,7 +148,8 @@ class ActiveRecord extends BaseActiveRecord
                 if (!empty($query->join) || !empty($query->joinWith)) {
                     $pk = static::tableName() . '.' . $pk;
                 }
-                // if condition is scalar, search for a single primary key, if it is array, search for multiple primary key values
+                // if condition is scalar, search for a single primary key,
+                // if it is array, search for multiple primary key values
                 $condition = [$pk => is_array($condition) ? array_values($condition) : $condition];
             } else {
                 throw new InvalidConfigException('"' . get_called_class() . '" must have a primary key.');
@@ -205,7 +205,9 @@ class ActiveRecord extends BaseActiveRecord
 
         foreach ($condition as $key => $value) {
             if (is_string($key) && !in_array($db->quoteSql($key), $columnNames, true)) {
-                throw new InvalidArgumentException('Key "' . $key . '" is not a column name and can not be used as a filter');
+                throw new InvalidArgumentException(
+                    'Key "' . $key . '" is not a column name and can not be used as a filter'
+                );
             }
             $result[$key] = is_array($value) ? array_values($value) : $value;
         }
@@ -214,7 +216,8 @@ class ActiveRecord extends BaseActiveRecord
     }
 
     /**
-     * Допустимые имена столбцов — это имена столбцов таблицы или имена столбцов с префиксом имени таблицы или псевдонимом таблицы.
+     * Допустимые имена столбцов — это имена столбцов таблицы или имена столбцов
+     * с префиксом имени таблицы или псевдонимом таблицы.
      *
      * @param Connection $db
      * @param array $aliases
@@ -334,9 +337,9 @@ class ActiveRecord extends BaseActiveRecord
     {
         $cache = Yii::$app->cache;
         $key = static::tableSchemaCaheKey();
-        $tableSchema =  $cache->getOrSet($key, function () {
+        $tableSchema = $cache->getOrSet($key, function () {
             $b24Obj = self::getConnect();
-            $schemaData =   ArrayHelper::getValue($b24Obj->client->call(
+            $schemaData = ArrayHelper::getValue($b24Obj->client->call(
                 static::fieldsMethod(),
                 static::callAdditionalParameters()
             ), static::fieldsDataSelector());

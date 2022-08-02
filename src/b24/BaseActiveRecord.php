@@ -9,7 +9,6 @@
 namespace wm\yii\b24;
 
 use Yii;
-use yii\base\DynamicModel;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidCallException;
 use yii\base\InvalidConfigException;
@@ -18,9 +17,9 @@ use yii\base\Model;
 use yii\base\ModelEvent;
 use yii\base\NotSupportedException;
 use yii\base\UnknownMethodException;
-use yii\helpers\ArrayHelper;
-use yii\db\ActiveRecordInterface;
 use yii\db\ActiveQueryInterface;
+use yii\db\ActiveRecordInterface;
+use yii\helpers\ArrayHelper;
 
 /**
  * ActiveRecord is the base class for classes representing relational data in terms of objects.
@@ -48,43 +47,43 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
     /**
      * @event Event событие, которое запускается, когда запись инициализируется с помощью [[init()]].
      */
-    const EVENT_INIT = 'init';
+    public const EVENT_INIT = 'init';
     /**
      * @event Event событие, которое запускается после создания записи и заполнения ее результатом запроса.
      */
-    const EVENT_AFTER_FIND = 'afterFind';
+    public const EVENT_AFTER_FIND = 'afterFind';
     /**
      * @event ModelEvent событие, которое срабатывает перед вставкой записи.
-    * Вы можете установить для [[ModelEvent::isValid]] значение `false`, чтобы остановить вставку.
+     * Вы можете установить для [[ModelEvent::isValid]] значение `false`, чтобы остановить вставку.
      */
-    const EVENT_BEFORE_INSERT = 'beforeInsert';
+    public const EVENT_BEFORE_INSERT = 'beforeInsert';
     /**
      * @event AfterSaveEvent событие, которое запускается после вставки записи.
      */
-    const EVENT_AFTER_INSERT = 'afterInsert';
+    public const EVENT_AFTER_INSERT = 'afterInsert';
     /**
      * @event ModelEvent событие, которое запускается перед обновлением записи.
      * Вы можете установить для [[ModelEvent::isValid]] значение `false`, чтобы остановить обновление.
      */
-    const EVENT_BEFORE_UPDATE = 'beforeUpdate';
+    public const EVENT_BEFORE_UPDATE = 'beforeUpdate';
     /**
      * @event AfterSaveEvent событие, которое запускается после обновления записи.
      */
-    const EVENT_AFTER_UPDATE = 'afterUpdate';
+    public const EVENT_AFTER_UPDATE = 'afterUpdate';
     /**
      * @event ModelEvent событие, которое срабатывает перед удалением записи.
      * Вы можете установить для [[ModelEvent::isValid]] значение `false`, чтобы остановить удаление.
      */
-    const EVENT_BEFORE_DELETE = 'beforeDelete';
+    public const EVENT_BEFORE_DELETE = 'beforeDelete';
     /**
      * @event Event событие, которое запускается после удаления записи.
      */
-    const EVENT_AFTER_DELETE = 'afterDelete';
+    public const EVENT_AFTER_DELETE = 'afterDelete';
     /**
      * @event Event событие, которое запускается после обновления записи.
      * @since 2.0.8
      */
-    const EVENT_AFTER_REFRESH = 'afterRefresh';
+    public const EVENT_AFTER_REFRESH = 'afterRefresh';
 
     /**
      * @var array значения атрибутов, индексированные по именам атрибутов
@@ -140,7 +139,8 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
             // запрос по первичному ключу
             $primaryKey = static::primaryKey();
             if (isset($primaryKey[0])) {
-                // если условие скалярное, ищите один первичный ключ, если это массив, ищите несколько значений первичного ключа
+                // если условие скалярное, ищите один первичный ключ, если это массив,
+                // ищите несколько значений первичного ключа
                 $condition = [$primaryKey[0] => is_array($condition) ? array_values($condition) : $condition];
             } else {
                 throw new InvalidConfigException('"' . get_called_class() . '" must have a primary key.');
@@ -214,7 +214,8 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
     /**
      * Возвращает имя столбца, в котором хранится версия блокировки для реализации оптимистичной блокировки.
      *
-     * Оптимистическая блокировка позволяет нескольким пользователям получать доступ к одной и той же записи для редактирования и избегает
+     * Оптимистическая блокировка позволяет нескольким пользователям получать доступ к одной и
+     * той же записи для редактирования и избегает
      * возможные конфликты. В случае, когда пользователь пытается сохранить запись с некоторыми устаревшими данными
      * (поскольку другой пользователь изменил данные), будет выдано исключение [[StaleObjectException]],
      * и обновление или удаление пропускается.
@@ -256,7 +257,8 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
         try {
             return $this->hasAttribute($name);
         } catch (\Exception $e) {
-            // `hasAttribute()` может не работать с базовыми/абстрактными классами, если используется автоматическая выборка списка атрибутов.
+            // `hasAttribute()` может не работать с базовыми/абстрактными классами,
+            // если используется автоматическая выборка списка атрибутов.
             return false;
         }
     }
@@ -274,7 +276,8 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
         try {
             return $this->hasAttribute($name);
         } catch (\Exception $e) {
-            // `hasAttribute()` может не работать с базовыми/абстрактными классами, если используется автоматическая выборка списка атрибутов
+            // `hasAttribute()` может не работать с базовыми/абстрактными классами,
+            // если используется автоматическая выборка списка атрибутов
             return false;
         }
     }
@@ -284,8 +287,8 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
      * Этот метод переопределен, чтобы к атрибутам и связанным объектам можно было получить доступ как к свойствам.
      *
      * @param string $name Имя свойства
-     * @throws InvalidArgumentException если имя отношения неверно
      * @return mixed property value
+     * @throws InvalidArgumentException если имя отношения неверно
      * @see getAttribute()
      */
     public function __get($name)
@@ -461,7 +464,8 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
     /**
      * Заполняет именованное отношение связанными записями.
      * Обратите внимание, что этот метод не проверяет, существует ли отношение или нет.
-     * @param string $name имя отношения, например. `orders` для отношения, определенного с помощью метода `getOrders()` (с учетом регистра).
+     * @param string $name имя отношения, например. `orders` для отношения,
+     * определенного с помощью метода `getOrders()` (с учетом регистра).
      * @param ActiveRecordInterface|array|null $records связанные записи, которые должны быть заполнены в отношении.
      * @see getRelation()
      */
@@ -476,7 +480,8 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
 
     /**
      * Проверяет, заполнено ли именованное отношение записями.
-     * @param string $name имя отношения, например. `orders` для отношения, определенного с помощью метода `getOrders()` (с учетом регистра).
+     * @param string $name имя отношения, например. `orders` для отношения,
+     * определенного с помощью метода `getOrders()` (с учетом регистра).
      * @return bool было ли отношение заполнено записями.
      * @see getRelation()
      */
@@ -543,7 +548,7 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
     /**
      * Возвращает старые значения атрибутов.
      * @return array старые значения атрибутов (пары имя-значение)
-*/
+     */
     public function getOldAttributes()
     {
         return $this->_oldAttributes === null ? [] : $this->_oldAttributes;
@@ -605,7 +610,8 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
      * Возвращает значение, указывающее, был ли изменен именованный атрибут.
      * @param string $name the name of the attribute.
      * @param bool $identical производится ли сравнение нового и старого значения для
-     * идентичные значения с использованием `===`, по умолчанию `true`. В противном случае для сравнения используется `==`.
+     * идентичные значения с использованием `===`, по умолчанию `true`.
+     * В противном случае для сравнения используется `==`.
      * Этот параметр доступен с версии 2.0.4.
      * @return bool был ли изменен атрибут
      */
@@ -646,7 +652,10 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
             }
         } else {
             foreach ($this->_attributes as $name => $value) {
-                if (isset($names[$name]) && (!array_key_exists($name, $this->_oldAttributes) || $value !== $this->_oldAttributes[$name])) {
+                if (
+                    isset($names[$name]) &&
+                    (!array_key_exists($name, $this->_oldAttributes) || $value !== $this->_oldAttributes[$name])
+                ) {
                     $attributes[$name] = $value;
                 }
             }
@@ -789,10 +798,10 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
     }
 
     /**
-     * @see update()
      * @param array $attributes attributes to update
      * @return int|false the number of rows affected, or false if [[beforeSave()]] stops the updating process.
      * @throws StaleObjectException
+     * @see update()
      */
     protected function updateInternal($attributes = null)
     {
@@ -1115,13 +1124,16 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
     /**
      * Возвращает значение(я) первичного ключа.
      * @param bool $asArray следует ли возвращать значение первичного ключа в виде массива. Если "правда",
-     * возвращаемое значение будет массивом с именами столбцов в качестве ключей и значениями столбцов в качестве значений.
-     * Обратите внимание, что для составных первичных ключей всегда будет возвращаться массив независимо от значения этого параметра.
+     * возвращаемое значение будет массивом с именами столбцов в качестве ключей
+     * и значениями столбцов в качестве значений.
+     * Обратите внимание, что для составных первичных ключей всегда будет возвращаться массив
+     * независимо от значения этого параметра.
+     * @return mixed значение первичного ключа. Массив (имя столбца => значение столбца)
+     * возвращается, если первичный ключ
+     * является составным или `$asArray` равно `true`. В противном случае возвращается строка (если
+     * значение ключа равно null).
      * @property mixed The значение первичного ключа. Массив (имя столбца => значение столбца) возвращается, если
      * первичный ключ составной. В противном случае возвращается строка (если
-     * значение ключа равно null).
-     * @return mixed значение первичного ключа. Массив (имя столбца => значение столбца) возвращается, если первичный ключ
-     * является составным или `$asArray` равно `true`. В противном случае возвращается строка (если
      * значение ключа равно null).
      */
     public function getPrimaryKey($asArray = false)
@@ -1147,19 +1159,21 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
      * @param bool $asArray whether to return the primary key value as an array. If `true`,
      * the return value will be an array with column name as key and column value as value.
      * If this is `false` (default), a scalar value will be returned for non-composite primary key.
-     * @property mixed The old primary key value. An array (column name => column value) is
-     * returned if the primary key is composite. A string is returned otherwise (null will be
-     * returned if the key value is null).
      * @return mixed the old primary key value. An array (column name => column value) is returned if the primary key
      * is composite or `$asArray` is `true`. A string is returned otherwise (null will be returned if
      * the key value is null).
      * @throws Exception if the AR model does not have a primary key
+     * @property mixed The old primary key value. An array (column name => column value) is
+     * returned if the primary key is composite. A string is returned otherwise (null will be
+     * returned if the key value is null).
      */
     public function getOldPrimaryKey($asArray = false)
     {
         $keys = static::primaryKey();
         if (empty($keys)) {
-            throw new Exception(get_class($this) . ' does not have a primary key. You should either define a primary key for the corresponding table or override the primaryKey() method.');
+            throw new Exception(get_class($this) .
+                ' does not have a primary key. You should either define a primary key 
+                for the corresponding table or override the primaryKey() method.');
         }
         if (!$asArray && count($keys) === 1) {
             return isset($this->_oldAttributes[$keys[0]]) ? $this->_oldAttributes[$keys[0]] : null;
@@ -1255,7 +1269,8 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
      * Возвращает объект отношения с указанным именем.
      * Отношение определяется методом получения, который возвращает объект [[ActiveQueryInterface]].
      * Он может быть объявлен либо в самом классе Active Record, либо в одном из его поведений.
-     * @param string $name the relation name, e.g. `orders` for a relation defined via `getOrders()` method (case-sensitive).
+     * @param string $name the relation name, e.g. `orders`
+     * for a relation defined via `getOrders()` method (case-sensitive).
      * @param bool $throwException whether to throw exception if the relation does not exist.
      * @return ActiveQueryInterface|ActiveQuery the relational query object. If the relation does not exist
      * and `$throwException` is `false`, `null` will be returned.
@@ -1269,7 +1284,11 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
             $relation = $this->$getter();
         } catch (UnknownMethodException $e) {
             if ($throwException) {
-                throw new InvalidArgumentException(get_class($this) . ' has no relation named "' . $name . '".', 0, $e);
+                throw new InvalidArgumentException(
+                    get_class($this) . ' has no relation named "' . $name . '".',
+                    0,
+                    $e
+                );
             }
 
             return null;
@@ -1287,7 +1306,11 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
             $realName = lcfirst(substr($method->getName(), 3));
             if ($realName !== $name) {
                 if ($throwException) {
-                    throw new InvalidArgumentException('Relation names are case sensitive. ' . get_class($this) . " has a relation named \"$realName\" instead of \"$name\".");
+                    throw new InvalidArgumentException(
+                        'Relation names are case sensitive. ' .
+                        get_class($this) .
+                        " has a relation named \"$realName\" instead of \"$name\"."
+                    );
                 }
 
                 return null;
@@ -1310,7 +1333,8 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
      *
      * Note that this method requires that the primary key value is not null.
      *
-     * @param string $name the case sensitive name of the relationship, e.g. `orders` for a relation defined via `getOrders()` method.
+     * @param string $name the case sensitive name of the relationship, e.g.
+     * `orders` for a relation defined via `getOrders()` method.
      * @param ActiveRecordInterface $model the model to be linked with the current one.
      * @param array $extraColumns additional column values to be saved into the junction table.
      * This parameter is only meaningful for a relationship involving a junction table
@@ -1323,7 +1347,9 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
 
         if ($relation->via !== null) {
             if ($this->getIsNewRecord() || $model->getIsNewRecord()) {
-                throw new InvalidCallException('Unable to link models: the models being linked cannot be newly created.');
+                throw new InvalidCallException(
+                    'Unable to link models: the models being linked cannot be newly created.'
+                );
             }
             if (is_array($relation->via)) {
                 /* @var $viaRelation ActiveQuery */
@@ -1363,7 +1389,9 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
             if ($p1 && $p2) {
                 if ($this->getIsNewRecord()) {
                     if ($model->getIsNewRecord()) {
-                        throw new InvalidCallException('Unable to link models: at most one model can be newly created.');
+                        throw new InvalidCallException(
+                            'Unable to link models: at most one model can be newly created.'
+                        );
                     }
                     $this->bindModels(array_flip($relation->link), $this, $model);
                 } else {
@@ -1374,7 +1402,9 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
             } elseif ($p2) {
                 $this->bindModels($relation->link, $model, $this);
             } else {
-                throw new InvalidCallException('Unable to link models: the link defining the relation does not involve any primary key.');
+                throw new InvalidCallException(
+                    'Unable to link models: the link defining the relation does not involve any primary key.'
+                );
             }
         }
 
@@ -1401,7 +1431,8 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
      * The model with the foreign key of the relationship will be deleted if `$delete` is `true`.
      * Otherwise, the foreign key will be set `null` and the model will be saved without validation.
      *
-     * @param string $name the case sensitive name of the relationship, e.g. `orders` for a relation defined via `getOrders()` method.
+     * @param string $name the case sensitive name of the relationship, e.g.
+     * `orders` for a relation defined via `getOrders()` method.
      * @param ActiveRecordInterface $model the model to be unlinked from the current one.
      * You have to make sure that the model is really related with the current model as this method
      * does not check this.
@@ -1484,7 +1515,9 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
                 }
                 $delete ? $this->delete() : $this->save(false);
             } else {
-                throw new InvalidCallException('Unable to unlink models: the link does not involve any primary key.');
+                throw new InvalidCallException(
+                    'Unable to unlink models: the link does not involve any primary key.'
+                );
             }
         }
 
@@ -1508,11 +1541,14 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
      *
      * Note that to destroy the relationship without removing records make sure your keys can be set to null
      *
-     * @param string $name the case sensitive name of the relationship, e.g. `orders` for a relation defined via `getOrders()` method.
+     * @param string $name the case sensitive name of the relationship, e.g.
+     * `orders` for a relation defined via `getOrders()` method.
      * @param bool $delete whether to delete the model that contains the foreign key.
      *
-     * Note that the deletion will be performed using [[deleteAll()]], which will not trigger any events on the related models.
-     * If you need [[EVENT_BEFORE_DELETE]] or [[EVENT_AFTER_DELETE]] to be triggered, you need to [[find()|find]] the models first
+     * Note that the deletion will be performed using [[deleteAll()]],
+     * which will not trigger any events on the related models.
+     * If you need [[EVENT_BEFORE_DELETE]] or [[EVENT_AFTER_DELETE]] to be triggered,
+     * you need to [[find()|find]] the models first
      * and then call [[delete()]] on each of them.
      */
     public function unlinkAll($name, $delete = false)
@@ -1601,7 +1637,11 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
         foreach ($link as $fk => $pk) {
             $value = $primaryModel->$pk;
             if ($value === null) {
-                throw new InvalidCallException('Unable to link models: the primary key of ' . get_class($primaryModel) . ' is null.');
+                throw new InvalidCallException(
+                    'Unable to link models: the primary key of ' .
+                    get_class($primaryModel) .
+                    ' is null.'
+                );
             }
             if (is_array($foreignModel->$fk)) { // relation via array valued attribute
                 $foreignModel->{$fk}[] = $value;

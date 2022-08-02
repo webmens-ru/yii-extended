@@ -4,8 +4,6 @@ namespace wm\yii\b24;
 
 use yii\base\BaseObject;
 use yii\base\InvalidArgumentException;
-use yii\helpers\ArrayHelper;
-use Yii;
 
 /**
  * TableSchema представляет метаданные таблицы базы данных.
@@ -22,7 +20,8 @@ class TableSchema extends BaseObject
      */
     public $schemaName;
     /**
-     * @var string имя этой таблицы. Имя схемы не указано. Используйте [[fullName]], чтобы получить имя с префиксом имени схемы.
+     * @var string имя этой таблицы. Имя схемы не указано. Используйте [[fullName]],
+     * чтобы получить имя с префиксом имени схемы.
      */
     public $name;
     /**
