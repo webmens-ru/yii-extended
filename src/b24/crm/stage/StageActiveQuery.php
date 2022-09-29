@@ -12,6 +12,8 @@ class StageActiveQuery extends ActiveQuery
 
     protected $oneMethodName = 'crm.status.get';
 
+    public $primaryKey = 'ID';
+
 //    protected function getPrimaryTableName()
 //    {
 //        $modelClass = $this->modelClass;
