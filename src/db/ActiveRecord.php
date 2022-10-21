@@ -43,10 +43,11 @@ class ActiveRecord extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getRestRules()
+    public static function getRestRules()
     {
         $res = [];
-        $rules = $this->rules();
+        $model = new static();
+        $rules = $model->rules();
         foreach ($rules as $value) {
             $temp = [];
             $temp['fields'] = array_shift($value);
