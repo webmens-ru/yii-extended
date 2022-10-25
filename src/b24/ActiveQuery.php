@@ -635,7 +635,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             $attribute = reset($this->link);
             foreach ($models as $model) {
                 $value = isset($model[$attribute]) ? $model[$attribute] : null;
-                if ($value !== null && $value !== 0) {
+                if ($value !== null && $value != 0) {
                     if (is_array($value)) {
                         $values = array_merge($values, $value);
                     } elseif ($value instanceof ArrayExpression && $value->getDimension() === 1) {
@@ -680,7 +680,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             $values = array_merge($scalarValues, $nonScalarValues);
         }
 
-        $this->andWhere(['=', $attributes, $values]);
+        $this->andWhere([$attributes => $values]);
     }
 
     /**
