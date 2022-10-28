@@ -69,6 +69,7 @@ class ActiveRestController extends \yii\rest\ActiveController
         // настроить подготовку провайдера данных с помощью метода
         // "prepareDataProvider()"
         $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
+        $actions['delete']['class'] = 'wm\yii\rest\DeleteAction';
         $actions['data'] = [
             'class' => 'wm\yii\rest\DataAction',
             'modelClass' => $this->modelClass,
