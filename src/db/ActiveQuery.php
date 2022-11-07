@@ -40,35 +40,58 @@ class ActiveQuery extends \yii\db\ActiveQuery
      */
     public function andFilterCompare($name, $value, $defaultOperator = '=')
     {
-        $arr = [];
-        //убираем '[ и ']' в начале и в конце строки в запросе
-        if ((substr($value, 0, 1) == '[') && (substr($value, -1, 1) == ']')) {
-            $data = substr($value, 1, -1);
-            $arr = explode(',', $data);
-            foreach ($arr as $var) {
-                $this->andFilterCompare($name, $var);
-            }
-            return $this;
-        } else {
-            if (preg_match('/^(<>|>=|>|<=|<|=)/', $value, $matches)) {
-                $operator = $matches[1];
-                $value = substr($value, strlen($operator));
-            } elseif ($value == 'isNull') {
+        switch ($defaultOperator) {
+            case 'in':
+                return $this->andFilterWhere([$defaultOperator, $name, $value]);
+                break;
+            case '%like':
+                return $this->andFilterWhere(['like', $name, '%' . $value, false]);
+                break;
+            case 'like%':
+                return $this->andFilterWhere(['like', $name, $value . '%', false]);
+                break;
+            case '%like%':
+                return $this->andFilterWhere(['like', $name, '%' . $value . '%', false]);
+                break;
+            case 'isNull':
                 return $this->andWhere([$name => null]);
-            } elseif ($value == 'isNotNull') {
+                break;
+            case 'isNotNull':
                 $null = new Expression('NULL');
                 return $this->andWhere(['is not', $name, $null]);
-            } elseif (preg_match('/^(%%)/', $value, $matches)) {
-                $operator = $matches[1];
-                $value = substr($value, strlen($operator));
-                $operator = 'like';
-            } elseif (preg_match('/^(in\[.*])/', $value, $matches)) {
-                $operator = 'in';
-                $value = explode(',', mb_substr($value, 3, -1));
-            } else {
-                $operator = $defaultOperator;
-            }
-            return $this->andFilterWhere([$operator, $name, $value]);
+                break;
+            default:
+                //убираем '[ и ']' в начале и в конце строки в запросе
+                if ((substr($value, 0, 1) == '[') && (substr($value, -1, 1) == ']')) {
+                    $arr = [];
+                    $data = substr($value, 1, -1);
+                    $arr = explode(',', $data);
+                    foreach ($arr as $var) {
+                        $this->andFilterCompare($name, $var);
+                    }
+                    return $this;
+                } else {
+                    if (preg_match('/^(<>|>=|>|<=|<|=)/', $value, $matches)) {
+                        $operator = $matches[1];
+                        $value = substr($value, strlen($operator));
+                    } elseif ($value == 'isNull') {
+                        return $this->andWhere([$name => null]);
+                    } elseif ($value == 'isNotNull') {
+                        $null = new Expression('NULL');
+                        return $this->andWhere(['is not', $name, $null]);
+                    } elseif (preg_match('/^(%%)/', $value, $matches)) {
+                        $operator = $matches[1];
+                        $value = substr($value, strlen($operator));
+                        $operator = 'like';
+                    } elseif (preg_match('/^(in\[.*])/', $value, $matches)) {
+                        $operator = 'in';
+                        $value = explode(',', mb_substr($value, 3, -1));
+                    } else {
+                        $operator = $defaultOperator;
+                    }
+                    return $this->andFilterWhere([$operator, $name, $value]);
+                }
+                break;
         }
     }
 }
