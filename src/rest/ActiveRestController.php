@@ -127,4 +127,12 @@ class ActiveRestController extends \yii\rest\ActiveController
     {
         return null;
     }
+
+    /**
+     * @return mixed
+     */
+    public function actionGridActions()
+    {
+        return null;
+    }
 }
