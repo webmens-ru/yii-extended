@@ -89,4 +89,9 @@ class ActiveRecord extends \yii\db\ActiveRecord
     {
         return ($value == 1) ? true : false;
     }
+
+    public static function getGridOptions()
+    {
+        return [];
+    }
 }

@@ -787,4 +787,9 @@ class ActiveRecord extends BaseActiveRecord
     {
         return [];
     }
+
+    public static function getGridOptions()
+    {
+        return [];
+    }
 }
