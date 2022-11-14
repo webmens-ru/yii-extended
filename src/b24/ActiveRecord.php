@@ -81,6 +81,8 @@ use yii\helpers\ArrayHelper;
  */
 class ActiveRecord extends BaseActiveRecord
 {
+
+    public static $primaryKey = ['id'];
     /**
      * Загружает значения по умолчанию из схемы таблицы базы данных.
      *
@@ -343,7 +345,7 @@ class ActiveRecord extends BaseActiveRecord
                 static::fieldsMethod(),
                 static::callAdditionalParameters()
             ), static::fieldsDataSelector());
-            return new TableSchema($schemaData);
+            return new TableSchema($schemaData, ['primaryKey' => static::$primaryKey]);
         }, 300);
         return $tableSchema;
     }

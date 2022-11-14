@@ -65,6 +65,23 @@ class SmartProcessActiveRecord extends \wm\yii\b24\ActiveRecord
         return Yii::createObject(SmartProcessActiveQuery::className(), [get_called_class()]);
     }
 
+    public static function deleteAll($condition = null, $params = []) //TODO узнать что нужно возвращать
+    {
+        if($id = ArrayHelper::getValue($condition, 'id')){
+            $component = new b24Tools();
+            $b24App = null;// $component->connectFromUser($auth);
+//            if ($auth === null) {
+                $b24App = $component->connectFromAdmin();
+//            } else {
+//                $b24App = $component->connectFromUser($auth);
+//            }
+            $obB24 = new B24Object($b24App);
+            $data = $obB24->client->call('crm.item.delete', ['entityTypeId' => static::entityTypeId(), 'id' => $id]);
+        }else{
+           return null; 
+        }
+    }
+
 //    public static function listDataSelector()
 //    {
 //        return 'result.items';
