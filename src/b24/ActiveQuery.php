@@ -919,6 +919,9 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             case '<>':
                 return $this->andFilterWhere(['!=', $name, $value]);
                 break;
+            case 'in':
+                return $this->andFilterWhere(['=', $name, $value]);
+                break;
             case '%like':
                 break;
             case 'like%':
