@@ -915,39 +915,25 @@ class ActiveQuery extends Query implements ActiveQueryInterface
 
     public function andFilterCompare($name, $value, $defaultOperator = '=')
     {
-        //$filter = [];
-        //убираем '[' и ']' в начале и в конце строки в запросе
-        if ((substr($value, 0, 1) == '[') && (substr($value, -1, 1) == ']')) {
-            $data = substr($value, 1, -1);
-            $arr = explode(',', $data);
-            foreach ($arr as $var) {
-                $this->andFilterCompare($name, $var);
-            }
-            return $this;
-        } else {
-            if (preg_match('/^(>=|>|<=|<|=)/', $value, $matches)) {
-                $operator = $matches[1];
-                $value = substr($value, strlen($operator));
-            } elseif (preg_match('/^(<>)/', $value, $matches)) {
-                $operator = '!=';
-                $value = substr($value, strlen($operator));
-            }
-//            elseif ($str == 'isNull') {
-//                return $this->andWhere([$name => null]);
-//            } elseif (preg_match('/^(%%)/', $str, $matches)) {
-//                $operator = $matches[1];
-//                $value = substr($str, strlen($operator));
-//                $operator = 'like';
-//            } elseif (preg_match('/^(in\[.*\])/', $str, $matches)) {
-//                $operator = 'in';
-//                $value = explode(',', mb_substr($str, 3, -1));
-//            }
-            else {
-                $operator = $defaultOperator;
-            }
-//            $c = $operator.$name." ".$value;
-            $this->andFilterWhere([$operator, $name, $value]);
-            return $this;
+        switch ($defaultOperator) {
+            case '<>':
+                return $this->andFilterWhere(['!=', $name, $value]);
+                break;
+            case 'in':
+                return $this->andFilterWhere(['=', $name, $value]);
+                break;
+            case '%like':
+                break;
+            case 'like%':
+                break;
+            case '%like%':
+                break;
+            case 'isNull':
+                break;
+            case 'isNotNull':
+                break;
+            default:
+                return $this->andFilterWhere([$defaultOperator, $name, $value]);
         }
     }
 
