@@ -927,6 +927,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             case 'like%':
                 break;
             case '%like%':
+                return $this->andFilterWhere(['%', $name, $value]);
                 break;
             case 'isNull':
                 break;
