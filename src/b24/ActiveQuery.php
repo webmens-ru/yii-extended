@@ -930,8 +930,10 @@ class ActiveQuery extends Query implements ActiveQueryInterface
                 return $this->andFilterWhere(['%', $name, $value]);
                 break;
             case 'isNull':
+                return $this->andFilterWhere(['=', $name, '']);
                 break;
             case 'isNotNull':
+                return $this->andFilterWhere(['!=', $name, '']);
                 break;
             default:
                 return $this->andFilterWhere([$defaultOperator, $name, $value]);
