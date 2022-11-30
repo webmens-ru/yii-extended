@@ -5,8 +5,8 @@ namespace wm\yii\b24;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
 use yii\db\ActiveQueryInterface;
-use yii\helpers\ArrayHelper;
 use yii\db\ActiveRecordInterface;
+use yii\helpers\ArrayHelper;
 
 //Код не универсален а направлен на смарт процессы стоит перенести в другой класс
 class ActiveQuery extends Query implements ActiveQueryInterface
@@ -930,10 +930,10 @@ class ActiveQuery extends Query implements ActiveQueryInterface
                 return $this->andFilterWhere(['%', $name, $value]);
                 break;
             case 'isNull':
-                return $this->andFilterWhere(['=', $name, '']);
+                return $this->andWhere(['=' . $name => '']);
                 break;
             case 'isNotNull':
-                return $this->andFilterWhere(['!=', $name, '']);
+                return $this->andWhere(['!=' . $name => '']);
                 break;
             default:
                 return $this->andFilterWhere([$defaultOperator, $name, $value]);
