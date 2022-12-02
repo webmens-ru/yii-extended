@@ -626,11 +626,9 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     private function filterByModels($models)
     {
         $attributes = array_keys($this->link);
-
         $attributes = $this->prefixKeyColumns($attributes);
-
         $values = [];
-        if (count($attributes) === 1) {
+//        if (count($attributes) === 1) {
             // single key
             $attribute = reset($this->link);
             foreach ($models as $model) {
@@ -648,22 +646,22 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             if (empty($values)) {
                 $this->emulateExecution();
             }
-        } else {
-            // composite keys
-
-            // ensure keys of $this->link are prefixed the same way as $attributes
-            $prefixedLink = array_combine($attributes, $this->link);
-            foreach ($models as $model) {
-                $v = [];
-                foreach ($prefixedLink as $attribute => $link) {
-                    $v[$attribute] = $model[$link];
-                }
-                $values[] = $v;
-                if (empty($v)) {
-                    $this->emulateExecution();
-                }
-            }
-        }
+//        } else {
+//            // composite keys
+//
+//            // ensure keys of $this->link are prefixed the same way as $attributes
+//            $prefixedLink = array_combine($attributes, $this->link);
+//            foreach ($models as $model) {
+//                $v = [];
+//                foreach ($prefixedLink as $attribute => $link) {
+//                    $v[$attribute] = $model[$link];
+//                }
+//                $values[] = $v;
+//                if (empty($v)) {
+//                    $this->emulateExecution();
+//                }
+//            }
+//        }
 
         if (!empty($values)) {
             $scalarValues = [];
@@ -679,8 +677,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
             $scalarValues = array_unique($scalarValues);
             $values = array_merge($scalarValues, $nonScalarValues);
         }
-
-        $this->andWhere([$attributes => $values]);
+        $this->andWhere([reset($attributes) => $values]);
     }
 
     /**
