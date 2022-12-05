@@ -4,9 +4,9 @@
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
-use yii\helpers\BaseArrayHelper;
-
 namespace wm\yii\helpers;
+
+use yii\helpers\BaseArrayHelper;
 
 use yii\base\BaseObject;
 
