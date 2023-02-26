@@ -19,6 +19,10 @@ use yii\base\NotSupportedException;
 use yii\base\UnknownMethodException;
 use yii\db\ActiveQueryInterface;
 use yii\db\ActiveRecordInterface;
+use yii\db\AfterSaveEvent;
+use yii\db\Exception;
+use yii\db\ExpressionInterface;
+use yii\db\StaleObjectException;
 use yii\helpers\ArrayHelper;
 
 /**

@@ -2,9 +2,10 @@
 
 namespace app\modules\wm\b24\crm\productrow;
 
+use wm\yii\b24\ActiveQuery;
 use yii\helpers\ArrayHelper;
 
-class ProductrowActiveQuery extends \app\modules\wm\b24\ActiveQuery
+class ProductrowActiveQuery extends ActiveQuery
 {
     protected $listMethodName = 'crm.item.productrow.list';
 

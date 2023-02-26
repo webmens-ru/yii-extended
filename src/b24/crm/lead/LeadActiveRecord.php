@@ -2,6 +2,9 @@
 
 namespace wm\yii\b24\crm\lead;
 
+use Bitrix24\B24Object;
+use wm\b24tools\b24Tools;
+use wm\yii\helpers\ArrayHelper;
 use Yii;
 
 class LeadActiveRecord extends \wm\yii\b24\ActiveRecord

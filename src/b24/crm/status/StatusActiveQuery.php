@@ -2,6 +2,8 @@
 
 namespace wm\yii\b24\crm\status;
 
+use wm\yii\helpers\ArrayHelper;
+
 class StatusActiveQuery extends \wm\yii\b24\ActiveQuery
 {
     //    public $entityTypeId;

@@ -259,9 +259,9 @@ class ColumnSchema extends BaseObject
         return $value;
     }
 
-    /**
-     * @return int[] array of numbers that represent possible PDO parameter types
-     */
+//    /**
+//     * @return int[] array of numbers that represent possible PDO parameter types
+//     */
 //    private function getPdoParamTypes()
 //    {
 //        return [

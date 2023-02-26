@@ -6,6 +6,7 @@ use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
 use yii\db\ActiveQueryInterface;
 use yii\db\ActiveRecordInterface;
+use yii\db\ArrayExpression;
 use yii\helpers\ArrayHelper;
 
 //Код не универсален а направлен на смарт процессы стоит перенести в другой класс

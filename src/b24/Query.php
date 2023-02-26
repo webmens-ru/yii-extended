@@ -7,6 +7,7 @@ use wm\b24tools\b24Tools;
 use Yii;
 use yii\base\Component;
 use yii\base\NotSupportedException;
+use yii\db\ExpressionInterface;
 use yii\db\QueryInterface;
 use yii\helpers\ArrayHelper;
 
@@ -237,10 +238,10 @@ class Query extends Component implements QueryInterface
         return $this;
     }
 
-    /**
-     * Подготавливает данные для all-запроса в Битрикс
-     * @return array
-     */
+//    /**
+//     * Подготавливает данные для all-запроса в Битрикс
+//     * @return array
+//     */
     protected function prepairParams()
     {
         //$this->getEntityTypeIdUsedInFrom();/
@@ -254,10 +255,10 @@ class Query extends Component implements QueryInterface
         $this->params = $data;
     }
 
-    /**
-     * Подготавливает данные для one-запроса в Битрикс
-     * @return array
-     */
+//    /**
+//     * Подготавливает данные для one-запроса в Битрикс
+//     * @return array
+//     */
     protected function prepairOneParams()
     {
         //$this->getEntityTypeIdUsedInFrom();/

@@ -3,8 +3,9 @@
 namespace app\modules\wm\b24\crm\deal\productrow;
 
 use yii\helpers\ArrayHelper;
+use wm\yii\b24\ActiveQuery;
 
-class DealProductrowsActiveQuery extends \app\modules\wm\b24\ActiveQuery
+class DealProductrowsActiveQuery extends ActiveQuery
 {
     protected $listMethodName = 'crm.deal.productrows.get';
 

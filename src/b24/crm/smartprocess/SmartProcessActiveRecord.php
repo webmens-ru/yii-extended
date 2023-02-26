@@ -6,7 +6,7 @@ namespace wm\yii\b24\crm\smartprocess;
 use Bitrix24\B24Object;
 use wm\b24tools\b24Tools;
 use Yii;
-use yii\helpers\ArrayHelper;
+use wm\yii\helpers\ArrayHelper;
 
 class SmartProcessActiveRecord extends \wm\yii\b24\ActiveRecord
 {

@@ -13,6 +13,8 @@ use wm\b24tools\b24Tools;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
+use yii\db\ExpressionInterface;
+use yii\db\StaleObjectException;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -81,6 +83,10 @@ use yii\helpers\ArrayHelper;
  */
 class ActiveRecord extends BaseActiveRecord
 {
+    public static function tableName(){
+        return '';
+    }
+
 
     public static $primaryKey = ['id'];
     /**
@@ -138,31 +144,31 @@ class ActiveRecord extends BaseActiveRecord
      */
     // TODO findByCondition($condition)
     //  Переписать для b24
-    protected static function findByCondition($condition)
-    {
-        $query = static::find();
-
-        if (!ArrayHelper::isAssociative($condition) && !$condition instanceof ExpressionInterface) {
-            // query by primary key
-            $primaryKey = static::primaryKey();
-            if (isset($primaryKey[0])) {
-                $pk = $primaryKey[0];
-                if (!empty($query->join) || !empty($query->joinWith)) {
-                    $pk = static::tableName() . '.' . $pk;
-                }
-                // if condition is scalar, search for a single primary key,
-                // if it is array, search for multiple primary key values
-                $condition = [$pk => is_array($condition) ? array_values($condition) : $condition];
-            } else {
-                throw new InvalidConfigException('"' . get_called_class() . '" must have a primary key.');
-            }
-        } elseif (is_array($condition)) {
-            $aliases = static::filterValidAliases($query);
-            $condition = static::filterCondition($condition, $aliases);
-        }
-
-        return $query->andWhere($condition);
-    }
+//    protected static function findByCondition($condition)
+//    {
+//        $query = static::find();
+//
+//        if (!ArrayHelper::isAssociative($condition) && !$condition instanceof ExpressionInterface) {
+//            // query by primary key
+//            $primaryKey = static::primaryKey();
+//            if (isset($primaryKey[0])) {
+//                $pk = $primaryKey[0];
+//                if (!empty($query->join) || !empty($query->joinWith)) {
+//                    $pk = static::tableName() . '.' . $pk;
+//                }
+//                // if condition is scalar, search for a single primary key,
+//                // if it is array, search for multiple primary key values
+//                $condition = [$pk => is_array($condition) ? array_values($condition) : $condition];
+//            } else {
+//                throw new InvalidConfigException('"' . get_called_class() . '" must have a primary key.');
+//            }
+//        } elseif (is_array($condition)) {
+//            $aliases = static::filterValidAliases($query);
+//            $condition = static::filterCondition($condition, $aliases);
+//        }
+//
+//        return $query->andWhere($condition);
+//    }
 
     /**
      * Returns table aliases which are not the same as the name of the tables.
@@ -711,11 +717,11 @@ class ActiveRecord extends BaseActiveRecord
         return static::tableName() === $record->tableName() && $this->getPrimaryKey() === $record->getPrimaryKey();
     }
 
-    /**
-     * Returns a value indicating whether the specified operation is transactional in the current [[$scenario]].
-     * @param int $operation the operation to check. Possible values are [[OP_INSERT]], [[OP_UPDATE]] and [[OP_DELETE]].
-     * @return bool whether the specified operation is transactional in the current [[scenario]].
-     */
+//    /**
+//     * Returns a value indicating whether the specified operation is transactional in the current [[$scenario]].
+//     * @param int $operation the operation to check. Possible values are [[OP_INSERT]], [[OP_UPDATE]] and [[OP_DELETE]].
+//     * @return bool whether the specified operation is transactional in the current [[scenario]].
+//     */
 //    public function isTransactional($operation)
 //    {
 //        $scenario = $this->getScenario();
