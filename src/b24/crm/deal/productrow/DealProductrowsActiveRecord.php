@@ -37,6 +37,6 @@ class DealProductrowsActiveRecord extends \wm\yii\b24\ActiveRecord
      */
     public static function find()
     {
-        return Yii::createObject(DealUserfieldActiveQuery::className(), [get_called_class()]);
+        return Yii::createObject(DealProductrowsActiveQuery::class, [get_called_class()]);
     }
 }

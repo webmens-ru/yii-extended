@@ -1,6 +1,6 @@
 <?php
 
-namespace  wm\yii\b24\crm\department;
+namespace  wm\yii\b24\department;
 
 use wm\yii\b24\ActiveQuery;
 use yii\helpers\ArrayHelper;
@@ -47,9 +47,9 @@ class DepartmentActiveQuery extends ActiveQuery
 
     protected function prepareFullParams($id)
     {
-        $this->getEntityTypeIdUsedInFrom();
+//        $this->getEntityTypeIdUsedInFrom();
         $this->params = [
-            'entityTypeId' => $this->entityTypeId,
+//            'entityTypeId' => $this->entityTypeId,
             'id' => $id
         ];
     }

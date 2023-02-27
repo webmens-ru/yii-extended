@@ -16,7 +16,7 @@ class InvoiceActiveRecord extends \wm\yii\b24\ActiveRecord
      */
     public static function tableSchemaCaheKey()
     {
-        return static::fieldsMethod() . _ . static::entityTypeId();
+        return static::fieldsMethod() . '_' . static::entityTypeId();
     }
 
     /**

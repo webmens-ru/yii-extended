@@ -34,6 +34,8 @@ class DeleteAction extends Action
             $id = $getId;
         } elseif ($postId = $request->post('id')) {
             $id = $postId;
+        }else{
+            $id = null;
         }
         $model = $this->findModel($id);
 

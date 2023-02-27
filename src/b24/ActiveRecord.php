@@ -121,12 +121,12 @@ class ActiveRecord extends BaseActiveRecord
         return $this;
     }
 
-    /**
-     * Returns the database connection used by this AR class.
-     * By default, the "db" application component is used as the database connection.
-     * You may override this method if you want to use a different database connection.
-     * @return Connection the database connection used by this AR class.
-     */
+//    /**
+//     * Returns the database connection used by this AR class.
+//     * By default, the "db" application component is used as the database connection.
+//     * You may override this method if you want to use a different database connection.
+//     * @return Connection the database connection used by this AR class.
+//     */
     public static function getDb()
     {
 //        return Yii::$app->getDb();
@@ -212,7 +212,7 @@ class ActiveRecord extends BaseActiveRecord
         $columnNames = static::filterValidColumnNames($db, $aliases);
 
         foreach ($condition as $key => $value) {
-            if (is_string($key) && !in_array($db->quoteSql($key), $columnNames, true)) {
+            if (is_string($key) /*&& !in_array($db->quoteSql($key), $columnNames, true)*/) {
                 throw new InvalidArgumentException(
                     'Key "' . $key . '" is not a column name and can not be used as a filter'
                 );
@@ -428,11 +428,14 @@ class ActiveRecord extends BaseActiveRecord
     public static function populateRecord($record, $row)
     {
         $columns = $record->getTableSchema()->columns;
+        Yii::warning($columns, '$columns');
+        Yii::warning($row, '$row');
         foreach ($row as $name => $value) {
             if (isset($columns[$name])) {
                 $row[$name] = $columns[$name]->phpTypecast($value);
             }
         }
+
         parent::populateRecord($record, $row);
     }
 

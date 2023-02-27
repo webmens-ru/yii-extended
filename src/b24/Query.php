@@ -12,6 +12,15 @@ use yii\db\QueryInterface;
 use yii\helpers\ArrayHelper;
 
 //Код не универсален а направлен на смарт процессы стоит перенести в другой класс
+
+/**
+ * Class Query
+ * @package wm\yii\b24
+ *
+ * @property string $listDataSelector
+ * @property string $listMethodName
+ * @property string $oneMethodName
+ */
 class Query extends Component implements QueryInterface
 {
 //    public $selectOption;
@@ -124,6 +133,10 @@ class Query extends Component implements QueryInterface
         return $rows;
     }
 
+    public function getListDataSelector(){
+        return '';
+    }
+
     public function allLimit($obB24)
     {
         $this->listDataSelector = $this->getListDataSelector();
@@ -164,6 +177,10 @@ class Query extends Component implements QueryInterface
         $ids = ArrayHelper::getColumn($this->allNotLimit($obB24), $this->primaryKey);
         $countCalls = count($ids);
         return $this->allFull($obB24, $ids, $countCalls);
+    }
+
+    protected function prepareFullParams($data){
+
     }
 
     protected function allFull($obB24, $ids, $countCalls)
@@ -302,15 +319,16 @@ class Query extends Component implements QueryInterface
 
     public function exists($db = null)
     {
-        //TODO Переписать
+//        //TODO Переписать
         if ($this->emulateExecution) {
             return false;
         }
-        $command = $this->createCommand($db);
-        $params = $command->params;
-        $command->setSql($command->db->getQueryBuilder()->selectExists($command->getSql()));
-        $command->bindValues($params);
-        return (bool)$command->queryScalar();
+//        $command = $this->createCommand($db);
+//        $params = $command->params;
+//        $command->setSql($command->db->getQueryBuilder()->selectExists($command->getSql()));
+//        $command->bindValues($params);
+//        return (bool)$command->queryScalar();
+        return true;
     }
 
 //    public function count($q = '*', $db = null)
@@ -323,6 +341,23 @@ class Query extends Component implements QueryInterface
 //        return $this->queryScalar("COUNT($q)", $db);
 //    }
 
+    /**
+     * @param null $auth
+     * @return array|bool|mixed
+     * @throws \Bitrix24\Exceptions\Bitrix24ApiException
+     * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
+     * @throws \Bitrix24\Exceptions\Bitrix24Exception
+     * @throws \Bitrix24\Exceptions\Bitrix24IoException
+     * @throws \Bitrix24\Exceptions\Bitrix24MethodNotFoundException
+     * @throws \Bitrix24\Exceptions\Bitrix24PaymentRequiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalDeletedException
+     * @throws \Bitrix24\Exceptions\Bitrix24PortalRenamedException
+     * @throws \Bitrix24\Exceptions\Bitrix24SecurityException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsExpiredException
+     * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
+     * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
+     * @throws \yii\db\Exception
+     */
     public function one($auth = null)
     {
         if ($this->emulateExecution) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace wm\yii\b24\crm\department;
+namespace wm\yii\b24\department;
 
 use wm\yii\b24\ActiveRecord;
 use Yii;
