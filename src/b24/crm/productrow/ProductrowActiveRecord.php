@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\wm\b24\crm\productrow;
+namespace wm\yii\b24\crm\productrow;
 
 use Yii;
 

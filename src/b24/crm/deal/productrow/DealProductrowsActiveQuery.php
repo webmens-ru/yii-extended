@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\wm\b24\crm\deal\productrow;
+namespace wm\yii\b24\crm\deal\productrow;
 
 use yii\helpers\ArrayHelper;
 use wm\yii\b24\ActiveQuery;

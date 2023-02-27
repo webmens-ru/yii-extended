@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\wm\b24\crm\deal\productrow;
+namespace wm\yii\b24\crm\deal\productrow;
 
 use Yii;
 
@@ -37,6 +37,6 @@ class DealProductrowsActiveRecord extends \wm\yii\b24\ActiveRecord
      */
     public static function find()
     {
-        return Yii::createObject(DealProductrowsActiveQuery::className(), [get_called_class()]);
+        return Yii::createObject(DealUserfieldActiveQuery::className(), [get_called_class()]);
     }
 }
