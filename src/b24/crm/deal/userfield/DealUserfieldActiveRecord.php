@@ -26,7 +26,7 @@ class DealUserfieldActiveRecord extends \wm\yii\b24\ActiveRecord
     {
         return $this->attributes();
     }
-//TODO getFooter($models) точно нужно? тут
+
     public static function getFooter($models)
     {
         return [];
@@ -37,6 +37,6 @@ class DealUserfieldActiveRecord extends \wm\yii\b24\ActiveRecord
      */
     public static function find()
     {
-        return Yii::createObject(DealUserfieldActiveQuery::className(), [get_called_class()]);
+        return Yii::createObject(DealUserfieldActiveQuery::class, [get_called_class()]);
     }
 }
