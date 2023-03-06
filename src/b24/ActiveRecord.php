@@ -799,6 +799,11 @@ class ActiveRecord extends BaseActiveRecord
         return [];
     }
 
+    public static function getGridData($models)
+    {
+        return $models;
+    }
+
     public static function getGridOptions()
     {
         return [];

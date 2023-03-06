@@ -211,7 +211,7 @@ class DataAction extends Action
 
         return [
             'header' => $this->modelClass::getHeader($models),
-            'grid' => $models,
+            'grid' => $this->modelClass::getGridData($models),
             'footer' => $this->modelClass::getFooter($models),
             'options' => (is_callable([$this->modelClass, 'getGridOptions'])) ? $this->modelClass::getGridOptions() : []
         ];

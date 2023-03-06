@@ -85,6 +85,11 @@ class ActiveRecord extends \yii\db\ActiveRecord
         return [];
     }
 
+    public static function getGridData($models)
+    {
+        return $models;
+    }
+
     public static function getBooleanValue($value)
     {
         return ($value == 1) ? true : false;
