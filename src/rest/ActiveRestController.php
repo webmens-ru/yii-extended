@@ -12,6 +12,7 @@ use yii\filters\auth\CompositeAuth;
  */
 class ActiveRestController extends \yii\rest\ActiveController
 {
+    public $modelClassSearch;
     /**
      * @return array
      */

@@ -43,7 +43,7 @@ class Query extends Component implements QueryInterface
     public $params = [];
 
     /**
-     * @var string|array|ExpressionInterface|пустое условие запроса. Это относится к предложению WHERE в операторе SQL.
+     * @var string|array|ExpressionInterface|null условие запроса. Это относится к предложению WHERE в операторе SQL.
      * Например, `['возраст' => 31, 'команда' => 1]`.
      * @see where() для корректного синтаксиса при указании этого значения.
      */
@@ -738,7 +738,7 @@ class Query extends Component implements QueryInterface
      * Устанавливает часть запроса OFFSET.
      * @param int|ExpressionInterface|null $offset смещение. Используйте нулевое или отрицательное значение,
      * чтобы отключить смещение.
-     * @return $это сам объект запроса
+     * @return $this сам объект запроса
      */
     public function offset($offset)
     {

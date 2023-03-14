@@ -68,7 +68,7 @@ class SmartProcessActiveRecord extends \wm\yii\b24\ActiveRecord
     /**
      * @param null $condition
      * @param array $params
-     * @return int|null
+     * @return int|null количество удаленных строк
      * @throws \Bitrix24\Exceptions\Bitrix24ApiException
      * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
      * @throws \Bitrix24\Exceptions\Bitrix24Exception
@@ -82,7 +82,7 @@ class SmartProcessActiveRecord extends \wm\yii\b24\ActiveRecord
      * @throws \Bitrix24\Exceptions\Bitrix24TokenIsInvalidException
      * @throws \Bitrix24\Exceptions\Bitrix24WrongClientException
      */
-    public static function deleteAll($condition = null, $params = []) //TODO узнать что нужно возвращать
+    public static function deleteAll($condition = null, $params = [])
     {
         if($id = ArrayHelper::getValue($condition, 'id')){
             $component = new b24Tools();
@@ -94,6 +94,7 @@ class SmartProcessActiveRecord extends \wm\yii\b24\ActiveRecord
 //            }
             $obB24 = new B24Object($b24App);
             $data = $obB24->client->call('crm.item.delete', ['entityTypeId' => static::entityTypeId(), 'id' => $id]);
+            return 0;//TODO узнать можно ли получить число удалённых элементов
         }else{
            return null; 
         }
