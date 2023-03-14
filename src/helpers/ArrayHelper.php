@@ -53,4 +53,18 @@ class ArrayHelper extends BaseArrayHelper
         ];
     }
 
+    /**
+     * @param array $array
+     * @param string $from
+     * @return array
+     * @throws \Exception
+     */
+    private static function groupBy($array, $from)
+    {
+        $result = [];
+        foreach ($array as $value) {
+            $result[self::getValue($value, $from)][] = $value;
+        }
+        return $result;
+    }
 }
