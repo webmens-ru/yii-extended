@@ -14,6 +14,11 @@ class ActiveRestController extends \yii\rest\ActiveController
 {
     public $modelClassSearch;
     /**
+     * @var string|array the configuration for creating the serializer that formats the response data.
+     */
+    public $serializer = 'wm\yii\rest\Serializer';
+
+    /**
      * @return array
      */
     public function behaviors()

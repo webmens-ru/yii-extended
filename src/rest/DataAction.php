@@ -207,13 +207,6 @@ class DataAction extends Action
             'auth' => $auth,
         ]);
 
-        $models = $dataProvider->getModels();
-
-        return [
-            'header' => $this->modelClass::getHeader($models),
-            'grid' => $this->modelClass::getGridData($models),
-            'footer' => $this->modelClass::getFooter($models),
-            'options' => (is_callable([$this->modelClass, 'getGridOptions'])) ? $this->modelClass::getGridOptions() : []
-        ];
+        return $dataProvider;
     }
 }
