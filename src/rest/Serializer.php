@@ -112,4 +112,20 @@ class Serializer extends \yii\rest\Serializer
 
         return $result;
     }
+
+    /**
+     * Serializes a pagination into an array.
+     * @param Pagination $pagination
+     * @return array the array representation of the pagination
+     * @see addPaginationHeaders()
+     */
+    protected function serializePagination($pagination)
+    {
+        return [
+                'totalCount' => $pagination->totalCount,
+                'pageCount' => $pagination->getPageCount(),
+                'currentPage' => $pagination->getPage() + 1,
+                'perPage' => $pagination->getPageSize(),
+        ];
+    }
 }
