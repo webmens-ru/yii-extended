@@ -133,7 +133,10 @@ class DataAction extends Action
      */
     protected function prepareDataProvider()
     {
-        $requestParams = array_merge(Yii::$app->getRequest()->getBodyParams(), Yii::$app->getRequest()->getQueryParams());
+        $requestParams = Yii::$app->getRequest()->getBodyParams();
+        if (empty($requestParams)) {
+            $requestParams = Yii::$app->getRequest()->getQueryParams();
+        }
 
         //#сделать чтобы заработало
         $filter = null;
