@@ -131,7 +131,7 @@ class ActiveRestController extends \yii\rest\ActiveController
      */
     public function actionGetButtonAdd()
     {
-        return null;
+        return $this->modelClass::getButtonAdd();
     }
 
     /**
@@ -139,6 +139,14 @@ class ActiveRestController extends \yii\rest\ActiveController
      */
     public function actionGridActions()
     {
-        return null;
+        return $this->modelClass::getGridActions();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function actionGetFormFields()
+    {
+        return $this->modelClass::getFormFields();
     }
 }

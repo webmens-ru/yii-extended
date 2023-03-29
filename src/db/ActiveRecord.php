@@ -99,19 +99,4 @@ class ActiveRecord extends \yii\db\ActiveRecord
     {
         return [];
     }
-
-    public static function getButtonAdd()
-    {
-        return null;
-    }
-
-    public static function getGridActions()
-    {
-        return null;
-    }
-
-    public static function getFormFields()
-    {
-        return null;
-    }
 }
