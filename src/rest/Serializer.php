@@ -122,7 +122,6 @@ class Serializer extends \yii\rest\Serializer
     protected function serializePagination($pagination)
     {
         return [
-                $this->linksEnvelope => Link::serialize($pagination->getLinks(true)),
                 'totalCount' => $pagination->totalCount,
                 'pageCount' => $pagination->getPageCount(),
                 'currentPage' => $pagination->getPage() + 1,
