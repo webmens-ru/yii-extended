@@ -18,6 +18,8 @@ use wm\yii\db\ActiveQuery;
  */
 class ActiveRecord extends \yii\db\ActiveRecord
 {
+    const SCENARIO_FORM = 'form';
+
     /**
      * {@inheritdoc}
      * @return ActiveQuery the newly created [[ActiveQuery]] instance.
@@ -25,6 +27,13 @@ class ActiveRecord extends \yii\db\ActiveRecord
     public static function find()
     {
         return Yii::createObject(ActiveQuery::class, [get_called_class()]);
+    }
+
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_FORM] = ['form'];
+        return $scenarios;
     }
 
     public function formName()

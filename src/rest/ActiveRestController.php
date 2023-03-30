@@ -53,9 +53,9 @@ class ActiveRestController extends \yii\rest\ActiveController
                 ],
             ],
             'authenticator' => [
-                'class' => CompositeAuth::className(),
+                'class' => CompositeAuth::class,
                 'authMethods' => [
-                    HttpBearerAuth::className(),
+                    HttpBearerAuth::class,
                 ],
             ],
         ];
@@ -76,6 +76,9 @@ class ActiveRestController extends \yii\rest\ActiveController
         // "prepareDataProvider()"
         $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
         $actions['delete']['class'] = 'wm\yii\rest\DeleteAction';
+        $actions['view']['class'] = 'wm\yii\rest\ViewAction';
+        $actions['view']['scenario'] = 'form';
+        $actions['update']['scenario'] = 'form';
         $actions['data'] = [
             'class' => 'wm\yii\rest\DataAction',
             'modelClass' => $this->modelClass,
