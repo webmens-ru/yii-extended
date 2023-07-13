@@ -59,7 +59,7 @@ class ArrayHelper extends BaseArrayHelper
      * @return array
      * @throws \Exception
      */
-    private static function groupBy($array, $from)
+    public static function groupBy($array, $from)
     {
         $result = [];
         foreach ($array as $value) {
