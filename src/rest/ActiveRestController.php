@@ -151,4 +151,20 @@ class ActiveRestController extends \yii\rest\ActiveController
     {
         return $this->modelClass::getFormFields();
     }
+
+    /**
+     * @return mixed
+     */
+    public function actionCardActions()
+    {
+        return null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function actionGetTitle()
+    {
+        return '';
+    }
 }
