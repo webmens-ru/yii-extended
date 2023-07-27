@@ -428,8 +428,6 @@ class ActiveRecord extends BaseActiveRecord
     public static function populateRecord($record, $row)
     {
         $columns = $record->getTableSchema()->columns;
-        Yii::warning($columns, '$columns');
-        Yii::warning($row, '$row');
         foreach ($row as $name => $value) {
             if (isset($columns[$name])) {
                 $row[$name] = $columns[$name]->phpTypecast($value);
