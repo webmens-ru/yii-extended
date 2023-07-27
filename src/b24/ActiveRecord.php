@@ -808,4 +808,19 @@ class ActiveRecord extends BaseActiveRecord
     {
         return [];
     }
+
+    public static function getButtonAdd()
+    {
+        return null;
+    }
+
+    public static function getGridActions()
+    {
+        return null;
+    }
+
+    public static function getFormFields()
+    {
+        return null;
+    }
 }
