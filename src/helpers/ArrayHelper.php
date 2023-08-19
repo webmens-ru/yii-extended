@@ -69,4 +69,17 @@ class ArrayHelper extends BaseArrayHelper
         }
         return $result;
     }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    public static function selectFormatter($data)
+    {
+        $result = [];
+        foreach ($data as $key => $value) {
+            $result[] = ['value' => $key, 'title' => $value];
+        }
+        return $result;
+    }
 }
