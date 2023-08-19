@@ -84,6 +84,27 @@ class ArrayHelper extends BaseArrayHelper
     }
 
     /**
+     * Builds a map (key-value pairs) from a multidimensional array or an array of objects.
+     * The `$from` and `$to` parameters specify the key names or property names to set up the map.
+     *
+     * For example,
+     *
+     * ```php
+     * $array = [
+     *     ['id' => '123', 'name' => 'aaa', 'lastName' => 'AAA'],
+     *     ['id' => '124', 'name' => 'bbb', 'lastName' => 'BBB'],
+     *     ['id' => '345', 'name' => 'ccc', 'lastName' => 'CCC'],
+     * ];
+     *
+     * $result = ArrayHelper::map($array, 'id', ['name', 'lastName'], '-');
+     * // the result is:
+     * // [
+     * //     '123' => 'aaa-AAA',
+     * //     '124' => 'bbb-BBB',
+     * //     '345' => 'ccc-CCC',
+     * // ]
+     * ```
+     *
      * @param array $array
      * @param string|\Closure $from
      * @param string|array $to
