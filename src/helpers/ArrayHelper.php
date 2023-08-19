@@ -4,6 +4,7 @@
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
+
 namespace wm\yii\helpers;
 
 use yii\helpers\BaseArrayHelper;
@@ -26,7 +27,8 @@ class ArrayHelper extends BaseArrayHelper
      * @param array | BaseObject $new
      * @return array
      */
-    public static function getDiff($old, $new){
+    public static function getDiff($old, $new)
+    {
         $arrayOld = ArrayHelper::toArray($old);
         $arrayNew = ArrayHelper::toArray($new);
 
@@ -34,20 +36,20 @@ class ArrayHelper extends BaseArrayHelper
         $deleteKeys = [];
         $diff = [];
 
-        foreach ($arrayOld as $key => $value){
-            if(array_key_exists($key, $arrayNew)){
-                if($arrayOld[$key] != $arrayNew[$key]){
+        foreach ($arrayOld as $key => $value) {
+            if (array_key_exists($key, $arrayNew)) {
+                if ($arrayOld[$key] != $arrayNew[$key]) {
                     $diff[$key] = ['old' => $arrayOld[$key], 'new' => $arrayNew[$key]];
                 }
                 unset($arrayNew[$key]);
-            }else{
+            } else {
                 $deleteKeys[$key] = $value;
             }
         }
         $newKeys = $arrayNew;
 
         return [
-            'newKeys'=> $newKeys,
+            'newKeys' => $newKeys,
             'deleteKeys' => $deleteKeys,
             'diff' => $diff,
         ];
