@@ -82,4 +82,32 @@ class ArrayHelper extends BaseArrayHelper
         }
         return $result;
     }
+
+    /**
+     * @param array $array
+     * @param string|\Closure $from
+     * @param string|array $to
+     * @param string $selector
+     * @return array
+     */
+    public static function mapImplode($array, $from, $to, $selector = ' ')
+    {
+        $result = [];
+        foreach ($array as $element) {
+            $key = static::getValue($element, $from);
+            $value = null;
+            if (is_array($to)) {
+                $temp = [];
+                foreach ($to as $val) {
+                    $temp[] = static::getValue($element, $val);
+                }
+                $value = implode($selector, $temp);
+            } else {
+                $value = static::getValue($element, $to);
+            }
+            $result[$key] = $value;
+        }
+
+        return $result;
+    }
 }
