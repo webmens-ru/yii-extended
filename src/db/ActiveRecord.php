@@ -123,4 +123,8 @@ class ActiveRecord extends \yii\db\ActiveRecord
     {
         return null;
     }
+
+    public static function getCardActions($id){
+        return null;
+    }
 }

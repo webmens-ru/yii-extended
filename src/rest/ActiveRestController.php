@@ -153,11 +153,12 @@ class ActiveRestController extends \yii\rest\ActiveController
     }
 
     /**
+     * @param null $id
      * @return mixed
      */
-    public function actionCardActions()
+    public function actionCardActions($id = null)
     {
-        return null;
+        return $this->modelClass::getCardActions($id);
     }
 
     /**
