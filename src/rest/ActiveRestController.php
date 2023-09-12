@@ -78,6 +78,8 @@ class ActiveRestController extends \yii\rest\ActiveController
         $actions['delete']['class'] = 'wm\yii\rest\DeleteAction';
         $actions['view']['class'] = 'wm\yii\rest\ViewAction';
         $actions['view']['scenario'] = 'form';
+        $actions['update']['scenario'] = 'form';
+        $actions['create']['scenario'] = 'form';
         $actions['data'] = [
             'class' => 'wm\yii\rest\DataAction',
             'modelClass' => $this->modelClass,
