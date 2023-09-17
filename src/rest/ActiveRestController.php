@@ -173,9 +173,14 @@ class ActiveRestController extends \yii\rest\ActiveController
     public function afterAction($action, $result)
     {
         $result = parent::afterAction($action, $result);
-        if($action == 'create' || $action == 'update' || $action == 'view'){
-            return Yii::createObject($this->serializer, ['fieldsParam' => 'formFields'])->serialize($result);
-        }else{
+        if ($action == 'create' || $action == 'update' || $action == 'view') {
+            return Yii::createObject(
+                [
+                    'class' => $this->serializer,
+                    'fieldsParam' => 'formFields'
+                ]
+            )->serialize($result);
+        } else {
             return Yii::createObject($this->serializer)->serialize($result);
         }
     }
