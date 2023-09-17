@@ -76,10 +76,6 @@ class ActiveRestController extends \yii\rest\ActiveController
         // "prepareDataProvider()"
         $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
         $actions['delete']['class'] = 'wm\yii\rest\DeleteAction';
-        $actions['view']['class'] = 'wm\yii\rest\ViewAction';
-        $actions['view']['scenario'] = 'form';
-        $actions['update']['scenario'] = 'form';
-        $actions['create']['scenario'] = 'form';
         $actions['data'] = [
             'class' => 'wm\yii\rest\DataAction',
             'modelClass' => $this->modelClass,
@@ -169,5 +165,18 @@ class ActiveRestController extends \yii\rest\ActiveController
     public function actionGetTitle()
     {
         return '';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function afterAction($action, $result)
+    {
+        $result = parent::afterAction($action, $result);
+        if($action == 'create' || $action == 'update' || $action == 'view'){
+            return Yii::createObject($this->serializer, ['fieldsParam' => 'formFields'])->serialize($result);
+        }else{
+            return Yii::createObject($this->serializer)->serialize($result);
+        }
     }
 }

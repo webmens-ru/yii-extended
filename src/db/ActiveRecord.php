@@ -18,7 +18,6 @@ use wm\yii\db\ActiveQuery;
  */
 class ActiveRecord extends \yii\db\ActiveRecord
 {
-    const SCENARIO_FORM = 'form';
 
     /**
      * {@inheritdoc}
@@ -27,13 +26,6 @@ class ActiveRecord extends \yii\db\ActiveRecord
     public static function find()
     {
         return Yii::createObject(ActiveQuery::class, [get_called_class()]);
-    }
-
-    public function scenarios()
-    {
-        $scenarios = parent::scenarios();
-        $scenarios[self::SCENARIO_FORM] = ['form'];
-        return $scenarios;
     }
 
     public function formName()
@@ -126,5 +118,9 @@ class ActiveRecord extends \yii\db\ActiveRecord
 
     public static function getCardActions($id){
         return null;
+    }
+
+    public function formFields(){
+        return $this->fields();
     }
 }
