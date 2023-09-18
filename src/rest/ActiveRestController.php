@@ -76,6 +76,9 @@ class ActiveRestController extends \yii\rest\ActiveController
         // "prepareDataProvider()"
         $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
         $actions['delete']['class'] = 'wm\yii\rest\DeleteAction';
+        $actions['create']['class'] = 'wm\yii\rest\CreateAction';
+        $actions['update']['class'] = 'wm\yii\rest\UpdateAction';
+        $actions['view']['class'] = 'wm\yii\rest\ViewAction';
         $actions['data'] = [
             'class' => 'wm\yii\rest\DataAction',
             'modelClass' => $this->modelClass,

@@ -18,6 +18,10 @@ use wm\yii\db\ActiveQuery;
  */
 class ActiveRecord extends \yii\db\ActiveRecord
 {
+    public const RENDER_MODE_GRID = 'grid';
+    public const RENDER_MODE_FORM = 'form';
+
+    public $renderMode = self::RENDER_MODE_GRID;
 
     /**
      * {@inheritdoc}
@@ -116,11 +120,13 @@ class ActiveRecord extends \yii\db\ActiveRecord
         return null;
     }
 
-    public static function getCardActions($id){
+    public static function getCardActions($id)
+    {
         return null;
     }
 
-    public function formFields(){
+    public function formFields()
+    {
         return $this->fields();
     }
 }

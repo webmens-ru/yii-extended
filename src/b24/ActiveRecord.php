@@ -87,6 +87,11 @@ class ActiveRecord extends BaseActiveRecord
         return '';
     }
 
+    public const RENDER_MODE_GRID = 'grid';
+    public const RENDER_MODE_FORM = 'form';
+
+    public $renderMode = self::RENDER_MODE_GRID;
+
 
     public static $primaryKey = ['id'];
     /**
