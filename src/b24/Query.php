@@ -207,7 +207,7 @@ class Query extends Component implements QueryInterface
     public function count($q = '*', $auth = null)
     {
         if ($this->emulateExecution) {
-            return [];
+            return null;
         }
         $this->prepairParams();
         //TODO вынести часть логики
@@ -342,7 +342,7 @@ class Query extends Component implements QueryInterface
 //    }
 
     /**
-     * @param null $auth
+     * @param mixed[]|null $auth
      * @return array|bool|mixed
      * @throws \Bitrix24\Exceptions\Bitrix24ApiException
      * @throws \Bitrix24\Exceptions\Bitrix24EmptyResponseException
@@ -370,7 +370,7 @@ class Query extends Component implements QueryInterface
         }
         if ($this->queryMethod) {
             if ($this->queryMethod == 'all') {
-                return reset($this->limit(1)->all($auth));
+                return reset($this->limit(1)->all($auth)); //@phpstan-ignore-line
             }
         } else {
             $component = new b24Tools();
