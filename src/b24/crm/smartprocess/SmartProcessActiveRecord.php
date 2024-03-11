@@ -66,7 +66,7 @@ class SmartProcessActiveRecord extends \wm\yii\b24\ActiveRecord
     }
 
     /**
-     * @param null $condition
+     * @param mixed[]|null $condition
      * @param array $params
      * @return int|null количество удаленных строк
      * @throws \Bitrix24\Exceptions\Bitrix24ApiException
@@ -84,7 +84,7 @@ class SmartProcessActiveRecord extends \wm\yii\b24\ActiveRecord
      */
     public static function deleteAll($condition = null, $params = [])
     {
-        if($id = ArrayHelper::getValue($condition, 'id')){
+        if($condition && $id = ArrayHelper::getValue($condition, 'id')){
             $component = new b24Tools();
             $b24App = null;// $component->connectFromUser($auth);
 //            if ($auth === null) {
