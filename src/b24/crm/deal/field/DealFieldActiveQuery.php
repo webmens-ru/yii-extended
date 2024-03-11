@@ -68,7 +68,7 @@ class DealFieldActiveQuery extends ActiveQuery
                 $model = $class::instantiate($row);
                 //$model->load($row, '');
                 $modelClass = get_class($model);
-                $modelClass::populateRecord($model, $row);//
+//                $modelClass::populateRecord($model, $row);//
                 $models[] = $model;
             }
             return $models;
