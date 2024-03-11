@@ -103,7 +103,8 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     public function __construct($modelClass, $config = [])
     {
         $this->modelClass = $modelClass;
-        $this->select = $this->modelClass::attributes();
+        $model = new $modelClass();
+        $this->select = $model->attributes();
         //$this->listMethod = $modelClass::listMethod();
         parent::__construct($config);
     }
