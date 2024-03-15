@@ -162,6 +162,11 @@ class ActiveRestController extends \yii\rest\ActiveController
         return $this->modelClass::getCardActions($id);
     }
 
+    public function actionGetHelpButton()
+    {
+        return $this->modelClass::getHelpButton();
+    }
+
     /**
      * @return mixed
      */
