@@ -25,10 +25,10 @@ class TimeHelper extends BaseObject
         $res = '';
         $hours = floor($secs / 3600);
         $secs = $secs % 3600;
-        $res .= TextHelper::num_word($hours, $hourStrings) . ', ';
+        $res .= $hours.' '.TextHelper::num_word($hours, $hourStrings) . ', ';
 
         $minutes = floor($secs / 60);
-        $res .= TextHelper::num_word($minutes, $minuteStrings);
+        $res .= $minutes.' '.TextHelper::num_word($minutes, $minuteStrings);
 
 //        $res .= self::num_word($secs, array('секунда', 'секунды', 'секунд'));
 
