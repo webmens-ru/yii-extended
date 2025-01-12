@@ -110,7 +110,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
         return null;
     }
 
-    public static function getGridActions()
+    public static function getGridActions($params = null)
     {
         return null;
     }
