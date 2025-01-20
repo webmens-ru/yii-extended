@@ -59,6 +59,7 @@ class ColumnSchema extends BaseObject
 //    const TYPE_JSON = 'json';
     public const TYPE_ENUMERATION = 'enumeration';
     public const TYPE_CRM_MULTIFIELD = 'crm_multifield';
+    public const TYPE_FILE = 'file';
 
     /**
      * @var string имя этого столбца (без кавычек).
@@ -337,6 +338,7 @@ class ColumnSchema extends BaseObject
             self::TYPE_MONEY => 'money',
             self::TYPE_ENUMERATION => 'array',
             self::TYPE_CRM_MULTIFIELD => 'array',
+            self::TYPE_FILE => 'array',
         ];
         if($this->multiple){
             return 'array';
