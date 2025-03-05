@@ -105,7 +105,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
         return [];
     }
 
-    public static function getButtonAdd($defaultValue = [])
+    public static function getButtonAdd($params = [])
     {
         return null;
     }

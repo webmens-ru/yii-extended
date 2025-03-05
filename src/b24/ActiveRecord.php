@@ -812,7 +812,7 @@ class ActiveRecord extends BaseActiveRecord
         return [];
     }
 
-    public static function getButtonAdd($defaultValue = [])
+    public static function getButtonAdd($params = [])
     {
         return null;
     }
