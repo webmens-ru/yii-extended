@@ -134,7 +134,8 @@ class ActiveRestController extends \yii\rest\ActiveController
      */
     public function actionGetButtonAdd()
     {
-        return $this->modelClass::getButtonAdd();
+        $version = Yii::$app->request->headers->get('version');
+        return $this->modelClass::getButtonAdd($version);
     }
 
     /**

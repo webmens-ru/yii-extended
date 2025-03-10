@@ -827,7 +827,7 @@ class ActiveRecord extends BaseActiveRecord
         return null;
     }
 
-    public function getHelpButton(){
+    public static function getHelpButton(){
         return null;
     }
 }

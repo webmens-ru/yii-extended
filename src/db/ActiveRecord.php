@@ -130,7 +130,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
         return $this->fields();
     }
 
-    public function getHelpButton(){
+    public static function getHelpButton(){
         return null;
     }
 }
