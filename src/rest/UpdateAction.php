@@ -39,13 +39,12 @@ class UpdateAction extends Action
      */
     public function run($id)
     {
-        /* @var $model ActiveRecord */
+        /** @var \wm\yii\db\ActiveRecord|\wm\yii\b24\ActiveRecord $model */
         $model = $this->findModel($id);
 
         if ($this->checkAccess) {
             call_user_func($this->checkAccess, $this->id, $model);
         }
-
         $model->scenario = $this->scenario;
         $model->renderMode = $this->renderMode;
         $model->load(Yii::$app->getRequest()->getBodyParams(), '');
