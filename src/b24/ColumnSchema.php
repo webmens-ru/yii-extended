@@ -292,7 +292,11 @@ class ColumnSchema extends BaseObject
 //                    'autoIncrement',
 //                    'unsigned',
         $this->comment = ArrayHelper::getValue($columnData, 'title');
-        $this->enumValues = ArrayHelper::map(ArrayHelper::getValue($columnData, 'items'), 'ID', 'VALUE');
+        $enumValues = null;
+        if($items = ArrayHelper::getValue($columnData, 'items')){
+            $enumValues = ArrayHelper::map($items, 'ID', 'VALUE');
+        }
+        $this->enumValues = $enumValues;
 //        ----------------------------------------------------------------------
         /*
          * isDynamic
