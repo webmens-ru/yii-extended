@@ -1,8 +1,8 @@
 <?php
+
 namespace wm\yii\helpers;
 
 use yii\base\BaseObject;
-
 
 /**
  * Данная функция предназначена для преобразования числового значения в его словесное представление,
@@ -10,7 +10,6 @@ use yii\base\BaseObject;
  */
 class TextHelper extends BaseObject
 {
-
     /**
      * @param int $value
      * @param string[] $words
@@ -25,15 +24,18 @@ class TextHelper extends BaseObject
         $out = '';
         switch ($num) {
             case 1:
-                $out .= $words[0];
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               $out .= $words[0];
+
                 break;
             case 2:
             case 3:
             case 4:
                 $out .= $words[1];
+
                 break;
             default:
-                $out .= $words[2];
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           $out .= $words[2];
+
                 break;
         }
 

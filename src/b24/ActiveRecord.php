@@ -83,7 +83,8 @@ use yii\helpers\ArrayHelper;
  */
 class ActiveRecord extends BaseActiveRecord
 {
-    public static function tableName(){
+    public static function tableName()
+    {
         return '';
     }
 
@@ -827,7 +828,8 @@ class ActiveRecord extends BaseActiveRecord
         return null;
     }
 
-    public static function getHelpButton(){
+    public static function getHelpButton()
+    {
         return null;
     }
 }

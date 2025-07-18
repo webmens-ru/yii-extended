@@ -5,7 +5,6 @@ namespace wm\yii\b24\crm\product;
 use wm\yii\b24\ActiveQuery;
 use yii\helpers\ArrayHelper;
 
-
 class ProductActiveQuery extends ActiveQuery
 {
     protected $listMethodName = 'crm.product.list';

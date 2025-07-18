@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -33,11 +34,10 @@ class DeleteAction extends Action
             $id = $getId;
         } elseif ($postId = $request->post('id')) {
             $id = $postId;
-        }else{
+        } else {
             $id = null;
         }
         $model = $this->findModel($id);
-
         if ($this->checkAccess) {
             call_user_func($this->checkAccess, $this->id, $model);
         }

@@ -293,7 +293,7 @@ class ColumnSchema extends BaseObject
 //                    'unsigned',
         $this->comment = ArrayHelper::getValue($columnData, 'title');
         $enumValues = null;
-        if($items = ArrayHelper::getValue($columnData, 'items')){
+        if ($items = ArrayHelper::getValue($columnData, 'items')) {
             $enumValues = ArrayHelper::map($items, 'ID', 'VALUE');
         }
         $this->enumValues = $enumValues;
@@ -344,7 +344,7 @@ class ColumnSchema extends BaseObject
             self::TYPE_CRM_MULTIFIELD => 'array',
             self::TYPE_FILE => 'array',
         ];
-        if($this->multiple){
+        if ($this->multiple) {
             return 'array';
         }
         if (isset($typeMap[$this->type])) {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -23,8 +24,7 @@ use yii\web\NotFoundHttpException;
 class ViewAction extends Action
 {
     public $renderMode = 'form';
-
-    /**
+/**
      * Displays a model.
      * @param string $id the primary key of the model.
      * @return ActiveRecord|\wm\yii\b24\ActiveRecord the model being displayed

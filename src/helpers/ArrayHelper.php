@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -8,7 +9,6 @@
 namespace wm\yii\helpers;
 
 use yii\helpers\BaseArrayHelper;
-
 use yii\base\BaseObject;
 
 /**
@@ -31,11 +31,9 @@ class ArrayHelper extends BaseArrayHelper
     {
         $arrayOld = ArrayHelper::toArray($old);
         $arrayNew = ArrayHelper::toArray($new);
-
         $newKeys = [];
         $deleteKeys = [];
         $diff = [];
-
         foreach ($arrayOld as $key => $value) {
             if (array_key_exists($key, $arrayNew)) {
                 if ($arrayOld[$key] != $arrayNew[$key]) {
@@ -47,7 +45,6 @@ class ArrayHelper extends BaseArrayHelper
             }
         }
         $newKeys = $arrayNew;
-
         return [
             'newKeys' => $newKeys,
             'deleteKeys' => $deleteKeys,

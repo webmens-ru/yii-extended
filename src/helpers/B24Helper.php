@@ -1,6 +1,6 @@
 <?php
-namespace wm\yii\helpers;
 
+namespace wm\yii\helpers;
 
 use Bitrix24\B24Object;
 use wm\b24tools\b24Tools;
@@ -41,18 +41,16 @@ class B24Helper
             $b24 = $obB24->client->call('department.get', ['UF_HEAD' => $b24UserId]);
             switch ($b24['total']) {
                 case 0:
-                    $request = $obB24->client->call(
-                        'user.get',
-                        [
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   $request = $obB24->client->call('user.get', [
                             'filter' => ['ID' => $b24UserId],
                             'select' => ['ID', 'NAME', 'LAST_NAME']
-                        ]
-                    )['result'];
-                    $employeeName['id'] = (int)$request[0]['ID'];
-                    $employeeName['title'] = $request[0]['LAST_NAME'] . ' ' . $request[0]['NAME'];
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ])['result'];
+                            $employeeName['id'] = (int)$request[0]['ID'];
+                            $employeeName['title'] = $request[0]['LAST_NAME'] . ' ' . $request[0]['NAME'];
+
                     return [$employeeName];
                 default:
-                    $b24Res = $b24['result'];
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   $b24Res = $b24['result'];
                     $departmentIds = ArrayHelper::getColumn($b24Res, 'ID');
                     $departments = $obB24->client->call('department.get', [])['result'];
                     $resDepartmentIds = [];
@@ -61,22 +59,19 @@ class B24Helper
                     }
                     $resUniqueDepartmentIds = array_unique($resDepartmentIds);
                     $b24Users = self::getUsersByDepartmentIds($resUniqueDepartmentIds);
-
                     $mas = [];
                     foreach ($b24Users as $b24User) {
                         $mas1['id'] = ArrayHelper::getValue($b24User, 'ID');
                         $mas1['title'] = ArrayHelper::getValue($b24User, 'LAST_NAME') . ' ' . ArrayHelper::getValue($b24User, 'NAME');
                         $mas[] = $mas1;
                     }
+
                     return $mas;
             }
         } else {
-            $b24Users = $obB24->client->call(
-                'user.get',
-                [
+            $b24Users = $obB24->client->call('user.get', [
                     'filter' => ['ACTIVE' => true]
-                ]
-            );
+                ]);
             $countCalls = (int)ceil($b24Users['total'] / $obB24->client::MAX_BATCH_CALLS);
             $res = $b24Users['result'];
             for ($i = 1; $i < $countCalls; $i++) {
@@ -85,12 +80,14 @@ class B24Helper
                     [
                         'filter' => ['ACTIVE' => true],
                         'start' => $obB24->client::MAX_BATCH_CALLS * $i
-                    ], function ($result) use (&$res) {
-                    $res = array_merge($res, $result['result']);
-                });
+                    ],
+                    function ($result) use (&$res) {
+
+                        $res = array_merge($res, $result['result']);
+                    }
+                );
             }
             $obB24->client->processBatchCalls();
-
             $mas = [];
             foreach ($res as $b24User) {
                 $mas1['id'] = (int)ArrayHelper::getValue($b24User, 'ID');
@@ -107,15 +104,12 @@ class B24Helper
         $component = new b24Tools();
         $b24App = $component->connectFromAdmin();
         $obB24 = new \Bitrix24\B24Object($b24App);
-        $request = $obB24->client->call(
-            'user.get',
-            [
+        $request = $obB24->client->call('user.get', [
                 'filter' => [
                     'ACTIVE' => true,
                     'UF_DEPARTMENT' => $departmentIds,
                 ],
-            ]
-        );
+            ]);
         $countCalls = (int)ceil($request['total'] / $obB24->client::MAX_BATCH_CALLS);
         $res = $request['result'];
         for ($i = 1; $i < $countCalls; $i++) {
@@ -127,9 +121,12 @@ class B24Helper
                         'UF_DEPARTMENT' => $departmentIds,
                     ],
                     'start' => $obB24->client::MAX_BATCH_CALLS * $i
-                ], function ($result) use (&$res) {
-                $res = array_merge($res, $result['result']);
-            });
+                ],
+                function ($result) use (&$res) {
+
+                    $res = array_merge($res, $result['result']);
+                }
+            );
         }
         $obB24->client->processBatchCalls();
         return $res;
@@ -140,7 +137,6 @@ class B24Helper
         $res = [$departmentId];
         foreach ($departments as $department) {
             if (ArrayHelper::getValue($department, 'PARENT') == $departmentId) {
-
                 $res[] = ArrayHelper::getValue($department, 'ID');
                 $res = array_merge($res, self::getSubDepartments($department['ID'], $departments));
             }

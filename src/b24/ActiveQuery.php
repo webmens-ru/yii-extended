@@ -633,21 +633,21 @@ class ActiveQuery extends Query implements ActiveQueryInterface
 //        if (count($attributes) === 1) {
             // single key
             $attribute = reset($this->link);
-            foreach ($models as $model) {
-                $value = isset($model[$attribute]) ? $model[$attribute] : null;
-                if ($value !== null && $value != 0) {
-                    if (is_array($value)) {
-                        $values = array_merge($values, $value);
-                    } elseif ($value instanceof ArrayExpression && $value->getDimension() === 1) {
-                        $values = array_merge($values, $value->getValue());
-                    } else {
-                        $values[] = $value;
-                    }
+        foreach ($models as $model) {
+            $value = isset($model[$attribute]) ? $model[$attribute] : null;
+            if ($value !== null && $value != 0) {
+                if (is_array($value)) {
+                    $values = array_merge($values, $value);
+                } elseif ($value instanceof ArrayExpression && $value->getDimension() === 1) {
+                    $values = array_merge($values, $value->getValue());
+                } else {
+                    $values[] = $value;
                 }
             }
-            if (empty($values)) {
-                $this->emulateExecution();
-            }
+        }
+        if (empty($values)) {
+            $this->emulateExecution();
+        }
 //        } else {
 //            // composite keys
 //

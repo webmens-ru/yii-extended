@@ -9,7 +9,7 @@ class DealFieldActiveRecord extends \wm\yii\b24\ActiveRecord
 {
     public static function getTableSchema()
     {
-            $schemaData =[
+            $schemaData = [
                 'isDynamic' => [
                     'title' => 'Динамическое',
                     'type' => 'string'
@@ -38,19 +38,19 @@ class DealFieldActiveRecord extends \wm\yii\b24\ActiveRecord
                     'title' => 'Тип',
                     'type' => 'string'
                 ],
-                'filterLabel'=> [
+                'filterLabel' => [
                     'title' => 'Тип',
                     'type' => 'string'
                 ],
-                'formLabel'=> [
+                'formLabel' => [
                     'title' => 'Тип',
                     'type' => 'string'
                 ],
-                'listLabel'=> [
+                'listLabel' => [
                     'title' => 'Тип',
                     'type' => 'string'
                 ],
-                'systemName'=> [
+                'systemName' => [
                     'title' => 'Тип',
                     'type' => 'string'
                 ],

@@ -133,7 +133,8 @@ class Query extends Component implements QueryInterface
         return $rows;
     }
 
-    public function getListDataSelector(){
+    public function getListDataSelector()
+    {
         return '';
     }
 
@@ -179,8 +180,8 @@ class Query extends Component implements QueryInterface
         return $this->allFull($obB24, $ids, $countCalls);
     }
 
-    protected function prepareFullParams($data){
-
+    protected function prepareFullParams($data)
+    {
     }
 
     protected function allFull($obB24, $ids, $countCalls)
@@ -310,6 +311,11 @@ class Query extends Component implements QueryInterface
         return $this;
     }
 
+    /**
+     * @param string|mixed[] $condition
+     * @param $params
+     * @return $this|Query
+     */
     public function where($condition, $params = [])
     {
         $this->where = $this->conditionPrepare($condition);

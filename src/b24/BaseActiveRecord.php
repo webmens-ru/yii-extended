@@ -1276,7 +1276,7 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
      * @param string $name the relation name, e.g. `orders`
      * for a relation defined via `getOrders()` method (case-sensitive).
      * @param bool $throwException whether to throw exception if the relation does not exist.
-     * @return ActiveQueryInterface|ActiveQuery the relational query object. If the relation does not exist
+     * @return ActiveQuery|\wm\yii\db\ActiveQuery the relational query object. If the relation does not exist
      * and `$throwException` is `false`, `null` will be returned.
      * @throws InvalidArgumentException if the named relation does not exist.
      */
@@ -1557,12 +1557,12 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
      */
     public function unlinkAll($name, $delete = false)
     {
-        /* @var $relation ActiveQueryInterface|ActiveQuery */
+        /* @var ActiveQuery|\wm\yii\db\ActiveQuery $relation  */
         $relation = $this->getRelation($name);
 
         if ($relation->via !== null) {
             if (is_array($relation->via)) {
-                /* @var $viaRelation ActiveQuery */
+                /* @var $viaRelation ActiveQuery|\wm\yii\db\ActiveQuery */
                 list($viaName, $viaRelation) = $relation->via;
                 $viaClass = $viaRelation->modelClass;
                 unset($this->_related[$viaName]);
@@ -1583,7 +1583,7 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
                 $condition = ['and', $condition, $viaRelation->on];
             }
             if (is_array($relation->via)) {
-                /* @var $viaClass ActiveRecordInterface */
+                /* @var $viaClass ActiveQuery|\wm\yii\db\ActiveQuery */
                 if ($delete) {
                     $viaClass::deleteAll($condition);
                 } else {
@@ -1600,7 +1600,7 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
                 }
             }
         } else {
-            /* @var $relatedModel ActiveRecordInterface */
+            /* @var $relatedModel ActiveQuery|\wm\yii\db\ActiveQuery */
             $relatedModel = $relation->modelClass;
             if (!$delete && count($relation->link) === 1 && is_array($this->{$b = reset($relation->link)})) {
                 // relation via array valued attribute
@@ -1817,7 +1817,7 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
     /**
      * Устанавливает зависимости отношения для свойства
      * @param string $name property name
-     * @param ActiveQueryInterface $relation relation instance
+     * @param ActiveQuery|\wm\yii\db\ActiveQuery $relation relation instance
      * @param string|null $viaRelationName intermediate relation
      */
     private function setRelationDependencies($name, $relation, $viaRelationName = null)
@@ -1829,7 +1829,7 @@ abstract class BaseActiveRecord extends Model implements ActiveRecordInterface
                     $this->_relationsDependencies[$attribute][] = $viaRelationName;
                 }
             }
-        } elseif ($relation->via instanceof ActiveQueryInterface) {
+        } elseif ($relation->via instanceof ActiveQuery || $relation->via instanceof \wm\yii\db\ActiveQuery) {
             $this->setRelationDependencies($name, $relation->via);
         } elseif (is_array($relation->via)) {
             list($viaRelationName, $viaQuery) = $relation->via;

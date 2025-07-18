@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link https://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -35,13 +36,13 @@ class Serializer extends \yii\rest\Serializer
      * @since 2.0.4
      */
     public $linksEnvelope = 'links';
-    /**
+/**
      * @var string the name of the envelope (e.g. `_meta`) for returning the pagination object.
      * It takes effect only, if `collectionEnvelope` is set.
      * @since 2.0.4
      */
     public $metaEnvelope = 'meta';
-    /**
+/**
      * Serializes the given data into a format that can be easily turned into other formats.
      * This method mainly converts the objects of recognized types into array representation.
      * It will not do conversion for unknown object types or non-object data.
@@ -89,7 +90,6 @@ class Serializer extends \yii\rest\Serializer
             $models = array_values($dataProvider->getModels());
         }
         $models = $this->serializeModels($models);
-
         if (($pagination = $dataProvider->getPagination()) !== false) {
             $this->addPaginationHeaders($pagination);
         }

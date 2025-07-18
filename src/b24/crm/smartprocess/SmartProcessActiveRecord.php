@@ -84,7 +84,7 @@ class SmartProcessActiveRecord extends \wm\yii\b24\ActiveRecord
      */
     public static function deleteAll($condition = null, $params = [])
     {
-        if($condition && $id = ArrayHelper::getValue($condition, 'id')){
+        if ($condition && $id = ArrayHelper::getValue($condition, 'id')) {
             $component = new b24Tools();
             $b24App = null;// $component->connectFromUser($auth);
 //            if ($auth === null) {
@@ -95,8 +95,8 @@ class SmartProcessActiveRecord extends \wm\yii\b24\ActiveRecord
             $obB24 = new B24Object($b24App);
             $data = $obB24->client->call('crm.item.delete', ['entityTypeId' => static::entityTypeId(), 'id' => $id]);
             return 0;//TODO узнать можно ли получить число удалённых элементов
-        }else{
-           return null; 
+        } else {
+            return null;
         }
     }
 

@@ -72,7 +72,7 @@ class DealActiveRecord extends \wm\yii\b24\ActiveRecord
      */
     public static function deleteAll($condition = null, $params = []) //TODO узнать что нужно возвращать
     {
-        if($condition && $id = ArrayHelper::getValue($condition, 'ID')){
+        if ($condition && $id = ArrayHelper::getValue($condition, 'ID')) {
             $component = new b24Tools();
            // $b24App = null;// $component->connectFromUser($auth);
 //            if ($auth === null) {
@@ -83,7 +83,7 @@ class DealActiveRecord extends \wm\yii\b24\ActiveRecord
             $obB24 = new B24Object($b24App);
             $data = $obB24->client->call('crm.deal.delete', ['ID' => $id]);
             return $data;
-        }else{
+        } else {
             return null;
         }
     }
