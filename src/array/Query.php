@@ -530,7 +530,12 @@ class Query extends Component implements QueryInterface
                 break;
             case 'BETWEEN':
             case 'NOT BETWEEN':
-                if (isset($condition[1], $condition[2]) && $this->isEmpty($condition[1]) && $this->isEmpty($condition[2])) {
+                if (
+                    isset(
+                        $condition[1],
+                        $condition[2]
+                    ) && $this->isEmpty($condition[1]) && $this->isEmpty($condition[2])
+                ) {
                     return [];
                 }
                 $filtered = $condition;
