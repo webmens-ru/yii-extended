@@ -406,10 +406,23 @@ class Query extends Component implements QueryInterface
                 case 'NOT':
                     return !$this->checkCondition($item, $condition[1]);
 
+//                case 'IN':
+//                    $attribute = $condition[1];
+//                    $values = $condition[2];
+//                    $value = ArrayHelper::getValue($item, $attribute);
+//                    return in_array($value, $values, true);
+
                 case 'IN':
                     $attribute = $condition[1];
                     $values = $condition[2];
                     $value = ArrayHelper::getValue($item, $attribute);
+
+                    // Приводим оба значения к строкам для сравнения
+                    $value = is_scalar($value) ? (string)$value : $value;
+                    $values = array_map(function($v) {
+                        return is_scalar($v) ? (string)$v : $v;
+                    }, $values);
+
                     return in_array($value, $values, true);
 
                 case 'NOT IN':

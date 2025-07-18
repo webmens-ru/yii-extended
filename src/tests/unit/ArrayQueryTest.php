@@ -252,6 +252,27 @@ class ArrayQueryTest extends TestCase
         $result = $query->where(['=', 'deal.status', 1])->orderBy(['id' => SORT_DESC])->limit(1)->offset(1)->all();
         $this->assertCount(1, $result);
         $this->assertEquals([1], ArrayHelper::getColumn($result, 'id'));
+
+        $query = new Query(
+            [
+                (object)['id' => 1, 'title' => 'title1', 'status' => 'start', 'deal' => null],
+                (object)['id' => 2, 'title' => 'title2', 'status' => 'start', 'deal' => (object)['id' => 17, 'status' => '2']],
+                (object)['id' => 3, 'title' => 'title3', 'status' => 'start', 'deal' => (object)['id' => 18, 'status' => '1']],
+            ]
+        );
+        $result = $query->andFilterCompare('deal.status', [1,2], 'in')->all();
+        $this->assertCount(2, $result);
+
+        $query = new Query(
+            [
+                (object)['id' => 1, 'title' => 'title1', 'status' => 'start', 'deal' => null],
+                (object)['id' => 2, 'title' => 'title2', 'status' => 'start', 'deal' => (object)['id' => 17, 'status' => 2]],
+                (object)['id' => 3, 'title' => 'title3', 'status' => 'start', 'deal' => (object)['id' => 18, 'status' => 1]],
+            ]
+        );
+        $result = $query->andFilterCompare('deal.status', ['1','2'], 'in')->all();
+        $this->assertCount(2, $result);
+//        $this->assertEquals([1], ArrayHelper::getColumn($result, 'id'));
     }
 
 //    public function testEmulateExecution()
