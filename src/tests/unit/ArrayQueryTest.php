@@ -275,6 +275,24 @@ class ArrayQueryTest extends TestCase
 //        $this->assertEquals([1], ArrayHelper::getColumn($result, 'id'));
     }
 
+    public function testNotInObj()
+    {
+        $query = new Query(
+            [
+                (object)['id' => 1, 'title' => 'title1', 'status' => 'start', 'deal' => null],
+                (object)['id' => 2, 'title' => 'title2', 'status' => 'start', 'deal' => (object)['id' => 17, 'status' => 2]],
+                (object)['id' => 3, 'title' => 'title3', 'status' => 'start', 'deal' => (object)['id' => 18, 'status' => 1]],
+                (object)['id' => 4, 'title' => 'title4', 'status' => 'start', 'deal' => (object)['id' => 19, 'status' => 3]],
+                (object)['id' => 5, 'title' => 'title5', 'status' => 'start', 'deal' => (object)['id' => 11, 'status' => 1]],
+                (object)['id' => 6, 'title' => 'title6', 'status' => 'start', 'deal' => (object)['id' => 12, 'status' => 2]],
+            ]
+        );
+        $result = $query->andWhere(['not in', 'deal.status', [2,3]])->andWhere(['<>', 'deal', null])->all();
+        $this->assertCount(2, $result);
+//        print_r($result);
+//        $this->assertEquals(['Alice', 'Bob', 'Eve'], array_column($result, 'name'));
+    }
+
 //    public function testEmulateExecution()
 //    {
 //        $query = new Query($this->data);
