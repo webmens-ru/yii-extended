@@ -129,7 +129,6 @@ class Query extends Component implements QueryInterface
         } elseif (!$this->limit && !$this->full) {
             $rows = $this->allNotLimit($obB24);
         }
-        Yii::warning($rows, '$rows');
         return $rows;
     }
 
