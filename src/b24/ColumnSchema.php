@@ -249,10 +249,26 @@ class ColumnSchema extends BaseObject
                 return (float)$value;
             case 'array':
                 if ($this->type == self::TYPE_ENUMERATION) {
-                    $value = [
-                        'value' => $value,
-                        'title' => ArrayHelper::getValue($this->enumValues, $value)
-                    ];
+                    \Yii::warning($value, 252);
+                    if(!$value){
+                        return null;
+                    }
+                    if(is_array($value)){
+                        $result = [];
+                        foreach ($value as $val){
+                            $result[] = [
+                                'value' => $val,
+                                'title' => ArrayHelper::getValue($this->enumValues, $val)
+                            ];
+                        }
+                        $value = $result;
+                    }else{
+                        $value = [
+                            'value' => $value,
+                            'title' => ArrayHelper::getValue($this->enumValues, $value)
+                        ];
+                    }
+
                 }
                 return $value;
         }
