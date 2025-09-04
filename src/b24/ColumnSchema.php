@@ -249,7 +249,6 @@ class ColumnSchema extends BaseObject
                 return (float)$value;
             case 'array':
                 if ($this->type == self::TYPE_ENUMERATION) {
-                    \Yii::warning($value, 252);
                     if(!$value){
                         return null;
                     }
